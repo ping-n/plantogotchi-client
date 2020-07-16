@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import NoMatch from "./NoMatch";
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/sign-up" component={SignUp} />
+        <Route component={NoMatch} /> 
       </Switch>
     </>
   );
