@@ -1,16 +1,13 @@
-import React from "react";
-import axios from "axios";
+import React, { Component } from 'react'
 
-class Login extends React.Component {
-  
-  async getData() {
-    const response = await axios.get(`${process.env.REACT_BACKEND_URL}`);
-    const data = response.data
-  }
-
+export class Login extends Component {
   render() {
-    return <div>Login</div>;
+    return (
+      <div>
+        Login
+      </div>
+    )
   }
 }
 
-export default Login;
+export default Login

@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 
-export class NavBar extends Component {
+export class PrivateRoute extends Component {
   render() {
     return (
       <div>
-        Nav
+        P Route
       </div>
     )
   }
 }
 
-export default NavBar
-
+export default PrivateRoute
 
