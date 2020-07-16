@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
+import NavBar from "./shared/NavBar";
 
 function App() {
   return (
-    <div>Hello World</div>
+    <div>Hello world</div>
   );
 }
 
