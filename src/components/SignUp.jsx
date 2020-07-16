@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import axios from "axios"
+import React, { Component } from 'react'
+import axios from 'axios'
 
-export class Login extends Component {
-  state = { email: "", password: "", errMessage: "" };
+export class SignUp extends Component {
+  state = { email: "", password: "" };
 
   onInputChange = (event) => {
     const key = event.target.id;
@@ -14,36 +14,37 @@ export class Login extends Component {
   onFormSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = this.state;
-    const body = {
-      auth: { email, password },
-    };
     try {
-      const response = await axios.post(`${process.env.REACT_BACKEND_URL}/login`, {
+      const response = await axios.post(`${process.env.REACT_BACKEND_URL}/sign-up`, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ user: { email, password }}),
       });
       if (response.status >= 400) {
         throw new Error("incorrect credentials");
       } else {
-        const { jwt } = await response.json();
+        const response = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ auth: { email, password }}),
+        })
+        const { jwt } = await response.json()
         localStorage.setItem("token", jwt);
         this.props.history.push("/secrets");
       }
     } catch (err) {
-      this.setState({
-        errMessage: err.message,
-      });
+      console.log(err.message)
     }
   };
 
   render() {
-    const { email, password, errMessage } = this.state;
+    const { email, password } = this.state;
     return (
       <div className="container">
-        <h1>Login</h1>
-        {errMessage && <span>{errMessage}</span>}
+        <h1>Sign Up</h1>
         <form onSubmit={this.onFormSubmit}>
           <label htmlFor="email">Email</label>
           <input
@@ -68,4 +69,4 @@ export class Login extends Component {
   }
 }
 
-export default Login;
+export default SignUp

@@ -1,10 +1,19 @@
 import React from "react";
-import NavBar from "./shared/NavBar";
+import { Route, Switch } from "react-router-dom";
+import Login from "./Login";
+import SignUp from "./SignUp";
+import NoMatch from "./NoMatch";
 
-function App() {
+const App = () => {
   return (
-    <div>Hello world</div>
+    <>
+      <Switch>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/sign-up" component={SignUp} />
+        <Route component={NoMatch} /> 
+      </Switch>
+    </>
   );
-}
+};
 
 export default App;
