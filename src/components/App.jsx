@@ -1,14 +1,17 @@
-import React, { Component } from 'react'
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import Login from "./Login";
+import SignUp from "./SignUp";
 
-export class App extends Component {
-  render() {
-    return (
-      <div>
-        App
-      </div>
-    )
-  }
-}
+const App = () => {
+  return (
+    <>
+      <Switch>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/sign-up" component={SignUp} />
+      </Switch>
+    </>
+  );
+};
 
-export default App
-
+export default App;
