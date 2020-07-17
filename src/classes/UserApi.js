@@ -12,6 +12,10 @@ class UserApi extends CrudApi {
     login(userCredentials) {
         return this._apiCore.post(`${this._basePath}/login`, userCredentials);
     }
+
+    status() {
+        return this._apiCore.get(`${this._basePath}/status`);
+    }
 }
 
 export let users = new UserApi();

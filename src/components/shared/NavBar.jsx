@@ -11,6 +11,9 @@ export class NavBar extends Component {
         <li>
           <Link to="/admin">Admin</Link>
         </li>
+        <li>
+          <Link to="/test">Test</Link>
+        </li>
       </ul>
     )
   }

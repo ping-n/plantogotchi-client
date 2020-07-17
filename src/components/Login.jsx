@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form, Input } from "formik-semantic-ui";
 import { users } from "../classes/UserApi";
+import Auth from "./auth/Auth";
 
 class Login extends Component {
   _handleSubmit = (values) => {
@@ -10,7 +11,7 @@ class Login extends Component {
         console.log(res);
         const { jwt } = res;
         localStorage.setItem("token", jwt);
-        this.props.history.push("/test");
+        Auth.login(()=>{this.props.history.push("/test");})
       })
       .catch((error) => console.log(`error:${error}`));
   };
