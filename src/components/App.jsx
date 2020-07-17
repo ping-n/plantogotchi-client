@@ -8,6 +8,7 @@ import Test from "./Test";
 import Admin from "./Admin";
 import ProtectedRoute from "./ProtectedRoute";
 import NavBar from "./shared/NavBar";
+import Footer from "./shared/Footer";
 import SiteLayout from "../layout/SiteLayout";
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="*" component={NoMatch} />
         </Switch>
       </SiteLayout>
+      <Route component={Footer} />
     </>
   );
 };
