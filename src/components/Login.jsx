@@ -1,68 +1,32 @@
 import React, { Component } from "react";
-import axios from "axios"
+import { Button, Form, Input } from "formik-semantic-ui";
+import { users } from "../classes/UserApi";
 
-export class Login extends Component {
-  state = { email: "", password: "", errMessage: "" };
-
-  onInputChange = (event) => {
-    const key = event.target.id;
-    this.setState({
-      [key]: event.target.value,
-    });
-  };
-
-  onFormSubmit = async (event) => {
-    event.preventDefault();
-    const { email, password } = this.state;
-    const body = {
-      auth: { email, password },
-    };
-    try {
-      const response = await axios.post(`${process.env.REACT_BACKEND_URL}/login`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-      if (response.status >= 400) {
-        throw new Error("incorrect credentials");
-      } else {
-        const { jwt } = await response.json();
+class Login extends Component {
+  _handleSubmit = (values) => {
+    users
+      .login(JSON.stringify({ auth: values }))
+      .then((res) => {
+        console.log(res);
+        const { jwt } = res;
         localStorage.setItem("token", jwt);
-        this.props.history.push("/secrets");
-      }
-    } catch (err) {
-      this.setState({
-        errMessage: err.message,
-      });
-    }
+        this.props.history.push("/test");
+      })
+      .catch((error) => console.log(`error:${error}`));
   };
 
   render() {
-    const { email, password, errMessage } = this.state;
     return (
-      <div className="container">
-        <h1>Login</h1>
-        {errMessage && <span>{errMessage}</span>}
-        <form onSubmit={this.onFormSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            onChange={this.onInputChange}
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={this.onInputChange}
-          />
-          <input type="submit" value="Submit" />
-        </form>
+      <div class="container">
+        <Form onSubmit={this._handleSubmit}>
+          <Form.Group widths="2">
+            <Input label="email" name="email" />
+            <Input label="password" name="password" />
+          </Form.Group>
+
+          <Button.Submit>Submit</Button.Submit>
+          <Button.Reset>Cancel</Button.Reset>
+        </Form>
       </div>
     );
   }
