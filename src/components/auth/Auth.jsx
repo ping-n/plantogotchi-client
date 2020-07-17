@@ -16,11 +16,11 @@ class Auth {
   }
 
   isAuthenticated() {
-    this.hasToken()
+    this.hasToken();
     return this.authenticated;
   }
 
-  async hasToken () {
+  async hasToken() {
     try {
       const response = await users.status();
 
@@ -28,9 +28,9 @@ class Auth {
         throw new Error("not authorized");
       } else {
         console.log(response);
-        const { jwt } = await response
+        const { jwt } = await response;
         localStorage.setItem("token", jwt);
-        users.refreshApiInstance(jwt)
+        users.refreshApiInstance(jwt);
         this.authenticated = true;
       }
     } catch (err) {
