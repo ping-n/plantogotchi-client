@@ -16,7 +16,7 @@ export default class CrudApi {
         this._url = url;
     }
 
-    async index() {
+    index() {
         return this._apiCore.get(`${this._basePath}/${this._url}`)
     }
 
