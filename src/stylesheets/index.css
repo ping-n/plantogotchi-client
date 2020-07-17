@@ -1,1 +1,8 @@
-@import "./components/App.css";
+@import "./components/App.scss";
+@import "./global/sitelayout.scss";
+@import "./global/Nav.scss";
+
+@font-face {
+  font-family: 'DigitalDisco';
+  src: local('DigitalDisco'), url(../fonts/DigitalDisco.ttf) format('truetype');
+}
