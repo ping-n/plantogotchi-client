@@ -1,53 +1,30 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import axios from "axios"
+import Auth from "./auth/Auth";
 
-export class ProtectedRoute extends Component {
-  state = {
-    auth: false,
-    loading: true,
-  };
-
- async componentDidMount() {
-   try {
-     const response = await axios.get(`${process.env.REACT_BACKEND_URL}/status`, {
-       headers: {
-         'Authorization': `Bearer ${localStorage.getItem('token')}`
-       }
-     })
-     if (response.status >= 400) {
-       throw(new Error("not authorized"))
-     } else {        
-       this.setState({
-         auth: true,
-         loading: false,
-       });
-     }
-   } catch(err) {
-     console.log(err.message)
-     this.setState({
-       loading: false,
-     });
-   }
- }
-
-  render() {
-    const { loading, auth } = this.state;
-    debugger;
-    if (!loading && !auth) {
-      return <Redirect to="/" />;
-    } else {
-      return (
-        !loading && (
-          <Route
-            exact={this.props.exact}
-            path={this.props.path}
-            component={this.props.component}
-          />
-        )
-      );
-    }
-  }
-}
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        if (Auth.isAuthenticated()) {
+          return <Component {...props} />;
+        } else {
+          return (
+            alert("Can't Access"),
+            <Redirect
+              to={{
+                pathname: "/",
+                state: {
+                  from: props.location,
+                },
+              }}
+            />
+          );
+        }
+      }}
+    />
+  );
+};
 
 export default ProtectedRoute;
