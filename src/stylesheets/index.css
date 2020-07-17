@@ -1,1 +1,6 @@
 @import "./components/App.css";
+
+.general-container {
+  width: 80%;
+  display: flex;
+}
