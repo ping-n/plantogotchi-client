@@ -1,6 +1,20 @@
-@import "./components/App.css";
 
-.general-container {
-  width: 80%;
-  display: flex;
+@import "./components/App.scss";
+@import "./components/Home.scss";
+@import "./global/sitelayout.scss";
+@import "./global/Nav.scss";
+@import "./global/Footer.scss";
+
+@font-face {
+  font-family: 'DigitalDisco';
+  src: local('DigitalDisco'), url(../fonts/DigitalDisco.ttf) format('truetype');
 }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: #2f3038;
+  color: #FFFCFC;
+}
+

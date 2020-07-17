@@ -8,6 +8,8 @@ import Test from "./Test";
 import Admin from "./Admin";
 import ProtectedRoute from "./ProtectedRoute";
 import NavBar from "./shared/NavBar";
+import Footer from "./shared/Footer";
+import SiteLayout from "../layout/SiteLayout";
 import Plants from "./Plants";
 import Plant from "./Plant";
 
@@ -15,7 +17,7 @@ const App = () => {
   return (
     <>
       <Route component={NavBar} />
-      <div className="general-container">
+      <SiteLayout>
         <Switch>
           <ProtectedRoute exact path="/test" component={Test} />
           <ProtectedRoute exact path="/plants" component={Plants} />
@@ -26,7 +28,8 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route path="*" component={NoMatch} />
         </Switch>
-      </div>
+      </SiteLayout>
+      <Route component={Footer} />
     </>
   );
 };
