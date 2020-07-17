@@ -10,6 +10,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import NavBar from "./shared/NavBar";
 import Footer from "./shared/Footer";
 import SiteLayout from "../layout/SiteLayout";
+import Plants from "./Plants";
+import Plant from "./Plant";
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
       <SiteLayout>
         <Switch>
           <ProtectedRoute exact path="/test" component={Test} />
+          <ProtectedRoute exact path="/plants" component={Plants} />
+          <ProtectedRoute exact path="/plants/:id" component={Plant} />
           <ProtectedRoute exact path="/admin" component={Admin} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/sign-up" component={SignUp} />

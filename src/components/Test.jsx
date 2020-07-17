@@ -4,7 +4,7 @@ import { users } from "../classes/UserApi";
 import { breeds } from "../classes/BreedApi";
 
 class Test extends React.Component {
-  render() {
+  componentDidMount() {
     plants
       .index()
       .then((response) => {
@@ -29,7 +29,9 @@ class Test extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+  }
 
+  render() {
     return <h1>hey</h1>;
   }
 }
