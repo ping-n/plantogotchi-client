@@ -8,8 +8,9 @@ export class NavBar extends Component {
         <Link to="/">Home</Link>
         <Link to="/login">Login</Link>
         <Link to="/sign-up">Sign Up</Link>
+        <Link to="plants">Plants</Link>
       </nav>
-    )
+    );
   }
 }
 
