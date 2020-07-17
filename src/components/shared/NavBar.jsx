@@ -8,6 +8,9 @@ export class NavBar extends Component {
         <li>
           <Link to="/">Home</Link>
         </li>
+        <li>
+          <Link to="/admin">Admin</Link>
+        </li>
       </ul>
     )
   }
