@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const defaultOptions = {
-  baseURL: 'https://pure-oasis-63936.herokuapp.com',
+  baseURL: "http://localhost:3000",
   timeout: 15000,
   headers: {
     "Content-Type":"application/json"

@@ -32,6 +32,7 @@ class Login extends Component {
     const { error } = this.state;
     return (
       <div class="container">
+        <h1>Login</h1>
         {error && <Message>{this.state.error}</Message>}
         <Form onSubmit={this._handleSubmit}>
           <Form.Group widths="2">
