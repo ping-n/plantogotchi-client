@@ -26,18 +26,9 @@ export default class WaterLevel extends React.Component {
           level: prevState.level - 10,
           seconds: 0,
         }));
-        this.updateWaterLevel();
+        this.props.updateWaterLevel(this.props.id, this.state.level);
       }
     }
-  }
-
-  updateWaterLevel() {
-    const obj = {
-        plant: {
-            water_level: this.state.level 
-        }
-    }
-    plants.update(this.props.id, obj)
   }
 
   render() {
