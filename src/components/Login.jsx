@@ -33,7 +33,7 @@ class Login extends Component {
     return (
       <div class="container">
         <h1>Login</h1>
-        {error && <Message>{this.state.error}</Message>}
+        {error && <Message data-testid="login-error">{this.state.error}</Message>}
         <Form onSubmit={this._handleSubmit}>
           <Form.Group widths="2">
             <Input label="email" name="email" />
