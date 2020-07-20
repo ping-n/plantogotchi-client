@@ -9,7 +9,10 @@ export default class Plants extends React.Component {
   componentDidMount() {
     plants
       .index()
-      .then((res) => this.setState({ plants: res }))
+      .then((res) => {
+        console.log(res)
+        this.setState({ plants: res.data })
+      })
       .catch((er) => console.log(er));
   }
 
@@ -22,7 +25,6 @@ export default class Plants extends React.Component {
             id={plant.id}
             alive={plant.alive}
             name={plant.name}
-            breed_id={plant.breed_id}
             water_level={plant.water_level}
             food_level={plant.food_level}
             growth_stage={plant.growth_stage}

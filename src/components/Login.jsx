@@ -8,10 +8,10 @@ class Login extends Component {
     users
       .login(JSON.stringify({ auth: values }))
       .then((res) => {
-        console.log(res);
-        const { jwt } = res;
+        const { jwt } = res.data
+        console.log(`jwt is ${jwt}!!!`)
         localStorage.setItem("token", jwt);
-        Auth.login(()=>{this.props.history.push("/test");})
+        Auth.login(()=>{this.props.history.push("/plants");})
       })
       .catch((error) => console.log(`error:${error}`));
   };
