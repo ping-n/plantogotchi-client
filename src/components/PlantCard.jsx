@@ -2,31 +2,28 @@ import React from "react";
 import { Card, Icon, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-export default function Plant({
-  id,
-  alive,
-  name,
-  breed_id,
-  water_level,
-  food_level,
-  growth_stage,
-  breed_name,
-  created_at,
-}) {
+export default function Plant({ plant, updateWaterLevel }) {
   return (
     <Card>
       <Image src="" wrapped ui={false} />
       <Card.Content>
-        <Card.Header>{name}</Card.Header>
+        <Card.Header>{plant.name}</Card.Header>
         <Card.Meta>
-          <span className="date">{created_at}</span>
+          <span className="date">{plant.created_at}</span>
         </Card.Meta>
         <Card.Description>
-          {name} is a {breed_name} plant.
+          {plant.name} is a {plant.breed.name} plant.
+          {plant.name}'s water level is currently {plant.water_level}%.
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Link to={`/plants/${id}`}>
+        <Link
+          to={{
+            pathname: `/plants/${plant.id}`,
+            plant: { plant },
+            updateWaterLevel: { updateWaterLevel },
+          }}
+        >
           <Icon name="lab" />
           Show
         </Link>
