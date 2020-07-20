@@ -14,7 +14,7 @@ describe("when clicking on login from homepage user", () => {
     cy.get("h1").should("contain.text", "Login");
   });
 
-  it("should see email and password inputs", () => {
+  it("should see a form with email and password inputs", () => {
     cy.findByLabelText(/email/i).should("exist");
     cy.findByLabelText(/password/i).should("exist");
   });
@@ -23,6 +23,16 @@ describe("when clicking on login from homepage user", () => {
     const { email, password } = userBuilder();
     cy.typeInLogin(email, password);
     cy.get("form input").first().should("contain.value", email);
+  });
+});
+
+describe("with incorrect login credentials user", () => {
+  it("should receive an error message above login form", () => {
+    cy.visit("/login")
+    const { email, password } = userBuilder()
+    cy.typeInLogin(email, password)
+    cy.get("form").submit()
+    cy.findByTestId("login-error").should("contain.text", "status code")
   });
 });
 
@@ -39,4 +49,9 @@ describe("with correct login credentials user", () => {
         .should("be.a", "string");
     });
   });
+
+  after(() => {
+    window.localStorage.removeItem("token")
+    window.sessionStorage.removeItem("auth")
+  })
 });
