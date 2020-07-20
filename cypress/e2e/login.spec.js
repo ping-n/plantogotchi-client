@@ -49,4 +49,9 @@ describe("with correct login credentials user", () => {
         .should("be.a", "string");
     });
   });
+
+  after(() => {
+    window.localStorage.removeItem("token")
+    window.sessionStorage.removeItem("auth")
+  })
 });
