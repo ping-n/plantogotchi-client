@@ -19,6 +19,7 @@ class Login extends Component {
   render() {
     return (
       <div class="container">
+        <h1>Login</h1>
         <Form onSubmit={this._handleSubmit}>
           <Form.Group widths="2">
             <Input label="email" name="email" />
