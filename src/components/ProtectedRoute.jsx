@@ -2,29 +2,39 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import Auth from "./auth/Auth";
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={(props) => {
-        if (Auth.isAuthenticated()) {
-          return <Component {...props} />;
-        } else {
-          return (
-            alert("Can't Access"),
-            <Redirect
-              to={{
-                pathname: "/",
-                state: {
-                  from: props.location,
-                },
-              }}
-            />
-          );
-        }
-      }}
-    />
-  );
+class ProtectedRoute extends React.Component {
+  state = {
+    auth: false,
+    loading: true,
+  };
+
+  componentDidMount() {
+    if (Auth.isAuthenticated()) {
+      this.setState({
+        auth: true,
+        loading: false,
+      });
+    } else {
+      this.setState({
+        loading: false,
+      });
+    }
+  }
+
+  render() {
+    const { loading, auth } = this.state;
+    if (!loading && !auth) {
+      return <Redirect to="/" />;
+    } else {
+      return !loading && (
+        <Route
+          exact={this.props.exact}
+          path={this.props.path}
+          component={this.props.component}
+        />
+      );
+    }
+  }
 };
 
 export default ProtectedRoute;

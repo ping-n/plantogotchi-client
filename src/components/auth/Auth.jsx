@@ -23,14 +23,11 @@ class Auth {
   async hasToken() {
     try {
       const response = await users.status();
-
       if (response.status >= 400) {
         throw new Error("not authorized");
       } else {
-        console.log(response);
-        const { jwt } = await response;
+        const { jwt } = await response.data;
         localStorage.setItem("token", jwt);
-        users.refreshApiInstance(jwt);
         this.authenticated = true;
       }
     } catch (err) {
