@@ -24,7 +24,7 @@ class Login extends Component {
         }
       })
       .catch((error) => {
-        this.setState({ error: error.message });
+        this.setState({ error: "Incorrect credentials" });
         console.log(error);
       });
   };
