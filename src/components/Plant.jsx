@@ -38,7 +38,6 @@ export default class Plant extends React.Component {
       id,
       alive,
       name,
-      breed_id,
       water_level,
       food_level,
       growth_stage,
@@ -55,7 +54,7 @@ export default class Plant extends React.Component {
             <span className="date">{created_at}</span>
           </Card.Meta>
           <Card.Description>
-            {/* {name} is of the {breed_name} breed. */}
+            {name} is of the {breed_name} breed.
             <WaterLevel
               id={id}
               level={water_level}

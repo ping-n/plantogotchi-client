@@ -1,5 +1,4 @@
 import React from "react";
-import { plants } from "../../classes/PlantApi";
 
 export default class WaterLevel extends React.Component {
   constructor(props) {

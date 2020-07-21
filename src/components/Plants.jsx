@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { plants } from "../classes/PlantApi";
 import PlantCard from "./PlantCard";
 import { Grid } from "semantic-ui-react";
