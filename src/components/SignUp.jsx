@@ -14,15 +14,16 @@ export class SignUp extends Component {
       .signup({ user: { username, email, password } })
       .then((res) => {
         if (res.status >= 400) {
-          throw new Error("incorrect credentials");
+          console.log(res);
+          throw new Error(res.data);
         } else {
-          alert("Ypu have successfully signed up");
+          alert("You have successfully signed up");
           this.props.history.push("/login");
           return <Redirect to="/login" />;
         }
       })
       .catch((error) => {
-        this.setState({ error: "Incorrect credentials" });
+        this.setState({ error: error.message });
         console.log(error);
       });
   };
