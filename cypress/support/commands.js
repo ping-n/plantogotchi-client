@@ -24,4 +24,19 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-import '@testing-library/cypress/add-commands';
+import "@testing-library/cypress/add-commands";
+
+Cypress.Commands.add("getUser", () => {
+  cy.fixture("user.json").then((user) => user);
+});
+
+Cypress.Commands.add("typeInLogin", ( email, password) => {
+  cy.findByLabelText(/email/i).type(email);
+  cy.findByLabelText(/password/i).type(password);
+});
+
+Cypress.Commands.add("typeInForm", (username, email, password) => {
+  cy.findByLabelText(/username/i).type(username);
+  cy.findByLabelText(/email/i).type(email);
+  cy.findByLabelText(/password/i).type(password);
+});
