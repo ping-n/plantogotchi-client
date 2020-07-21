@@ -1,8 +1,8 @@
 import React from "react";
-import { plants } from "../classes/PlantApi";
-import { breeds } from "../classes/BreedApi";
+import { plants } from "../../classes/PlantApi";
+import { breeds } from "../../classes/BreedApi";
 import { Card, Image } from "semantic-ui-react";
-import WaterLevel from "./Plant/WaterLevel";
+import WaterLevel from "./WaterLevel";
 
 export default class Plant extends React.Component {
   state = { plant: this.props.location.plant.plant, breed_name: "" };

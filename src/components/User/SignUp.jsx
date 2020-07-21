@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Form, Message } from "semantic-ui-react";
-import { users } from "../classes/UserApi";
+import { users } from "../../classes/UserApi";
 
 export class SignUp extends Component {
   state = { username: "", email: "", password: "", error: "" };
@@ -37,6 +37,7 @@ export class SignUp extends Component {
           <Message data-testid="signup-error">{this.state.error}</Message>
         )}
         <Form onSubmit={this.handleSubmit}>
+          <Form.Group widths="equal">
             <Form.Input
               fluid
               label="Username"
@@ -58,6 +59,8 @@ export class SignUp extends Component {
               placeholder="password"
               onChange={this.handleChange}
             />
+          </Form.Group>
+
           <Form.Button>Submit</Form.Button>
         </Form>
       </div>
