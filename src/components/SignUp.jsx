@@ -1,49 +1,66 @@
 import React, { Component } from "react";
-import { Button, Form, Input } from "formik-semantic-ui";
-import { Redirect } from "react-router-dom"
-import { Message } from "semantic-ui-react";
+import { Redirect } from "react-router-dom";
+import { Form, Message } from "semantic-ui-react";
 import { users } from "../classes/UserApi";
 
 export class SignUp extends Component {
-  state = { error: "" };
+  state = { username: "", email: "", password: "", error: "" };
 
-  _handleSubmit = (values, { setSubmitting }) => {
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
+  handleSubmit = async (e) => {
+    const { username, email, password } = this.state;
     users
-      .signup(JSON.stringify({ user: values }))
+      .signup({ user: { username, email, password } })
       .then((res) => {
         if (res.status >= 400) {
           throw new Error("incorrect credentials");
         } else {
-          const { jwt } = res.data;
-          localStorage.setItem("token", jwt);
-          alert("You have successfully signed up")
-          this.props.history.push("/")
-          return <Redirect  to="/login" />
+          alert("Ypu have successfully signed up");
+          this.props.history.push("/login");
+          return <Redirect to="/login" />;
         }
       })
       .catch((error) => {
-        this.setState({ error: error.message });
+        this.setState({ error: "Incorrect credentials" });
         console.log(error);
       });
-    setSubmitting(false);
   };
 
   render() {
     const { error } = this.state;
     return (
-      <div class="container">
+      <div className="container">
         <h1>Sign Up</h1>
         {error && (
           <Message data-testid="signup-error">{this.state.error}</Message>
         )}
-        <Form onSubmit={this._handleSubmit}>
-          <Form.Group widths="2">
-            <Input label="username" name="username" />
-            <Input label="email" name="email" />
-            <Input label="password" name="password" />
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group widths="equal">
+            <Form.Input
+              fluid
+              label="Username"
+              name="username"
+              placeholder="username"
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              fluid
+              label="Email"
+              name="email"
+              placeholder="email"
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              fluid
+              label="Password"
+              name="password"
+              placeholder="password"
+              onChange={this.handleChange}
+            />
           </Form.Group>
 
-          <Button.Submit>Submit</Button.Submit>
+          <Form.Button>Submit</Form.Button>
         </Form>
       </div>
     );
