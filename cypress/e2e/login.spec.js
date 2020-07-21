@@ -15,8 +15,8 @@ describe("when clicking on login from homepage user", () => {
   });
 
   it("should see a form with email and password inputs", () => {
-    cy.findByLabelText(/email/i).should("exist");
-    cy.findByLabelText(/password/i).should("exist");
+    cy.findByPlaceholderText(/email/i).should("exist");
+    cy.findByPlaceholderText(/password/i).should("exist");
   });
 
   it("should be able to type into email and password inputs", () => {
@@ -32,7 +32,7 @@ describe("with incorrect login credentials user", () => {
     const { email, password } = userBuilder()
     cy.typeInLogin(email, password)
     cy.get("form").submit()
-    cy.findByTestId("login-error").should("contain.text", "status code")
+    cy.findByTestId("login-error").should("contain.text", "Incorrect credentials")
   });
 });
 

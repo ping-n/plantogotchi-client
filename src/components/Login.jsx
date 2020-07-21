@@ -34,14 +34,16 @@ class Login extends Component {
     const { error } = this.state;
     return (
       <div className="container">
+        <h1>Login</h1>
         {error && (
           <Message data-testid="login-error">{this.state.error}</Message>
         )}
         <Form onSubmit={this.handleSubmit}>
-          <Form.Input label="Email" name="email" onChange={this.handleChange} />
+          <Form.Input label="Email" name="email" placeholder="email" onChange={this.handleChange} />
           <Form.Input
             label="Password"
             name="password"
+            placeholder="password"
             onChange={this.handleChange}
           />
           <Button animated type="submit">
