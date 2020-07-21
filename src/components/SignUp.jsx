@@ -16,7 +16,7 @@ export class SignUp extends Component {
         if (res.status >= 400) {
           throw new Error("incorrect credentials");
         } else {
-          alert("Ypu have successfully signed up");
+          alert("You have successfully signed up");
           this.props.history.push("/login");
           return <Redirect to="/login" />;
         }
@@ -36,7 +36,6 @@ export class SignUp extends Component {
           <Message data-testid="signup-error">{this.state.error}</Message>
         )}
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group widths="equal">
             <Form.Input
               fluid
               label="Username"
@@ -58,8 +57,6 @@ export class SignUp extends Component {
               placeholder="password"
               onChange={this.handleChange}
             />
-          </Form.Group>
-
           <Form.Button>Submit</Form.Button>
         </Form>
       </div>
