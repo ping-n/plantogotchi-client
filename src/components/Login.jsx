@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import { Button, Form, Input } from "formik-semantic-ui";
-import { Message } from "semantic-ui-react";
+import { Icon, Message, Button, Form } from "semantic-ui-react";
 import { users } from "../classes/UserApi";
 import Auth from "./auth/Auth";
 
 class Login extends Component {
-  state = { error: "" };
+  state = { email: "", password: "", error: "" };
 
-  _handleSubmit = (values, { setSubmitting }) => {
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
+  handleSubmit = async (event) => {
+    const { email, password } = this.state;
     users
-      .login(JSON.stringify({ auth: values }))
+      .login({ auth: { email, password } })
       .then((res) => {
         if (res.status >= 400) {
           throw new Error("incorrect credentials");
@@ -25,22 +27,26 @@ class Login extends Component {
         this.setState({ error: error.message });
         console.log(error);
       });
-    setSubmitting(false);
   };
 
   render() {
     const { error } = this.state;
     return (
-      <div class="container">
+      <div className="container">
         {error && <Message>{this.state.error}</Message>}
-        <Form onSubmit={this._handleSubmit}>
-          <Form.Group widths="2">
-            <Input label="email" name="email" />
-            <Input label="password" name="password" />
-          </Form.Group>
-
-          <Button.Submit>Submit</Button.Submit>
-          <Button.Reset>Cancel</Button.Reset>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Input label="Email" name="email" onChange={this.handleChange} />
+          <Form.Input
+            label="Password"
+            name="password"
+            onChange={this.handleChange}
+          />
+          <Button animated type="submit">
+            <Button.Content visible>Next</Button.Content>
+            <Button.Content hidden>
+              <Icon name="arrow right" />
+            </Button.Content>
+          </Button>
         </Form>
       </div>
     );
