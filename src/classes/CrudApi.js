@@ -1,25 +1,24 @@
-import axios from 'axios'
+import axios from "axios";
 
 const defaultOptions = {
-  baseURL: process.env.REACT_APP_BACKEND_URL,
+  baseURL: "http://localhost:3000",
   timeout: 15000,
   headers: {
-    "Content-Type":"application/json"
-  }
-}
+    "Content-Type": "application/json",
+  },
+};
 
 const axiosInstance = axios.create(defaultOptions);
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  config.headers.Authorization =  token ? `Bearer ${token}` : '';
+  const token = localStorage.getItem("token");
+  config.headers.Authorization = token ? `Bearer ${token}` : "";
   return config;
 });
 
-
 export default class CrudApi {
   constructor(url) {
-    this._apiCore = axiosInstance
+    this._apiCore = axiosInstance;
     this._url = url;
   }
 
@@ -42,5 +41,4 @@ export default class CrudApi {
   delete(id) {
     return this._apiCore.delete(`${this._url}/$id`);
   }
-
 }
