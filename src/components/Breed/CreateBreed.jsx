@@ -1,28 +1,34 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { Form, Message } from "semantic-ui-react";
-import { breeds } from "../classes/BreedApi";
+import { breeds } from "../../classes/BreedApi";
 import { InputFile } from "semantic-ui-react-input-file";
 
-export class CreateBreed extends Component {
+class CreateBreed extends Component {
   state = {
     name: "",
     description: "",
     max_growth: "",
     errorcode: "",
-    spritesheet: "",
+    spritesheet: null,
   };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleUpload = (e) => {
-    if (e.target.files[0]) this.setState({ spritesheet: e.target.files[0] });
+    this.setState({ spritesheet: e.target.files[0] });
   };
 
-  handleSubmit = async (e) => {
-    const { name, description, max_growth, spritesheet } = this.state;
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    const params = new FormData();
+    params.set("[breed]name", this.state.name);
+    params.set("[breed]description", this.state.description);
+    params.set("[breed]max_growth", this.state.max_growth);
+    params.append("breed[spritesheet]", this.spritesheet);
+    const qs = require("qs");
     breeds
-      .create({ breed: { name, description, max_growth, spritesheet } })
+      .create(params)
       .then((res) => {
         if (res.status >= 400) {
           console.log(res);
@@ -71,10 +77,9 @@ export class CreateBreed extends Component {
               onChange={this.handleChange}
             />
             <InputFile
-              button={{ ...buttonProps }}
               input={{
                 id: "input-control-id",
-                onChange: handleUpload,
+                onChange: this.handleUpload,
               }}
             />
           </Form.Group>

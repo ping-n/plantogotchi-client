@@ -11,6 +11,7 @@ import Footer from "./shared/Footer";
 import SiteLayout from "../layout/SiteLayout";
 import Plants from "./Plant/Plants";
 import Plant from "./Plant/Plant";
+import CreateBreed from "./Breed/CreateBreed";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       <Route component={NavBar} />
       <SiteLayout>
         <Switch>
+          <ProtectedRoute exact path="/createbreed" component={CreateBreed} />
           <ProtectedRoute exact path="/plants" component={Plants} />
           <ProtectedRoute exact path="/plants/:id" component={Plant} />
           <ProtectedRoute exact path="/admin" component={Admin} />
