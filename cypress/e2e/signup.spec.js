@@ -15,9 +15,9 @@ describe("when clicking on Sign Up from homepage user", () => {
   });
 
   it("should see a form with email and password inputs", () => {
-    cy.findByLabelText(/username/i).should("exist");
-    cy.findByLabelText(/email/i).should("exist");
-    cy.findByLabelText(/password/i).should("exist");
+    cy.findByPlaceholderText(/username/i).should("exist");
+    cy.findByPlaceholderText(/password/i).should("exist");
+    cy.findByPlaceholderText(/email/i).should("exist");
   });
 
   it("should be able to type into username, email and password inputs", () => {
@@ -36,6 +36,6 @@ describe("should be able to sign up", () => {
     cy.on("window:alert", (str) => {
       expect(str).to.eq(`You have successfully signed up`)
     })
-    cy.url().should("eq", "http://localhost:8080/")
+    cy.url().should("eq", "http://localhost:8080/login")
   });
 });
