@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Icon, Message, Button, Form } from "semantic-ui-react";
-import { users } from "../classes/UserApi";
-import Auth from "./auth/Auth";
+import { users } from "../../classes/UserApi";
+import Auth from "../auth/Auth";
 
 class Login extends Component {
   state = { email: "", password: "", error: "" };
@@ -39,7 +39,12 @@ class Login extends Component {
           <Message data-testid="login-error">{this.state.error}</Message>
         )}
         <Form onSubmit={this.handleSubmit}>
-          <Form.Input label="Email" name="email" placeholder="email" onChange={this.handleChange} />
+          <Form.Input
+            label="Email"
+            name="email"
+            placeholder="email"
+            onChange={this.handleChange}
+          />
           <Form.Input
             label="Password"
             name="password"

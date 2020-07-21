@@ -4,8 +4,7 @@ import Login from "./User/Login";
 import Home from "./Home";
 import SignUp from "./User/SignUp";
 import NoMatch from "./NoMatch";
-import Test from "./Test";
-import Admin from "./Admin";
+import Admin from "./User/Admin";
 import ProtectedRoute from "./ProtectedRoute";
 import NavBar from "./shared/NavBar";
 import Footer from "./shared/Footer";
@@ -19,7 +18,6 @@ const App = () => {
       <Route component={NavBar} />
       <SiteLayout>
         <Switch>
-          <ProtectedRoute exact path="/test" component={Test} />
           <ProtectedRoute exact path="/plants" component={Plants} />
           <ProtectedRoute exact path="/plants/:id" component={Plant} />
           <ProtectedRoute exact path="/admin" component={Admin} />
