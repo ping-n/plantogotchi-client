@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Login from "./Login";
+import Login from "./User/Login";
 import Home from "./Home";
-import SignUp from "./SignUp";
+import SignUp from "./User/SignUp";
 import NoMatch from "./NoMatch";
 import Test from "./Test";
 import Admin from "./Admin";
@@ -10,8 +10,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import NavBar from "./shared/NavBar";
 import Footer from "./shared/Footer";
 import SiteLayout from "../layout/SiteLayout";
-import Plants from "./Plants";
-import Plant from "./Plant";
+import Plants from "./Plant/Plants";
+import Plant from "./Plant/Plant";
 
 const App = () => {
   return (
