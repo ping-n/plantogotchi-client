@@ -31,12 +31,12 @@ Cypress.Commands.add("getUser", () => {
 });
 
 Cypress.Commands.add("typeInLogin", ( email, password) => {
-  cy.findByPlaceholderText(/email/i).type(email);
-  cy.findByPlaceholderText(/password/i).type(password);
+  cy.findByTestId("email").type(email);
+  cy.findByTestId("password").type(password);
 });
 
 Cypress.Commands.add("typeInForm", (username, email, password) => {
-  cy.findByPlaceholderText(/username/i).type(username);
-  cy.findByPlaceholderText(/email/i).type(email);
-  cy.findByPlaceholderText(/password/i).type(password);
+  cy.findByTestId("username").type(username);
+  cy.findByTestId("email").type(email);
+  cy.findByTestId("password").type(password);
 });

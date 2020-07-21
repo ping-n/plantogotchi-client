@@ -37,30 +37,30 @@ export class SignUp extends Component {
           <Message data-testid="signup-error">{this.state.error}</Message>
         )}
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group widths="equal">
-            <Form.Input
-              fluid
-              label="Username"
-              name="username"
-              placeholder="username"
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              fluid
-              label="Email"
-              name="email"
-              placeholder="email"
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              fluid
-              label="Password"
-              name="password"
-              placeholder="password"
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-
+          <Form.Input
+            fluid
+            label="Username"
+            name="username"
+            data-testid="username"
+            placeholder="username"
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            fluid
+            label="Email"
+            name="email"
+            data-testid="email"
+            placeholder="email"
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            fluid
+            label="Password"
+            name="password"
+            data-testid="password"
+            placeholder="password"
+            onChange={this.handleChange}
+          />
           <Form.Button>Submit</Form.Button>
         </Form>
       </div>

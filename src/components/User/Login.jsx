@@ -42,12 +42,14 @@ class Login extends Component {
           <Form.Input
             label="Email"
             name="email"
+            data-testid="email"
             placeholder="email"
             onChange={this.handleChange}
           />
           <Form.Input
             label="Password"
             name="password"
+            data-testid="password"
             placeholder="password"
             onChange={this.handleChange}
           />
