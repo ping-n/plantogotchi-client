@@ -9,6 +9,7 @@ class Login extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = async (event) => {
+    event.preventDefault();
     const { email, password } = this.state;
     users
       .login({ auth: { email, password } })
@@ -24,7 +25,7 @@ class Login extends Component {
         }
       })
       .catch((error) => {
-        this.setState({ error: "Incorrect credentials" });
+        this.setState({ error: error.message });
         console.log(error);
       });
   };
