@@ -12,11 +12,17 @@ export class NavBar extends Component {
         <Link data-testid="signup" to="/sign-up">
           Sign Up
         </Link>
+        <Link data-testid="myaccount" to="/myaccount">
+          My Account
+        </Link>
         <Link data-testid="plants" to="/plants">
           Plants
         </Link>
         <Link data-testid="createbreed" to="/createbreed">
           Create Breed
+        </Link>
+        <Link data-testid="breeds" to="/breeds">
+          Breeds
         </Link>
       </nav>
     );

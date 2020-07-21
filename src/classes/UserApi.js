@@ -5,6 +5,14 @@ class UserApi extends CrudApi {
     super("users");
   }
 
+  show() {
+    return this._apiCore.get(`/myaccount`);
+  }
+
+  update(params) {
+    return this._apiCore.put(`updateuser`, params);
+  }
+
   signup(newUser) {
     return this._apiCore.post(`/sign-up`, newUser);
   }
