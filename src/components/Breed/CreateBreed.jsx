@@ -25,7 +25,8 @@ class CreateBreed extends Component {
     params.set("[breed]name", this.state.name);
     params.set("[breed]description", this.state.description);
     params.set("[breed]max_growth", this.state.max_growth);
-    params.append("[breed]spritesheet", this.state.spritesheet);
+    params.append("breed[spritesheet]", this.spritesheet);
+    const qs = require("qs");
     breeds
       .create(params)
       .then((res) => {
