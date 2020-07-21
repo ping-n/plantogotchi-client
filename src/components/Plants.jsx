@@ -10,7 +10,7 @@ export default class Plants extends React.Component {
     plants
       .index()
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         this.setState({ plants: res.data });
       })
       .catch((er) => console.log(er));
@@ -24,6 +24,7 @@ export default class Plants extends React.Component {
         </Grid.Column>
       );
     });
+
     return (
       <Grid columns={3} divided>
         <Grid.Row>{plantsArr}</Grid.Row>
