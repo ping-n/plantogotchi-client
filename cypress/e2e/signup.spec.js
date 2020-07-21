@@ -15,9 +15,9 @@ describe("when clicking on Sign Up from homepage user", () => {
   });
 
   it("should see a form with email and password inputs", () => {
-    cy.findByPlaceholderText(/username/i).should("exist");
-    cy.findByPlaceholderText(/password/i).should("exist");
-    cy.findByPlaceholderText(/email/i).should("exist");
+    cy.findByTestId("username").should("exist");
+    cy.findByTestId("email").should("exist");
+    cy.findByTestId("password").should("exist");
   });
 
   it("should be able to type into username, email and password inputs", () => {
@@ -27,15 +27,26 @@ describe("when clicking on Sign Up from homepage user", () => {
   });
 });
 
+describe("should not able to sign up with an existing email in the database", () => {
+  it("should be receive an error message", () => {
+    cy.getUser().then(({ username, email, password }) => {
+      cy.visit("/sign-up");
+      cy.typeInForm(username, email, password);
+      cy.get("form").submit();
+      cy.findByTestId("signup-error").should("contain.text", "User already exist!!");
+    });
+  });
+});
+
 describe("should be able to sign up", () => {
   it("should be receive a message for successful sign up and redirect to home", () => {
-    cy.visit("/sign-up")
-    const { username, email, password } = userBuilder()
-    cy.typeInForm(username, email, password)
-    cy.get("form").submit()
+    cy.visit("/sign-up");
+    const { username, email, password } = userBuilder();
+    cy.typeInForm(username, email, password);
+    cy.get("form").submit();
     cy.on("window:alert", (str) => {
-      expect(str).to.eq(`You have successfully signed up`)
-    })
-    cy.url().should("eq", "http://localhost:8080/login")
+      expect(str).to.eq(`You have successfully signed up`);
+    });
+    cy.url().should("eq", "http://localhost:8080/login");
   });
 });

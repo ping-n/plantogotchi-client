@@ -39,10 +39,17 @@ class Login extends Component {
           <Message data-testid="login-error">{this.state.error}</Message>
         )}
         <Form onSubmit={this.handleSubmit}>
-          <Form.Input label="Email" name="email" placeholder="email" onChange={this.handleChange} />
+          <Form.Input
+            label="Email"
+            name="email"
+            data-testid="email"
+            placeholder="email"
+            onChange={this.handleChange}
+          />
           <Form.Input
             label="Password"
             name="password"
+            data-testid="password"
             placeholder="password"
             onChange={this.handleChange}
           />

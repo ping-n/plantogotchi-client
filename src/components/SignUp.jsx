@@ -15,7 +15,7 @@ export class SignUp extends Component {
       .then((res) => {
         if (res.status >= 400) {
           console.log(res);
-          throw new Error(res.data);
+          throw new Error("User already exist!!");
         } else {
           alert("You have successfully signed up");
           this.props.history.push("/login");
@@ -23,7 +23,7 @@ export class SignUp extends Component {
         }
       })
       .catch((error) => {
-        this.setState({ error: error.message });
+        this.setState({ error: "User already exist!!"});
         console.log(error);
       });
   };
@@ -41,6 +41,7 @@ export class SignUp extends Component {
               fluid
               label="Username"
               name="username"
+              data-testid="username"
               placeholder="username"
               onChange={this.handleChange}
             />
@@ -48,6 +49,7 @@ export class SignUp extends Component {
               fluid
               label="Email"
               name="email"
+              data-testid="email"
               placeholder="email"
               onChange={this.handleChange}
             />
@@ -55,6 +57,7 @@ export class SignUp extends Component {
               fluid
               label="Password"
               name="password"
+              data-testid="password"
               placeholder="password"
               onChange={this.handleChange}
             />
