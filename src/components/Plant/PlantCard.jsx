@@ -1,11 +1,10 @@
 import React from "react";
-import { Card, Icon, Image } from "semantic-ui-react";
+import { Card, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 export default function Plant({ plant, updateWaterLevel }) {
   return (
     <Card>
-      <Image src="" wrapped ui={false} />
       <Card.Content>
         <Card.Header>{plant.name}</Card.Header>
         <Card.Meta>
@@ -28,7 +27,7 @@ export default function Plant({ plant, updateWaterLevel }) {
           <Icon name="lab" />
           Show
         </Link>
-                <Link
+        <Link
           to={{
             pathname: `/plants/edit/${plant.id}`,
             plant: { plant },
