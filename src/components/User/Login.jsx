@@ -4,7 +4,7 @@ import { users } from "../../classes/UserApi";
 import Auth from "../auth/Auth";
 
 class Login extends Component {
-  state = { email: "", password: "", error: "" };
+  state = { error: "" };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 

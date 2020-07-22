@@ -52,7 +52,7 @@ class EditBreed extends Component {
     const { error } = this.state;
     return (
       <div className="container">
-        <h1>Create breed</h1>
+        <h1>Update breed</h1>
         {error && (
           <Message data-testid="breedupdate-error">{this.state.error}</Message>
         )}

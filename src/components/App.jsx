@@ -11,6 +11,8 @@ import Footer from "./shared/Footer";
 import SiteLayout from "../layout/SiteLayout";
 import Plants from "./Plant/Plants";
 import Plant from "./Plant/Plant";
+import CreatePlant from "./Plant/CreatePlant";
+import EditPlant from "./Plant/EditPlant";
 import CreateBreed from "./Breed/CreateBreed";
 import Breeds from "./Breed/Breeds";
 import EditBreed from "./Breed/EditBreed";
@@ -25,6 +27,8 @@ const App = () => {
           <ProtectedRoute exact path="/breeds" component={Breeds} />
           <ProtectedRoute exact path="/breeds/edit/:id" component={EditBreed} />
           <ProtectedRoute exact path="/createbreed" component={CreateBreed} />
+          <ProtectedRoute exact path="/plants/edit/:id" component={EditPlant} />
+          <ProtectedRoute exact path="/createplant" component={CreatePlant} />
           <ProtectedRoute exact path="/plants" component={Plants} />
           <ProtectedRoute exact path="/plants/:id" component={Plant} />
           <ProtectedRoute exact path="/admin" component={Admin} />

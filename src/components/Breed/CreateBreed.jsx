@@ -6,9 +6,6 @@ import { InputFile } from "semantic-ui-react-input-file";
 
 class CreateBreed extends Component {
   state = {
-    name: "",
-    description: "",
-    max_growth: "",
     errorcode: "",
     spritesheet: null,
   };
@@ -72,7 +69,7 @@ class CreateBreed extends Component {
               fluid
               label="Max Growth (total number of sprites in spritesheet)"
               name="max_growth"
-              placeholder="max_growth"
+              placeholder="Max Growth"
               onChange={this.handleChange}
             />
             <InputFile
