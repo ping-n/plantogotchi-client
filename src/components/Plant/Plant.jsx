@@ -9,7 +9,7 @@ import CanvasWindow from "./CanvasWindow";
 export default class Plant extends React.Component {
   state = { plant: this.props.location.plant.plant, breed_name: "" };
 
-  handleClick= (e) => {
+  handleClick = (e) => {
     plants
       .delete(this.props.match.params.id)
       .then((res) => {
@@ -25,23 +25,23 @@ export default class Plant extends React.Component {
         this.setState({ error: error.message });
         console.log(error);
       });
-  }
+  };
 
-  componentDidMount() {
+  async componentDidMount() {
     if (!this.state.plant) {
       plants
         .show(this.props.match.params.id)
         .then((res) => this.setState({ plant: res.data }))
         .catch((er) => console.log(er));
     }
-    breeds
-      .show(this.state.plant.breed_id)
-      .then((res) => {
-        console.log(res);
-        this.setState({ breed_name: res.data.name });
-        this.setState({ sprite: res.data.spritesheet });
-      })
-      .catch((er) => console.log(er));
+    const response = await breeds.show(this.state.plant.breed_id);
+    if (response.status >= 400) {
+      console.log(response.data);
+    } else {
+      this.setState({ breed_name: response.data.name });
+      this.setState({ sprite: response.data.spritesheet });
+      this.setState({ max_growth: response.data.max_growth });
+    }
   }
 
   updateWaterLevel(id, level) {
@@ -87,19 +87,14 @@ export default class Plant extends React.Component {
           </Card.Content>
           <Button onClick={this.handleClick}>Delete</Button>
         </Card>
-        <div>
-          <CanvasWindow
-            width={200}
-            height={192}
-            maxFrame={25}
-            frame={15}
-            sprite={this.state.sprite}
-          />
-        </div>
-        <img
-          style={{ visibility: "hidden" }}
-          src="http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--617eb27558a6f0a7f71a0536b1ac0dea1bc42566/lily2x.png"
-        ></img>
+        <CanvasWindow
+          width={288}
+          height={288}
+          maxFrame={this.state.max_growth}
+          frame={10}
+          sprite={this.state.sprite}
+        />
+        {/* <img alt="new" src={this.state.sprite}></img> */}
       </>
     );
   }
