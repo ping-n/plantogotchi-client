@@ -20,7 +20,7 @@ export class CreatePlant extends Component {
     }
     console.log(this.state.breed_arr);
     const breed_name = this.state.breed_arr.map((breed, index) => {
-      return {key: index, text: breed.name, value: breed.id }
+      return { key: index, text: breed.name, value: breed.id };
     });
 
     console.log(breed_name);
@@ -31,9 +31,9 @@ export class CreatePlant extends Component {
 
   handleSubmit = async (e) => {
     const { name, breed_id } = this.state;
-
+    const params = { plant: { name, breed_id } };
     plants
-      .create({ plant: { name, breed_id} })
+      .create(params)
       .then((res) => {
         if (res.status >= 400) {
           console.log(res);

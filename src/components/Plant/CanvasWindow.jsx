@@ -4,8 +4,6 @@ class CanvasWindow extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
-    this.frame = this.props.frame;
-    this.plantSprite = this.props.sprite;
   }
 
   componentDidMount() {
@@ -26,11 +24,11 @@ class CanvasWindow extends React.Component {
 
   loadSprite() {
     this.spriteSheet = new Image();
-    this.spriteSheet.src = this.plantSprite;
+    this.spriteSheet.src = this.props.sprite;
     this.maxFrame = this.props.maxFrame;
     this.spriteWidth = this.spriteSheet.width / this.maxFrame;
     this.spriteHeight = this.spriteSheet.height;
-    this.currentFrame = this.frame;
+    this.currentFrame = this.props.frame;
     this.sourceX = this.currentFrame * this.spriteWidth;
   }
 
