@@ -62,6 +62,7 @@ class EditBreed extends Component {
               fluid
               label="Name"
               name="name"
+              data-testid="name"
               placeholder={breed.name}
               onChange={this.handleChange}
             />
@@ -69,6 +70,7 @@ class EditBreed extends Component {
               fluid
               label="Description"
               name="description"
+              data-testid="description"
               placeholder={breed.description}
               onChange={this.handleChange}
             />
@@ -76,6 +78,7 @@ class EditBreed extends Component {
               fluid
               label="Max Growth (total number of sprites in spritesheet)"
               name="max_growth"
+              data-testid="max_growth"
               placeholder={breed.max_growth}
               onChange={this.handleChange}
             />
