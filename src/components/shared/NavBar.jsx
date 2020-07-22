@@ -21,6 +21,9 @@ export class NavBar extends Component {
         <Link data-testid="createbreed" to="/createbreed">
           Create Breed
         </Link>
+        <Link data-testid="createplant" to="/createplant">
+          Create Plant
+        </Link>
         <Link data-testid="breeds" to="/breeds">
           Breeds
         </Link>

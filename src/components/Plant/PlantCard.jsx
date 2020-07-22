@@ -13,6 +13,7 @@ export default function Plant({ plant, updateWaterLevel }) {
         </Card.Meta>
         <Card.Description>
           {plant.name} is a {plant.breed.name} plant.
+          <br></br>
           {plant.name}'s water level is currently {plant.water_level}%.
         </Card.Description>
       </Card.Content>
@@ -26,6 +27,16 @@ export default function Plant({ plant, updateWaterLevel }) {
         >
           <Icon name="lab" />
           Show
+        </Link>
+                <Link
+          to={{
+            pathname: `/plants/edit/${plant.id}`,
+            plant: { plant },
+            updateWaterLevel: { updateWaterLevel },
+          }}
+        >
+          <Icon name="lab" />
+          Edit
         </Link>
       </Card.Content>
     </Card>

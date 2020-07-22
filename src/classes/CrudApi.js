@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const defaultOptions = {
-  baseURL: "http://localhost:3000",
+  baseURL: process.env.REACT_APP_BACKEND_URL,
   timeout: 15000,
   headers: {
     "Content-Type": "application/json",
