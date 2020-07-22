@@ -10,12 +10,10 @@ export default class Plant extends React.Component {
   state = { plant: this.props.location.plant.plant, breed_name: "" };
 
   handleClick= (e) => {
-    console.log(this.props.match.params.id);
     plants
       .delete(this.props.match.params.id)
       .then((res) => {
         if (res.status >= 400) {
-          console.log(res);
           throw new Error(res.data);
         } else {
           alert("You have successfully deleted a plant!");
@@ -30,7 +28,6 @@ export default class Plant extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.location.plant);
     if (!this.state.plant) {
       plants
         .show(this.props.match.params.id)
