@@ -1,4 +1,3 @@
-  
 import { userBuilder } from "../support/generate";
 
 describe("when clicking on Sign Up from homepage user", () => {
