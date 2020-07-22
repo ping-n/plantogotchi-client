@@ -39,6 +39,6 @@ export default class CrudApi {
   }
 
   delete(id) {
-    return this._apiCore.delete(`${this._url}/$id`);
+    return this._apiCore.delete(`${this._url}/${id}`);
   }
 }
