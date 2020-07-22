@@ -3,6 +3,7 @@ import { Card, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 export default function Plant({ plant, updateWaterLevel }) {
+  
   return (
     <Card>
       <Card.Content>

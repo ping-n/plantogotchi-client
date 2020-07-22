@@ -56,7 +56,7 @@ export class CreatePlant extends Component {
       <div className="container">
         <h1>Create Plant</h1>
         {error && (
-          <Message data-testid="signup-error">{this.state.error}</Message>
+          <Message data-testid="createplant-error">{this.state.error}</Message>
         )}
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths="equal">

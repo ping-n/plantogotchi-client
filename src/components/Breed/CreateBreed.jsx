@@ -47,7 +47,7 @@ class CreateBreed extends Component {
       <div className="container">
         <h1>Create breed</h1>
         {error && (
-          <Message data-testid="signup-error">{this.state.error}</Message>
+          <Message data-testid="createbreed-error">{this.state.error}</Message>
         )}
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths="equal">
@@ -55,6 +55,7 @@ class CreateBreed extends Component {
               fluid
               label="Name"
               name="name"
+              data-testid="name"
               placeholder="name"
               onChange={this.handleChange}
             />
@@ -62,6 +63,7 @@ class CreateBreed extends Component {
               fluid
               label="Description"
               name="description"
+              data-testid="description"
               placeholder="description"
               onChange={this.handleChange}
             />
@@ -69,6 +71,7 @@ class CreateBreed extends Component {
               fluid
               label="Max Growth (total number of sprites in spritesheet)"
               name="max_growth"
+              data-testid="max_growth"
               placeholder="Max Growth"
               onChange={this.handleChange}
             />
