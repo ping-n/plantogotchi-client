@@ -73,10 +73,14 @@ export default class Plant extends React.Component {
             width={200}
             height={192}
             maxFrame={25}
-            frame={growth_stage}
+            frame={15}
             sprite={this.state.sprite}
           />
         </div>
+        <img
+          style={{ visibility: "hidden" }}
+          src="http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--617eb27558a6f0a7f71a0536b1ac0dea1bc42566/lily2x.png"
+        ></img>
       </>
     );
   }
