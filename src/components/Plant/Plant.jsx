@@ -1,11 +1,32 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { plants } from "../../classes/PlantApi";
 import { breeds } from "../../classes/BreedApi";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Button } from "semantic-ui-react";
 import WaterLevel from "./WaterLevel";
 
 export default class Plant extends React.Component {
   state = { plant: this.props.location.plant.plant, breed_name: "" };
+
+  handleClick= (e) => {
+    console.log(this.props.match.params.id);
+    plants
+      .delete(this.props.match.params.id)
+      .then((res) => {
+        if (res.status >= 400) {
+          console.log(res);
+          throw new Error(res.data);
+        } else {
+          alert("You have successfully deleted a plant!");
+          this.props.history.push("/plants");
+          return <Redirect to="/plants" />;
+        }
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+        console.log(error);
+      });
+  }
 
   componentDidMount() {
     console.log(this.props.location.plant);
@@ -65,6 +86,7 @@ export default class Plant extends React.Component {
             {alive && <h3>they are alive!</h3>}
           </Card.Description>
         </Card.Content>
+        <Button onClick={this.handleClick}>Delete</Button>
       </Card>
     );
   }
