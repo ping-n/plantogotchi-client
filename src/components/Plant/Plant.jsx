@@ -3,6 +3,7 @@ import { plants } from "../../classes/PlantApi";
 import { breeds } from "../../classes/BreedApi";
 import { Card, Image } from "semantic-ui-react";
 import WaterLevel from "./WaterLevel";
+import CanvasWindow from "./CanvasWindow";
 
 export default class Plant extends React.Component {
   state = { plant: this.props.location.plant.plant, breed_name: "" };
@@ -47,7 +48,7 @@ export default class Plant extends React.Component {
 
     return (
       <Card>
-        <Image src="" wrapped ui={false} />
+        <CanvasWindow width={100} height={100} />
         <Card.Content>
           <Card.Header>{name}</Card.Header>
           <Card.Meta>
