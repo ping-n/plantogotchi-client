@@ -4,7 +4,7 @@ import { plants } from "../../classes/PlantApi";
 import { breeds } from "../../classes/BreedApi";
 import { Card, Button } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
-import { game } from "../logic/Game"
+import { game } from "../logic/Game";
 
 export default class Plant extends React.Component {
   state = { plant: this.props.location.plant.plant };
@@ -29,12 +29,12 @@ export default class Plant extends React.Component {
 
   async componentDidMount() {
     if (!this.state.plant) {
-      plants
+      await plants
         .show(this.props.match.params.id)
         .then((res) => this.setState({ plant: res.data }))
         .catch((er) => console.log(er));
     }
-    breeds
+    await breeds
       .show(this.state.plant.breed_id)
       .then((res) => {
         this.setState({ breed_name: res.data.name });
@@ -42,32 +42,38 @@ export default class Plant extends React.Component {
         this.setState({ max_growth: res.data.max_growth });
       })
       .catch((er) => console.log(er));
-    if (this.state.alive || this.state.growth_stage !== this.state.max_growth) {
-      this.startGame()
+    if (
+      this.state.plant.alive ||
+      this.state.plant.growth_stage !== this.state.max_growth
+    ) {
+      this.startGame();
     } else {
-      alert("Please create a new plant!!")
-      this.setState( { finished: true } )
+      alert("Please create a new plant!!");
+      this.setState({ finished: true });
     }
   }
 
   startGame() {
-    const { id } = this.this.state.plant
+    const { id } = this.state.plant;
     let sec = 0;
     let gameLoop = setInterval(() => {
+      console.log("in the loop");
       if (sec % game.water_drop_speed === 0) {
-        this.changeWaterLevel(id)
+        this.changeWaterLevel(id);
       }
-      this.grow(sec, id)
-      this.isThirsty(id)
-      if (this.state.alive || this.state.growth_stage !== this.state.max_growth) {
-        console.log('the game has finished!')
+      this.grow(sec, id);
+      this.isThirsty(id);
+      if (
+        this.state.alive ||
+        this.state.growth_stage !== this.state.max_growth
+      ) {
+        console.log("the game has finished!");
         clearInterval(gameLoop);
-        this.setState( { finished: true } )
+        this.setState({ finished: true });
       }
       sec += 1;
     }, game.game_speed);
   }
-
 
   async grow(sec, id) {
     if (sec % game.growth_speed === 0 && this.state.water_level >= 50) {
@@ -82,16 +88,16 @@ export default class Plant extends React.Component {
         throw new Error("Server error");
       } else {
         this.setState({ growth_stage: growth });
-      } 
+      }
     }
   }
 
   async changeWaterLevel(id, amount) {
-    let water_level = this.state.water_level
+    let water_level = this.state.water_level;
     if (amount) {
       water_level += amount;
     } else {
-      water_level  -= 1;
+      water_level -= 1;
     }
     const params = {
       plant: {
@@ -132,9 +138,9 @@ export default class Plant extends React.Component {
       growth_stage,
       created_at,
       sprite,
-      finished
+      finished,
     } = this.state.plant;
-    const max_growth = this.state.max_growth
+    const max_growth = this.state.max_growth;
     const breed_name = this.state.breed_name;
 
     return (
@@ -156,13 +162,15 @@ export default class Plant extends React.Component {
           <Button onClick={this.handleClick}>Delete</Button>
         </Card>
         <div>
-          {this.state.sprite && <CanvasWindow
-            width={200}
-            height={192}
-            maxFrame={max_growth}
-            frame={growth_stage}
-            sprite={sprite}
-          />}
+          {this.state.sprite && (
+            <CanvasWindow
+              width={200}
+              height={192}
+              maxFrame={max_growth}
+              frame={growth_stage}
+              sprite={sprite}
+            />
+          )}
         </div>
       </>
     );
