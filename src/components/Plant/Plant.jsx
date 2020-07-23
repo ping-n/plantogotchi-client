@@ -34,16 +34,6 @@ export default class Plant extends React.Component {
         .then((res) => this.setState({ plant: res.data }))
         .catch((er) => console.log(er));
     }
-<<<<<<< HEAD
-    const response = await breeds.show(this.state.plant.breed_id);
-    if (response.status >= 400) {
-      console.log(response.data);
-    } else {
-      this.setState({ breed_name: response.data.name });
-      this.setState({ sprite: response.data.spritesheet });
-      this.setState({ max_growth: response.data.max_growth });
-    }
-=======
     breeds
       .show(this.state.plant.breed_id)
       .then((res) => {
@@ -53,7 +43,7 @@ export default class Plant extends React.Component {
       })
       .catch((er) => console.log(er));
     if (this.state.alive || this.state.growth_stage !== this.state.max_growth) {
-      startGame()
+      this.startGame()
     } else {
       alert("Please create a new plant!!")
       this.setState( { finished: true } )
@@ -68,15 +58,14 @@ export default class Plant extends React.Component {
         this.changeWaterLevel(id)
       }
       this.grow(sec, id)
-      this.isThirsty()
+      this.isThirsty(id)
       if (this.state.alive || this.state.growth_stage !== this.state.max_growth) {
         console.log('the game has finished!')
         clearInterval(gameLoop);
         this.setState( { finished: true } )
       }
       sec += 1;
-    }, controlTime);
->>>>>>> 4fec5b0a70eda37299172656db2047ff6187baab
+    }, game.game_speed);
   }
 
 
@@ -98,10 +87,11 @@ export default class Plant extends React.Component {
   }
 
   async changeWaterLevel(id, amount) {
+    let water_level = this.state.water_level
     if (amount) {
-      let water_level = this.state.water_level + amount;
+      water_level += amount;
     } else {
-      let water_level = this.state.water_level - 1;
+      water_level  -= 1;
     }
     const params = {
       plant: {
@@ -116,7 +106,7 @@ export default class Plant extends React.Component {
     }
   }
 
-  async isThirsty() {
+  async isThirsty(id) {
     if (this.water_level === 0) {
       const params = {
         plant: {
@@ -144,6 +134,7 @@ export default class Plant extends React.Component {
       sprite,
       finished
     } = this.state.plant;
+    const max_growth = this.state.max_growth
     const breed_name = this.state.breed_name;
 
     return (
@@ -164,16 +155,6 @@ export default class Plant extends React.Component {
           </Card.Content>
           <Button onClick={this.handleClick}>Delete</Button>
         </Card>
-<<<<<<< HEAD
-        <CanvasWindow
-          width={288}
-          height={288}
-          maxFrame={this.state.max_growth}
-          frame={10}
-          sprite={this.state.sprite}
-        />
-        {/* <img alt="new" src={this.state.sprite}></img> */}
-=======
         <div>
           {this.state.sprite && <CanvasWindow
             width={200}
@@ -183,7 +164,6 @@ export default class Plant extends React.Component {
             sprite={sprite}
           />}
         </div>
->>>>>>> 4fec5b0a70eda37299172656db2047ff6187baab
       </>
     );
   }
