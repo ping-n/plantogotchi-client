@@ -98,9 +98,7 @@ export default class Plant extends React.Component {
       water_level += amount;
     } else {
       water_level -= 1;
-      console.log("here");
     }
-    console.log(water_level);
     const params = {
       plant: {
         water_level: water_level,
@@ -133,23 +131,10 @@ export default class Plant extends React.Component {
     }
   }
 
-  onMouseHold(event) {
-    // let watering_amount = 1;
-    // console.log("here");
-    // let waterLoop = setInterval(() => {
-    //   if (event.type === "mousedown") {
-    //     watering_amount += 1;
-    //     this.setState({ watering_amount: watering_amount });
-    //     console.log("in the water loop");
-    //   } else {
-    //     clearInterval(waterLoop);
-    //   }
-    // }, 333);
-    if (event.type === "mousedown") {
-      this.setState({ watering_amount: "Mouse Down" });
-    } else {
-      this.setState({ watering_amount: "Mouse Up" });
-    }
+  handleWaterClick(event) {
+    console.log(this.state);
+    let new_water_level = this.state.plant.water_level + 5;
+    this.setState({ plant: { ...this.state.plant, water_level: new_water_level } });
   }
 
   render() {
@@ -178,10 +163,7 @@ export default class Plant extends React.Component {
             </Card.Description>
           </Card.Content>
           <Button onClick={this.handleDeleteClick}>Delete</Button>
-          <h3>{this.state.watering_amount}</h3>
-          <Button onMouseDown={this.onMouseHold} onMouseUp={this.onMouseHold}>
-            Water
-          </Button>
+          <button onClick={(e) => {this.handleWaterClick(e)}}>Water</button>
         </Card>
         <div>
           {this.state.sprite && (

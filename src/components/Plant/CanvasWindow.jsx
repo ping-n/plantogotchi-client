@@ -26,7 +26,6 @@ class CanvasWindow extends React.Component {
   loadSprite() {
     this.spriteSheet = new Image();
     this.spriteSheet.src = this.props.sprite;
-    console.log(this.spriteSheet);
     this.maxFrame = this.props.maxFrame;
     this.spriteWidth = this.spriteSheet.width / this.maxFrame;
     this.spriteHeight = this.spriteSheet.height;
