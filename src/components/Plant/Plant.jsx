@@ -4,12 +4,12 @@ import { plants } from "../../classes/PlantApi";
 import { breeds } from "../../classes/BreedApi";
 import { Card, Button } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
-import { game } from "../logic/Game"
+import { game } from "../logic/Game";
 
 export default class Plant extends React.Component {
-  state = { plant: this.props.location.plant.plant };
+  state = { plant: this.props.location.plant.plant, watering_amount: "" };
 
-  handleClick = (e) => {
+  handleDeleteClick = (e) => {
     plants
       .delete(this.props.match.params.id)
       .then((res) => {
@@ -29,12 +29,12 @@ export default class Plant extends React.Component {
 
   async componentDidMount() {
     if (!this.state.plant) {
-      plants
+      await plants
         .show(this.props.match.params.id)
         .then((res) => this.setState({ plant: res.data }))
         .catch((er) => console.log(er));
     }
-    breeds
+    await breeds
       .show(this.state.plant.breed_id)
       .then((res) => {
         this.setState({ breed_name: res.data.name });
@@ -42,36 +42,42 @@ export default class Plant extends React.Component {
         this.setState({ max_growth: res.data.max_growth });
       })
       .catch((er) => console.log(er));
-    if (this.state.alive || this.state.growth_stage !== this.state.max_growth) {
-      this.startGame()
+    if (
+      this.state.plant.alive ||
+      this.state.plant.growth_stage !== this.state.max_growth
+    ) {
+      this.setState({ status: "alive" });
+      this.startGame();
     } else {
-      alert("Please create a new plant!!")
-      this.setState( { finished: true } )
+      alert("Please create a new plant!!");
+      this.setState({ finished: true });
     }
   }
 
   startGame() {
-    const { id } = this.this.state.plant
+    const { id } = this.state.plant;
     let sec = 0;
     let gameLoop = setInterval(() => {
       if (sec % game.water_drop_speed === 0) {
-        this.changeWaterLevel(id)
+        this.changeWaterLevel(id);
       }
-      this.grow(sec, id)
-      this.isThirsty(id)
-      if (this.state.alive || this.state.growth_stage !== this.state.max_growth) {
-        console.log('the game has finished!')
+      this.grow(sec, id);
+      this.isThirsty(id);
+      if (
+        !this.state.plant.alive ||
+        this.state.plant.growth_stage === this.state.max_growth
+      ) {
+        alert("the game has finished!");
         clearInterval(gameLoop);
-        this.setState( { finished: true } )
+        this.setState({ status: "finished" });
       }
       sec += 1;
     }, game.game_speed);
   }
 
-
   async grow(sec, id) {
-    if (sec % game.growth_speed === 0 && this.state.water_level >= 50) {
-      const growth = (this.growth_stage += 1);
+    if (sec % game.growth_speed === 0 && this.state.plant.water_level >= 50) {
+      const growth = (this.state.plant.growth_stage += 1);
       const params = {
         plant: {
           growth_stage: growth,
@@ -81,18 +87,20 @@ export default class Plant extends React.Component {
       if (res.status >= 400) {
         throw new Error("Server error");
       } else {
-        this.setState({ growth_stage: growth });
-      } 
+        this.setState({ plant: { ...this.state.plant, growth_stage: growth } });
+      }
     }
   }
 
   async changeWaterLevel(id, amount) {
-    let water_level = this.state.water_level
+    let water_level = this.state.plant.water_level;
     if (amount) {
       water_level += amount;
     } else {
-      water_level  -= 1;
+      water_level -= 1;
+      console.log("here");
     }
+    console.log(water_level);
     const params = {
       plant: {
         water_level: water_level,
@@ -102,7 +110,9 @@ export default class Plant extends React.Component {
     if (res.status >= 400) {
       throw new Error("Server error");
     } else {
-      this.setState({ water_level: water_level });
+      this.setState({
+        plant: { ...this.state.plant, water_level: water_level },
+      });
     }
   }
 
@@ -117,26 +127,40 @@ export default class Plant extends React.Component {
       if (res.status >= 400) {
         throw new Error("Server error");
       } else {
-        this.setState({ alive: false });
+        this.setState({ plant: { ...this.state.plant, alive: false } });
+        this.setState({ status: "dead" });
       }
+    }
+  }
+
+  onMouseHold(event) {
+    // let watering_amount = 1;
+    // console.log("here");
+    // let waterLoop = setInterval(() => {
+    //   if (event.type === "mousedown") {
+    //     watering_amount += 1;
+    //     this.setState({ watering_amount: watering_amount });
+    //     console.log("in the water loop");
+    //   } else {
+    //     clearInterval(waterLoop);
+    //   }
+    // }, 333);
+    if (event.type === "mousedown") {
+      this.setState({ watering_amount: "Mouse Down" });
+    } else {
+      this.setState({ watering_amount: "Mouse Up" });
     }
   }
 
   render() {
     const {
-      id,
       alive,
       name,
       water_level,
-      food_level,
       growth_stage,
       created_at,
-      sprite,
-      finished
     } = this.state.plant;
-    const max_growth = this.state.max_growth
-    const breed_name = this.state.breed_name;
-
+    const { sprite, max_growth, breed_name, finished, status } = this.state;
     return (
       <>
         {finished && <h1>This plant is finished!</h1>}
@@ -150,19 +174,25 @@ export default class Plant extends React.Component {
               {name} is of the {breed_name} breed.
               <h3>{water_level}</h3>
               <h3>growth stage: {growth_stage}</h3>
-              {alive && <h3>they are alive!</h3>}
+              {alive && <h3>they are {status}!</h3>}
             </Card.Description>
           </Card.Content>
-          <Button onClick={this.handleClick}>Delete</Button>
+          <Button onClick={this.handleDeleteClick}>Delete</Button>
+          <h3>{this.state.watering_amount}</h3>
+          <Button onMouseDown={this.onMouseHold} onMouseUp={this.onMouseHold}>
+            Water
+          </Button>
         </Card>
         <div>
-          {this.state.sprite && <CanvasWindow
-            width={200}
-            height={192}
-            maxFrame={max_growth}
-            frame={growth_stage}
-            sprite={sprite}
-          />}
+          {this.state.sprite && (
+            <CanvasWindow
+              width={200}
+              height={192}
+              maxFrame={max_growth}
+              frame={growth_stage}
+              sprite={sprite}
+            />
+          )}
         </div>
       </>
     );
