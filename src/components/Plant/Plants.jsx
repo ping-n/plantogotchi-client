@@ -1,7 +1,7 @@
 import React from "react";
 import { plants } from "../../classes/PlantApi";
 import Plant from "./Plant";
-import { Grid } from "semantic-ui-react";
+import { Grid, Header } from "semantic-ui-react";
 import { Slider } from "rsuite";
 
 export default class Plants extends React.Component {
@@ -137,9 +137,12 @@ export default class Plants extends React.Component {
       });
       return (
         <>
+          <Header as="h1" color="black">
+            Your Plants
+          </Header>
           <h3>Game Speed Intervals in Milliseconds</h3>
           <Slider
-            style={{ margin: "10px 0px 10px 0px" }}
+            style={{ margin: "20px 0px 20px 0px" }}
             defaultValue={5000}
             min={500}
             step={500}
@@ -151,8 +154,7 @@ export default class Plants extends React.Component {
             }}
             onChange={(value) => this.handleSlider(value)}
           />
-          <h1>Your Plants</h1>
-          <Grid columns={3} divided>
+          <Grid style={{ marginTop: 50 }} columns={3} divided>
             {plantsArr}
           </Grid>
         </>
