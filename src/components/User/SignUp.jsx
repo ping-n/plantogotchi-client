@@ -37,7 +37,7 @@ export class SignUp extends Component {
         verticalAlign="middle"
       >
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h1" black>
+          <Header as="h1" color="black">
             Sign Up
           </Header>
           {error && (

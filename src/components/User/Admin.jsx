@@ -4,7 +4,7 @@ import { Header } from "semantic-ui-react";
 const Admin = () => {
   return (
     <div>
-      <Header as="h1" black>
+      <Header as="h1" color="black">
         Admin
       </Header>
     </div>

@@ -57,7 +57,7 @@ class EditBreed extends Component {
         verticalAlign="middle"
       >
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h1">Update breed</Header>
+          <Header as="h1" color="black">Update breed</Header>
           {error && (
             <Message data-testid="breedupdate-error">
               {this.state.error}
