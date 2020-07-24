@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Icon, Message, Button, Form } from "semantic-ui-react";
+import { Icon, Message, Button, Form, Header } from "semantic-ui-react";
 import { users } from "../../classes/UserApi";
 import Auth from "../auth/Auth";
 
@@ -34,7 +34,7 @@ class Login extends Component {
     const { error } = this.state;
     return (
       <div className="container">
-        <h1>Login</h1>
+        <Header as="h1" black >Login</Header>
         {error && (
           <Message data-testid="login-error">{this.state.error}</Message>
         )}

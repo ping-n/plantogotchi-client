@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Form, Message } from "semantic-ui-react";
+import { Form, Message, Header } from "semantic-ui-react";
 import { users } from "../../classes/UserApi";
 
 export class SignUp extends Component {
@@ -32,7 +32,7 @@ export class SignUp extends Component {
     const { error } = this.state;
     return (
       <div className="container">
-        <h1>Sign Up</h1>
+        <Header as="h1" black >Sign Up</Header>
         {error && (
           <Message data-testid="signup-error">{this.state.error}</Message>
         )}
