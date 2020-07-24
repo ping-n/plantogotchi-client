@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Form, Message } from "semantic-ui-react";
+import { Form, Message, Header, Grid, Segment } from "semantic-ui-react";
 import { breeds } from "../../classes/BreedApi";
 import { InputFile } from "semantic-ui-react-input-file";
 
@@ -51,12 +51,18 @@ class EditBreed extends Component {
     const { breed } = this.props.location;
     const { error } = this.state;
     return (
-      <div className="container">
-        <h1>Update breed</h1>
+      <Grid
+        textAlign="center"
+        style={{ height: "100vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 500 }}>
+        <Header as="h1">Update breed</Header>
         {error && (
           <Message data-testid="breedupdate-error">{this.state.error}</Message>
         )}
         <Form onSubmit={this.handleSubmit}>
+          <Segment piled>
           <Form.Group widths="equal">
             <Form.Input
               fluid
@@ -90,9 +96,11 @@ class EditBreed extends Component {
             />
           </Form.Group>
 
-          <Form.Button>Submit</Form.Button>
+          <Form.Button color="twitter">Submit</Form.Button>
+          </Segment>
         </Form>
-      </div>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
