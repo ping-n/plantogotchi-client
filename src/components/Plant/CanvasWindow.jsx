@@ -9,6 +9,7 @@ class CanvasWindow extends React.Component {
   componentDidMount() {
     this.setContext();
     this.loadSprite();
+    this.drawSprite();
   }
 
   componentDidUpdate() {

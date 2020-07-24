@@ -24,19 +24,63 @@ export default class Plants extends React.Component {
     this.setState({ loading: false });
   }
 
+  // Data manipulation
+
   findPlant(id) {
     return this.state.plants.findIndex((plant) => {
       return plant.id === id;
     });
   }
 
-  updateArray(id, target, value) {
+  updateArray = (id, target, value) => {
     const newArray = this.state.plants;
-    console.log(this.findPlant(id));
-    // console.log(newArray[this.findPlant(id)][`${target}`]);
-    // newArray[this.findPlant(id)][`${target}`] = value;
-    // this.setState({ plants: newArray });
+    newArray[this.findPlant(id)][`${target}`] = value;
+    this.setState({ plants: newArray });
+  };
+
+  async killPlant(id) {
+    const params = {
+      plant: {
+        alive: false,
+      },
+    };
+    await plants
+      .update(id, params)
+      .then(() => {
+        this.updateArray(id, "alive", false);
+      })
+      .catch((e) => console.log(e));
   }
+
+  async grow(id, growth) {
+    const params = {
+      plant: {
+        growth_stage: growth,
+      },
+    };
+    await plants
+      .update(id, params)
+      .then(() => {
+        this.updateArray(id, "growth_stage", growth);
+      })
+      .catch((e) => console.log(e));
+  }
+
+  async changeWaterLevel(id, water_level) {
+    const params = {
+      plant: {
+        water_level: water_level,
+      },
+    };
+    await plants
+      .update(id, params)
+      .then(() => {
+        this.updateArray(id, "water_level", water_level);
+      })
+      .catch((e) => console.log(e));
+  }
+
+  // Event handling
 
   handleDeleteClick = (e, id) => {
     plants
@@ -47,7 +91,7 @@ export default class Plants extends React.Component {
         } else {
           this.setState({
             plants: this.state.plants.filter(function (plant) {
-              if (plant.id !== id) return plant;
+              return plant.id !== id;
             }),
           });
         }
@@ -67,7 +111,6 @@ export default class Plants extends React.Component {
     if (this.state.loading) {
       return <h3>Loading!</h3>;
     } else {
-      this.updateArray(37, "water_level");
       const {
         game_speed,
         growth_speed,
@@ -76,11 +119,14 @@ export default class Plants extends React.Component {
       } = this.state;
       const plantsArr = this.state.plants.map((plant, index) => {
         return (
-          <Grid.Column>
+          <Grid.Column key={index}>
             <Plant
-              key={index}
               plant={plant}
+              updateArray={this.updateArray}
               handleDeleteClick={this.handleDeleteClick}
+              changeWaterLevel={this.changeWaterLevel}
+              killPlant={this.killPlant}
+              grow={this.grow}
               game_speed={game_speed}
               growth_speed={growth_speed}
               water_drop_speed={water_drop_speed}
@@ -106,9 +152,9 @@ export default class Plants extends React.Component {
             onChange={(value) => this.handleSlider(value)}
           />
           <h1>Your Plants</h1>
-          <Grid.Column key={index}>
-            <PlantCard plant={plant} />
-          </Grid.Column>
+          <Grid columns={3} divided>
+            {plantsArr}
+          </Grid>
         </>
       );
     }
