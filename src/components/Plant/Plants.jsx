@@ -11,16 +11,17 @@ export default class Plants extends React.Component {
     water_drop_speed: 1,
     game_speed: 5000,
     growth_limit: 50,
+    loading: true,
   };
 
   async componentDidMount() {
     await plants
       .index()
       .then((res) => {
-        console.log(res.data);
         this.setState({ plants: res.data });
       })
       .catch((er) => console.log(er));
+    this.setState({ loading: false });
   }
 
   findPlant(id) {
@@ -63,50 +64,53 @@ export default class Plants extends React.Component {
   }
 
   render() {
-    this.updateArray(35, "water_level");
-    const {
-      game_speed,
-      growth_speed,
-      growth_limit,
-      water_drop_speed,
-    } = this.state;
-    const plantsArr = this.state.plants.map((plant, index) => {
+    if (this.state.loading) {
+      return <h3>Loading!</h3>;
+    } else {
+      this.updateArray(37, "water_level");
+      const {
+        game_speed,
+        growth_speed,
+        growth_limit,
+        water_drop_speed,
+      } = this.state;
+      const plantsArr = this.state.plants.map((plant, index) => {
+        return (
+          <Grid.Column>
+            <Plant
+              key={index}
+              plant={plant}
+              handleDeleteClick={this.handleDeleteClick}
+              game_speed={game_speed}
+              growth_speed={growth_speed}
+              water_drop_speed={water_drop_speed}
+              growth_limit={growth_limit}
+            />
+          </Grid.Column>
+        );
+      });
       return (
-        <Grid.Column>
-          <Plant
-            key={index}
-            plant={plant}
-            handleDeleteClick={this.handleDeleteClick}
-            game_speed={game_speed}
-            growth_speed={growth_speed}
-            water_drop_speed={water_drop_speed}
-            growth_limit={growth_limit}
+        <>
+          <h3>Game Speed Intervals in Milliseconds</h3>
+          <Slider
+            style={{ margin: "10px 0px 10px 0px" }}
+            defaultValue={5000}
+            min={500}
+            step={500}
+            max={10000}
+            graduated
+            progress
+            renderMark={(mark) => {
+              return mark;
+            }}
+            onChange={(value) => this.handleSlider(value)}
           />
-        </Grid.Column>
+          <h1>Your Plants</h1>
+          <Grid columns={3} divided>
+            <Grid.Row>{plantsArr}</Grid.Row>
+          </Grid>
+        </>
       );
-    });
-
-    return (
-      <>
-        <h3>Game Speed Intervals in Milliseconds</h3>
-        <Slider
-          style={{ margin: "10px 0px 10px 0px" }}
-          defaultValue={5000}
-          min={500}
-          step={500}
-          max={10000}
-          graduated
-          progress
-          renderMark={(mark) => {
-            return mark;
-          }}
-          onChange={(value) => this.handleSlider(value)}
-        />
-        <h1>Your Plants</h1>
-        <Grid columns={3} divided>
-          <Grid.Row>{plantsArr}</Grid.Row>
-        </Grid>
-      </>
-    );
+    }
   }
 }
