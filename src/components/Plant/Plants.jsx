@@ -6,8 +6,8 @@ import { Grid } from "semantic-ui-react";
 export default class Plants extends React.Component {
   state = { plants: [] };
 
-  componentDidMount() {
-    plants
+  async componentDidMount() {
+    await plants
       .index()
       .then((res) => {
         console.log(res.data);

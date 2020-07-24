@@ -5,6 +5,7 @@ import { breeds } from "../../classes/BreedApi";
 import { Card, Button } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
 import { game } from "../logic/Game";
+import { Slider } from "rsuite";
 
 export default class Plant extends React.Component {
   state = { plant: this.props.location.plant.plant, watering_amount: "" };
@@ -28,6 +29,7 @@ export default class Plant extends React.Component {
   };
 
   async componentDidMount() {
+    this.calculateDifference();
     if (!this.state.plant) {
       await plants
         .show(this.props.match.params.id)
@@ -54,51 +56,58 @@ export default class Plant extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.gameLoop);
+  }
+
   startGame() {
     const { id } = this.state.plant;
     let sec = 0;
-    let gameLoop = setInterval(() => {
+    this.gameLoop = setInterval(() => {
       if (sec % game.water_drop_speed === 0) {
-        this.changeWaterLevel(id);
+        this.changeWaterLevel(id, -1);
       }
-      this.grow(sec, id);
+      this.shouldGrow(sec, id);
       this.isThirsty(id);
       if (
         !this.state.plant.alive ||
         this.state.plant.growth_stage === this.state.max_growth
       ) {
         alert("the game has finished!");
-        clearInterval(gameLoop);
+        clearInterval(this.gameLoop);
         this.setState({ status: "finished" });
       }
       sec += 1;
     }, game.game_speed);
   }
 
-  async grow(sec, id) {
-    if (sec % game.growth_speed === 0 && this.state.plant.water_level >= 50) {
-      const growth = (this.state.plant.growth_stage += 1);
-      const params = {
-        plant: {
-          growth_stage: growth,
-        },
-      };
-      const res = await plants.update(id, params);
-      if (res.status >= 400) {
-        throw new Error("Server error");
-      } else {
-        this.setState({ plant: { ...this.state.plant, growth_stage: growth } });
-      }
+  shouldGrow(sec, id) {
+    if (
+      sec % game.growth_speed === 0 &&
+      this.state.plant.water_level >= game.growth_limit
+    ) {
+      const growth = this.state.plant.growth_stage + 1;
+      this.grow(id, growth);
+    }
+  }
+
+  async grow(id, growth) {
+    const params = {
+      plant: {
+        growth_stage: growth,
+      },
+    };
+    const res = await plants.update(id, params);
+    if (res.status >= 400) {
+      throw new Error("Server error");
+    } else {
+      this.setState({ plant: { ...this.state.plant, growth_stage: growth } });
     }
   }
 
   async changeWaterLevel(id, amount) {
     let water_level = this.state.plant.water_level;
-    if (amount) {
-      water_level += amount;
-    } else {
-      water_level -= 1;
-    }
+    water_level += amount;
     const params = {
       plant: {
         water_level: water_level,
@@ -132,9 +141,43 @@ export default class Plant extends React.Component {
   }
 
   handleWaterClick(event) {
-    console.log(this.state);
-    let new_water_level = this.state.plant.water_level + 5;
-    this.setState({ plant: { ...this.state.plant, water_level: new_water_level } });
+    this.changeWaterLevel(this.state.plant.id, 5);
+  }
+
+  calculateDifference() {
+    const id = this.state.plant.id;
+    const updatedTime = new Date(this.state.plant.updated_at);
+    const nowTime = new Date(Date.now());
+    const difference = nowTime - updatedTime;
+    const originalWaterLevel = this.state.plant.water_level;
+    this.calculateWaterDrop(id, difference);
+    this.calculateGrowth(id, originalWaterLevel);
+  }
+
+  calculateWaterDrop(id, difference) {
+    const water_drop = Math.round(
+      difference / (game.water_drop_speed * game.game_speed)
+    );
+    if (water_drop > this.state.water_level) {
+      this.changeWaterLevel(id, -Math.abs(this.state.plant.water_level));
+    } else {
+      this.changeWaterLevel(id, -Math.abs(water_drop));
+    }
+    return;
+  }
+
+  calculateGrowth(id, originalWaterLevel) {
+    if (originalWaterLevel > game.growth_limit) {
+      const growth =
+        (originalWaterLevel - game.growth_limit) * game.growth_speed;
+      this.grow(id, growth);
+    }
+  }
+
+  handleSlider(value) {
+    game.game_speed = value;
+    clearInterval(this.gameLoop);
+    this.startGame();
   }
 
   render() {
@@ -148,8 +191,22 @@ export default class Plant extends React.Component {
     const { sprite, max_growth, breed_name, finished, status } = this.state;
     return (
       <>
+        <h3>Game Speed Intervals in Milliseconds</h3>
+        <Slider
+          style={{ margin: "10px 0px 10px 0px" }}
+          defaultValue={5000}
+          min={500}
+          step={500}
+          max={10000}
+          graduated
+          progress
+          renderMark={(mark) => {
+            return mark;
+          }}
+          onChange={(value) => this.handleSlider(value)}
+        />
         {finished && <h1>This plant is finished!</h1>}
-        <Card>
+        <Card style={{ marginTop: 10 }}>
           <Card.Content>
             <Card.Header>{name}</Card.Header>
             <Card.Meta>
@@ -163,7 +220,13 @@ export default class Plant extends React.Component {
             </Card.Description>
           </Card.Content>
           <Button onClick={this.handleDeleteClick}>Delete</Button>
-          <button onClick={(e) => {this.handleWaterClick(e)}}>Water</button>
+          <button
+            onClick={(e) => {
+              this.handleWaterClick(e);
+            }}
+          >
+            Water
+          </button>
         </Card>
         <div>
           {this.state.sprite && (

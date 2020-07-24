@@ -1,8 +1,9 @@
 class Game {
-  constructor(growth_speed = 1, water_drop_speed = 1, game_speed = 2000) {
-    this.growth_speed = growth_speed;
-    this.water_drop_speed = water_drop_speed;
-    this.game_speed = game_speed;
+  constructor() {
+    this.growth_speed = 1;
+    this.water_drop_speed = 1;
+    this.game_speed = 5000;
+    this.growth_limit = 50;
   }
 }
 
