@@ -14,9 +14,6 @@
 # production
 /build
 
-# semantic ui
-/src/semantic-ui
-craco.config.js
 
 # misc
 .DS_Store
