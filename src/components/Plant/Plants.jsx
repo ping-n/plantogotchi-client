@@ -19,8 +19,8 @@ export default class Plants extends React.Component {
   render() {
     const plantsArr = this.state.plants.map((plant, index) => {
       return (
-        <Grid.Column>
-          <PlantCard key={index} plant={plant} />
+        <Grid.Column key={index}>
+          <PlantCard plant={plant} />
         </Grid.Column>
       );
     });
