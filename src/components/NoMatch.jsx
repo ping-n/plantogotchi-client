@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { Header } from 'semantic-ui-react'
 
 export class NoMatch extends Component {
   render() {
     return (
       <div>
-        <h1>404</h1>
+        <Header as="h1" black >NO MATCH</Header>
         <p>Pages Not Found !!!</p>
       </div>
     )
