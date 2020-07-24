@@ -3,24 +3,24 @@ import { Card, Button } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
 
 export default class Plant extends React.Component {
-  state = { plant: this.props.plant, loading: true };
+  state = { plant: this.props.plant, loading: true, finished: false };
 
   componentDidMount() {
-    this.setState({ breed: this.state.plant.breed });
-    this.setState({ loading: false });
+    this.loadImage();
     if (!this.props.plant.alive) {
-      this.setState({ status: "dead" });
+      this.setState({ status: "Dead" });
       this.setState({
         statusMessage: "Sorry for your loss...please create a new plant.",
       });
     } else if (
       this.props.plant.growth_stage !== this.props.plant.breed.max_growth
     ) {
-      this.setState({ status: "alive" });
+      this.setState({ status: "Alive & healthy" });
       this.calculateDifference();
       this.startGame();
     } else {
-      this.setState({ status: "finished" });
+      this.setState({ status: "Finished" });
+      this.setState({ finished: true });
       this.setState({
         statusMessage: "Your plant is finished! Please create a new plant",
       });
@@ -29,7 +29,7 @@ export default class Plant extends React.Component {
 
   componentDidUpdate() {
     if (this.gameLoop) clearInterval(this.gameLoop);
-    if (this.state.status !== "dead" && this.state.status !== "finished") {
+    if (this.state.status !== "Dead" && this.state.status !== "Finished") {
       this.startGame();
     }
   }
@@ -38,6 +38,13 @@ export default class Plant extends React.Component {
     clearInterval(this.gameLoop);
   }
 
+  loadImage() {
+    this.spritesheet = new Image();
+    this.spritesheet.src = this.props.plant.breed.spritesheet;
+    this.spritesheet.onload = () => {
+      this.setState({ loading: false });
+    };
+  }
   // Intitial calculations
 
   calculateDifference() {
@@ -97,14 +104,14 @@ export default class Plant extends React.Component {
         this.setState({
           statusMessage: "Your plant is finished! Please create a new plant",
         });
-        this.setState({ status: "finished" });
+        this.setState({ status: "Finished" });
         clearInterval(this.gameLoop);
       } else if (this.props.plant.water_level === 0) {
         this.props.killPlant(id);
         this.setState({
           statusMessage: "Your plant is dead! Please create a new plant",
         });
-        this.setState({ status: "dead" });
+        this.setState({ status: "Dead" });
         clearInterval(this.gameLoop);
       } else {
         if (sec % water_drop_speed === 0) {
@@ -124,6 +131,8 @@ export default class Plant extends React.Component {
     ) {
       const growth = this.props.plant.growth_stage + 1;
       this.props.grow(id, growth);
+    } else {
+      this.setState({ status: "Underwatered" });
     }
   }
 
@@ -147,19 +156,19 @@ export default class Plant extends React.Component {
     if (this.state.loading) {
       return <h3>loading!</h3>;
     } else {
-      const { spritesheet, max_growth } = this.state.plant.breed;
+      const { max_growth, spritesheet } = this.state.plant.breed;
       const breed_name = this.state.plant.breed.name;
-      const { statusMessage, status } = this.state;
+      const { statusMessage, status, finished } = this.state;
       return (
         <>
           {statusMessage && <h3>{statusMessage}</h3>}
           <Card style={{ marginTop: 10 }}>
             <CanvasWindow
               width={200}
-              height={192}
+              height={200}
               maxFrame={max_growth}
               frame={growth_stage}
-              sprite={spritesheet}
+              spritesheet={this.spritesheet}
             />
             <Card.Content>
               <Card.Header>{name}</Card.Header>
@@ -170,10 +179,10 @@ export default class Plant extends React.Component {
                 </span>
               </Card.Meta>
               <Card.Description>
-                <h3>Breed: {breed_name}</h3>
-                <h3>Water level: {water_level}</h3>
-                <h3>Growth Level: {growth_stage}</h3>
-                {alive && <h3>they are {status}!</h3>}
+                <h5>Breed: {breed_name}</h5>
+                <h5>Water level: {water_level}</h5>
+                <h5>Growth Level: {growth_stage}</h5>
+                <h5>{status}!</h5>
               </Card.Description>
             </Card.Content>
             <Button
@@ -183,7 +192,7 @@ export default class Plant extends React.Component {
             >
               Delete
             </Button>
-            {alive && (
+            {alive && !finished && (
               <button
                 onClick={(e) => {
                   this.handleWaterClick(e);
