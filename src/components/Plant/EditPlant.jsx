@@ -34,11 +34,7 @@ export class EditPlant extends Component {
   render() {
     const { error } = this.state;
     return (
-      <Grid
-        textAlign="center"
-        style={{ height: "100vh" }}
-        verticalAlign="top"
-      >
+      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1">Create Plant</Header>
           {error && (
@@ -48,17 +44,14 @@ export class EditPlant extends Component {
           )}
           <Form onSubmit={this.handleSubmit}>
             <Segment piled>
-              <Form.Group widths="equal">
-                <Form.Input
-                  fluid
-                  label="Name"
-                  name="name"
-                  data-testid="name"
-                  placeholder="name"
-                  onChange={this.handleChange}
-                />
-              </Form.Group>
-
+              <Form.Input
+                fluid
+                label="Name"
+                name="name"
+                data-testid="name"
+                placeholder="name"
+                onChange={this.handleChange}
+              />
               <Form.Button color="twitter">Update</Form.Button>
             </Segment>
           </Form>

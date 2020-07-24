@@ -57,48 +57,47 @@ class EditBreed extends Component {
         verticalAlign="middle"
       >
         <Grid.Column style={{ maxWidth: 500 }}>
-        <Header as="h1">Update breed</Header>
-        {error && (
-          <Message data-testid="breedupdate-error">{this.state.error}</Message>
-        )}
-        <Form onSubmit={this.handleSubmit}>
-          <Segment piled>
-          <Form.Group widths="equal">
-            <Form.Input
-              fluid
-              label="Name"
-              name="name"
-              data-testid="name"
-              placeholder={breed.name}
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              fluid
-              label="Description"
-              name="description"
-              data-testid="description"
-              placeholder={breed.description}
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              fluid
-              label="Max Growth (total number of sprites in spritesheet)"
-              name="max_growth"
-              data-testid="max_growth"
-              placeholder={breed.max_growth}
-              onChange={this.handleChange}
-            />
-            <InputFile
-              input={{
-                id: "input-control-id",
-                onChange: this.handleUpload,
-              }}
-            />
-          </Form.Group>
-
-          <Form.Button color="twitter">Submit</Form.Button>
-          </Segment>
-        </Form>
+          <Header as="h1">Update breed</Header>
+          {error && (
+            <Message data-testid="breedupdate-error">
+              {this.state.error}
+            </Message>
+          )}
+          <Form onSubmit={this.handleSubmit}>
+            <Segment piled>
+              <Form.Input
+                fluid
+                label="Name"
+                name="name"
+                data-testid="name"
+                placeholder={breed.name}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                label="Description"
+                name="description"
+                data-testid="description"
+                placeholder={breed.description}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                label="Max Growth (total number of sprites in spritesheet)"
+                name="max_growth"
+                data-testid="max_growth"
+                placeholder={breed.max_growth}
+                onChange={this.handleChange}
+              />
+              <InputFile
+                input={{
+                  id: "input-control-id",
+                  onChange: this.handleUpload,
+                }}
+              />
+              <Form.Button color="twitter">Submit</Form.Button>
+            </Segment>
+          </Form>
         </Grid.Column>
       </Grid>
     );
