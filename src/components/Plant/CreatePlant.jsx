@@ -59,7 +59,9 @@ export class CreatePlant extends Component {
     return (
       <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h1" color="black">Create Plant</Header>
+          <Header as="h1" color="black">
+            Create Plant
+          </Header>
           {error && (
             <Message data-testid="createplant-error">
               {this.state.error}

@@ -1,49 +1,16 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import { plants } from "../../classes/PlantApi";
-import { breeds } from "../../classes/BreedApi";
 import { Card, Button } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
-import { game } from "../logic/Game";
-import { Slider } from "rsuite";
 
 export default class Plant extends React.Component {
-  state = { plant: this.props.location.plant.plant, watering_amount: "" };
+  state = { plant: this.props.plant, loading: true };
 
-  handleDeleteClick = (e) => {
-    plants
-      .delete(this.props.match.params.id)
-      .then((res) => {
-        if (res.status >= 400) {
-          throw new Error(res.data);
-        } else {
-          alert("You have successfully deleted a plant!");
-          this.props.history.push("/plants");
-          return <Redirect to="/plants" />;
-        }
-      })
-      .catch((error) => {
-        this.setState({ error: error.message });
-        console.log(error);
-      });
-  };
-
-  async componentDidMount() {
+  componentDidMount() {
+    console.log(this.state.plant.breed);
+    this.setState({ breed: this.state.plant.breed });
+    this.setState({ loading: false });
     this.calculateDifference();
-    if (!this.state.plant) {
-      await plants
-        .show(this.props.match.params.id)
-        .then((res) => this.setState({ plant: res.data }))
-        .catch((er) => console.log(er));
-    }
-    await breeds
-      .show(this.state.plant.breed_id)
-      .then((res) => {
-        this.setState({ breed_name: res.data.name });
-        this.setState({ sprite: res.data.spritesheet });
-        this.setState({ max_growth: res.data.max_growth });
-      })
-      .catch((er) => console.log(er));
     if (
       this.state.plant.alive ||
       this.state.plant.growth_stage !== this.state.max_growth
@@ -60,34 +27,87 @@ export default class Plant extends React.Component {
     clearInterval(this.gameLoop);
   }
 
+  // Intitial calculations
+
+  calculateDifference() {
+    const id = this.state.plant.id;
+    const updatedTime = new Date(this.state.plant.updated_at);
+    const nowTime = new Date(Date.now());
+    const difference = nowTime - updatedTime;
+    const originalWaterLevel = this.state.plant.water_level;
+    this.calculateWaterDrop(id, difference);
+    this.calculateGrowth(id, originalWaterLevel);
+  }
+
+  calculateWaterDrop(id, difference) {
+    const water_drop = Math.round(
+      difference / (this.props.water_drop_speed * this.props.game_speed)
+    );
+    if (water_drop > this.state.water_level) {
+      this.changeWaterLevel(id, -Math.abs(this.state.plant.water_level));
+    } else {
+      this.changeWaterLevel(id, -Math.abs(water_drop));
+    }
+    return;
+  }
+
+  calculateGrowth(id, originalWaterLevel) {
+    if (originalWaterLevel > this.props.growth_limit) {
+      const growth =
+        (originalWaterLevel - this.props.growth_limit) *
+        this.props.growth_speed;
+      console.log(`growth: ${growth}`);
+      this.grow(id, growth);
+    }
+  }
+
+  // Main this.props logic
+
   startGame() {
     const { id } = this.state.plant;
     let sec = 0;
     this.gameLoop = setInterval(() => {
-      if (sec % game.water_drop_speed === 0) {
+      if (
+        !this.state.plant.alive ||
+        this.state.plant.growth_stage === this.state.plant.breed.max_growth
+      ) {
+        alert("the this.props has finished!");
+        clearInterval(this.gameLoop);
+        this.setState({ status: "finished" });
+      }
+      if (sec % this.props.water_drop_speed === 0) {
         this.changeWaterLevel(id, -1);
       }
       this.shouldGrow(sec, id);
       this.isThirsty(id);
-      if (
-        !this.state.plant.alive ||
-        this.state.plant.growth_stage === this.state.max_growth
-      ) {
-        alert("the game has finished!");
-        clearInterval(this.gameLoop);
-        this.setState({ status: "finished" });
-      }
       sec += 1;
-    }, game.game_speed);
+    }, this.props.game_speed);
   }
 
   shouldGrow(sec, id) {
     if (
-      sec % game.growth_speed === 0 &&
-      this.state.plant.water_level >= game.growth_limit
+      sec % this.props.growth_speed === 0 &&
+      this.state.plant.water_level >= this.props.growth_limit
     ) {
       const growth = this.state.plant.growth_stage + 1;
       this.grow(id, growth);
+    }
+  }
+
+  async isThirsty(id) {
+    if (this.water_level === 0) {
+      const params = {
+        plant: {
+          alive: false,
+        },
+      };
+      await plants
+        .update(id, params)
+        .then(() => {
+          this.setState({ plant: { ...this.state.plant, alive: false } });
+          this.setState({ status: "dead" });
+        })
+        .catch((e) => console.log(e));
     }
   }
 
@@ -97,12 +117,12 @@ export default class Plant extends React.Component {
         growth_stage: growth,
       },
     };
-    const res = await plants.update(id, params);
-    if (res.status >= 400) {
-      throw new Error("Server error");
-    } else {
-      this.setState({ plant: { ...this.state.plant, growth_stage: growth } });
-    }
+    await plants
+      .update(id, params)
+      .then(() => {
+        this.setState({ plant: { ...this.state.plant, growth_stage: growth } });
+      })
+      .catch((e) => console.log(e));
   }
 
   async changeWaterLevel(id, amount) {
@@ -123,123 +143,70 @@ export default class Plant extends React.Component {
     }
   }
 
-  async isThirsty(id) {
-    if (this.water_level === 0) {
-      const params = {
-        plant: {
-          alive: false,
-        },
-      };
-      const res = await plants.update(id, params);
-      if (res.status >= 400) {
-        throw new Error("Server error");
-      } else {
-        this.setState({ plant: { ...this.state.plant, alive: false } });
-        this.setState({ status: "dead" });
-      }
-    }
-  }
+  // Event methods
 
   handleWaterClick(event) {
-    this.changeWaterLevel(this.state.plant.id, 5);
-  }
-
-  calculateDifference() {
-    const id = this.state.plant.id;
-    const updatedTime = new Date(this.state.plant.updated_at);
-    const nowTime = new Date(Date.now());
-    const difference = nowTime - updatedTime;
-    const originalWaterLevel = this.state.plant.water_level;
-    this.calculateWaterDrop(id, difference);
-    this.calculateGrowth(id, originalWaterLevel);
-  }
-
-  calculateWaterDrop(id, difference) {
-    const water_drop = Math.round(
-      difference / (game.water_drop_speed * game.game_speed)
-    );
-    if (water_drop > this.state.water_level) {
-      this.changeWaterLevel(id, -Math.abs(this.state.plant.water_level));
-    } else {
-      this.changeWaterLevel(id, -Math.abs(water_drop));
-    }
-    return;
-  }
-
-  calculateGrowth(id, originalWaterLevel) {
-    if (originalWaterLevel > game.growth_limit) {
-      const growth =
-        (originalWaterLevel - game.growth_limit) * game.growth_speed;
-      this.grow(id, growth);
-    }
-  }
-
-  handleSlider(value) {
-    game.game_speed = value;
-    clearInterval(this.gameLoop);
-    this.startGame();
+    this.props.changeWaterLevel(this.state.plant.id, 5);
   }
 
   render() {
     const {
+      id,
       alive,
       name,
       water_level,
       growth_stage,
       created_at,
     } = this.state.plant;
-    const { sprite, max_growth, breed_name, finished, status } = this.state;
-    return (
-      <>
-        <h3>Game Speed Intervals in Milliseconds</h3>
-        <Slider
-          style={{ margin: "10px 0px 10px 0px" }}
-          defaultValue={5000}
-          min={500}
-          step={500}
-          max={10000}
-          graduated
-          progress
-          renderMark={(mark) => {
-            return mark;
-          }}
-          onChange={(value) => this.handleSlider(value)}
-        />
-        {finished && <h1>This plant is finished!</h1>}
-        <Card style={{ marginTop: 10 }}>
-          <Card.Content>
-            <Card.Header>{name}</Card.Header>
-            <Card.Meta>
-              <span className="date">{created_at}</span>
-            </Card.Meta>
-            <Card.Description>
-              {name} is of the {breed_name} breed.
-              <h3>{water_level}</h3>
-              <h3>growth stage: {growth_stage}</h3>
-              {alive && <h3>they are {status}!</h3>}
-            </Card.Description>
-          </Card.Content>
-          <Button onClick={this.handleDeleteClick}>Delete</Button>
-          <button
-            onClick={(e) => {
-              this.handleWaterClick(e);
-            }}
-          >
-            Water
-          </button>
-        </Card>
-        <div>
-          {this.state.sprite && (
+    if (this.state.loading) {
+      console.log("loading!");
+      return <h3>loading!</h3>;
+    } else {
+      const { spritesheet, max_growth } = this.state.plant.breed;
+      const breed_name = this.state.plant.breed.name;
+      console.log(breed_name);
+      const { finished, status } = this.state;
+      return (
+        <>
+          {finished && <h1>This plant is finished!</h1>}
+          <Card style={{ marginTop: 10 }}>
             <CanvasWindow
               width={200}
               height={192}
               maxFrame={max_growth}
               frame={growth_stage}
-              sprite={sprite}
+              sprite={spritesheet}
             />
-          )}
-        </div>
-      </>
-    );
+            <Card.Content>
+              <Card.Header>{name}</Card.Header>
+              <Card.Meta>
+                <span className="date">{created_at}</span>
+              </Card.Meta>
+              <Card.Description>
+                {name} is of the {breed_name} breed.
+                <h3>{water_level}</h3>
+                <h3>growth stage: {growth_stage}</h3>
+                {alive && <h3>they are {status}!</h3>}
+              </Card.Description>
+            </Card.Content>
+            <Button
+              onClick={(e) => {
+                this.props.handleDeleteClick(e, id);
+              }}
+            >
+              Delete
+            </Button>
+            <button
+              onClick={(e) => {
+                this.handleWaterClick(e);
+              }}
+            >
+              Water
+            </button>
+          </Card>
+          <div></div>
+        </>
+      );
+    }
   }
 }
