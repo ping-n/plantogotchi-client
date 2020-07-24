@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Form, Message } from "semantic-ui-react";
+import { Form, Message, Grid, Header, Segment } from "semantic-ui-react";
 import { plants } from "../../classes/PlantApi";
 
 export class EditPlant extends Component {
   state = {
     errorcode: "",
   };
-
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
@@ -35,28 +34,38 @@ export class EditPlant extends Component {
   render() {
     const { error } = this.state;
     return (
-      <div className="container">
-        <h1>Create Plant</h1>
-        {error && (
-          <Message data-testid="plantupdate-error">{this.state.error}</Message>
-        )}
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group widths="equal">
-            <Form.Input
-              fluid
-              label="Name"
-              name="name"
-              data-testid="name"
-              placeholder="name"
-              onChange={this.handleChange}
-            />
-          </Form.Group>
+      <Grid
+        textAlign="center"
+        style={{ height: "100vh" }}
+        verticalAlign="top"
+      >
+        <Grid.Column style={{ maxWidth: 500 }}>
+          <Header as="h1">Create Plant</Header>
+          {error && (
+            <Message data-testid="plantupdate-error">
+              {this.state.error}
+            </Message>
+          )}
+          <Form onSubmit={this.handleSubmit}>
+            <Segment piled>
+              <Form.Group widths="equal">
+                <Form.Input
+                  fluid
+                  label="Name"
+                  name="name"
+                  data-testid="name"
+                  placeholder="name"
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
 
-          <Form.Button>Update</Form.Button>
-        </Form>
-      </div>
+              <Form.Button color="twitter">Update</Form.Button>
+            </Segment>
+          </Form>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
 
-export default EditPlant
+export default EditPlant;
