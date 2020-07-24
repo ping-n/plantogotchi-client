@@ -106,9 +106,9 @@ export default class Plants extends React.Component {
             onChange={(value) => this.handleSlider(value)}
           />
           <h1>Your Plants</h1>
-          <Grid columns={3} divided>
-            <Grid.Row>{plantsArr}</Grid.Row>
-          </Grid>
+          <Grid.Column key={index}>
+            <PlantCard plant={plant} />
+          </Grid.Column>
         </>
       );
     }
