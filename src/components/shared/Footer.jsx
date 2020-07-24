@@ -7,7 +7,7 @@ class Footer extends Component {
             <footer>
                 <Link to="/About">ABOUT</Link>
                 <Link to="/Faq">FAQ</Link>
-                <a href="https://github.com/ping-n/travel-diary-client">
+                <a href="https://github.com/ping-n/plantogotchi-client">
                     @2020
                 </a>
             </footer>
