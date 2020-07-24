@@ -46,7 +46,7 @@ class CreateBreed extends Component {
     return (
       <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h1">Create breed</Header>
+          <Header as="h1" color="black">Create breed</Header>
           {error && (
             <Message data-testid="createbreed-error">
               {this.state.error}

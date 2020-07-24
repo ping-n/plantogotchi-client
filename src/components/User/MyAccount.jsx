@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Form, Message, Header } from "semantic-ui-react";
+import { Form, Message, Header, Grid, Segment } from "semantic-ui-react";
 import { users } from "../../classes/UserApi";
 
 export class MyAccount extends Component {
@@ -45,12 +45,14 @@ export class MyAccount extends Component {
   render() {
     const { error } = this.state;
     return (
-      <div className="container">
-        <Header as="h1" black >My Account</Header>
+      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
+        <Grid.Column style={{ maxWidth: 500 }}>
+        <Header as="h1" color="black" >My Account</Header>
         {error && (
-          <Message data-testid="signup-error">{this.state.error}</Message>
+          <Message data-testid="account-error">{this.state.error}</Message>
         )}
         <Form onSubmit={this.handleSubmit}>
+          <Segment>
           <Form.Input
             fluid
             label="Username"
@@ -91,9 +93,11 @@ export class MyAccount extends Component {
             placeholder={this.state.bio}
             onChange={this.handleChange}
           />
-          <Form.Button>Submit</Form.Button>
+          <Form.Button color="twitter">Submit</Form.Button>
+          </Segment>
         </Form>
-      </div>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

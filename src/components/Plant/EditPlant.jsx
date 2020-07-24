@@ -36,7 +36,7 @@ export class EditPlant extends Component {
     return (
       <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h1">Create Plant</Header>
+          <Header as="h1" color="black">Create Plant</Header>
           {error && (
             <Message data-testid="plantupdate-error">
               {this.state.error}

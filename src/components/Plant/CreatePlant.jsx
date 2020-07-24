@@ -25,12 +25,9 @@ export class CreatePlant extends Component {
     } else {
       this.setState({ breed_arr: response.data });
     }
-    console.log(this.state.breed_arr);
     const breed_name = this.state.breed_arr.map((breed, index) => {
       return { key: index, text: breed.name, value: breed.id };
     });
-
-    console.log(breed_name);
     this.setState({ breed_name: breed_name });
   }
 
@@ -62,7 +59,7 @@ export class CreatePlant extends Component {
     return (
       <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h1">Create Plant</Header>
+          <Header as="h1" color="black">Create Plant</Header>
           {error && (
             <Message data-testid="createplant-error">
               {this.state.error}

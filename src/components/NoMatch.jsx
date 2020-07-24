@@ -5,7 +5,7 @@ export class NoMatch extends Component {
   render() {
     return (
       <div>
-        <Header as="h1" black >NO MATCH</Header>
+        <Header as="h1" color="black" >NO MATCH</Header>
         <p>Pages Not Found !!!</p>
       </div>
     )
