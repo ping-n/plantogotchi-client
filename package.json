@@ -21,8 +21,8 @@
     "semantic-ui-react-input-file": "^1.0.3",
     "yup": "^0.29.1"
   },
-    "scripts": {
-    "start": "craco start",
+  "scripts": {
+    "start": "craco --max_old_space_size=4096 start",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
