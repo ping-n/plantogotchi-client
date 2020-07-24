@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Icon, Message, Button, Form } from "semantic-ui-react";
+import {
+  Icon,
+  Message,
+  Button,
+  Form,
+  Header,
+  Grid,
+  Segment,
+} from "semantic-ui-react";
 import { users } from "../../classes/UserApi";
 import Auth from "../auth/Auth";
 
@@ -33,34 +41,49 @@ class Login extends Component {
   render() {
     const { error } = this.state;
     return (
-      <div className="container">
-        <h1>Login</h1>
-        {error && (
-          <Message data-testid="login-error">{this.state.error}</Message>
-        )}
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Input
-            label="Email"
-            name="email"
-            data-testid="email"
-            placeholder="email"
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            label="Password"
-            name="password"
-            data-testid="password"
-            placeholder="password"
-            onChange={this.handleChange}
-          />
-          <Button animated type="submit">
-            <Button.Content visible>Next</Button.Content>
-            <Button.Content hidden>
-              <Icon name="arrow right" />
-            </Button.Content>
-          </Button>
-        </Form>
-      </div>
+      <Grid
+        textAlign="center"
+        style={{ height: "100vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 500 }}>
+          <Header as="h1" color="black">
+            Login
+          </Header>
+          {error && (
+            <Message data-testid="login-error">{this.state.error}</Message>
+          )}
+          <Form onSubmit={this.handleSubmit}>
+            <Segment piled>
+              <Form.Input
+                icon="envelope"
+                iconPosition="left"
+                label="Email"
+                name="email"
+                data-testid="email"
+                placeholder="Email"
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                icon="lock"
+                iconPosition="left"
+                label="Password"
+                name="password"
+                data-testid="password"
+                placeholder="Password"
+                type="password"
+                onChange={this.handleChange}
+              />
+              <Button color="twitter" animated type="submit">
+                <Button.Content visible>Next</Button.Content>
+                <Button.Content hidden>
+                  <Icon name="arrow right" />
+                </Button.Content>
+              </Button>
+            </Segment>
+          </Form>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

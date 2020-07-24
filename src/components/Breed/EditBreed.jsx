@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Form, Message } from "semantic-ui-react";
+import { Form, Message, Header, Grid, Segment } from "semantic-ui-react";
 import { breeds } from "../../classes/BreedApi";
 import { InputFile } from "semantic-ui-react-input-file";
 
@@ -51,48 +51,55 @@ class EditBreed extends Component {
     const { breed } = this.props.location;
     const { error } = this.state;
     return (
-      <div className="container">
-        <h1>Update breed</h1>
-        {error && (
-          <Message data-testid="breedupdate-error">{this.state.error}</Message>
-        )}
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group widths="equal">
-            <Form.Input
-              fluid
-              label="Name"
-              name="name"
-              data-testid="name"
-              placeholder={breed.name}
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              fluid
-              label="Description"
-              name="description"
-              data-testid="description"
-              placeholder={breed.description}
-              onChange={this.handleChange}
-            />
-            <Form.Input
-              fluid
-              label="Max Growth (total number of sprites in spritesheet)"
-              name="max_growth"
-              data-testid="max_growth"
-              placeholder={breed.max_growth}
-              onChange={this.handleChange}
-            />
-            <InputFile
-              input={{
-                id: "input-control-id",
-                onChange: this.handleUpload,
-              }}
-            />
-          </Form.Group>
-
-          <Form.Button>Submit</Form.Button>
-        </Form>
-      </div>
+      <Grid
+        textAlign="center"
+        style={{ height: "100vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 500 }}>
+          <Header as="h1" color="black">Update breed</Header>
+          {error && (
+            <Message data-testid="breedupdate-error">
+              {this.state.error}
+            </Message>
+          )}
+          <Form onSubmit={this.handleSubmit}>
+            <Segment piled>
+              <Form.Input
+                fluid
+                label="Name"
+                name="name"
+                data-testid="name"
+                placeholder={breed.name}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                label="Description"
+                name="description"
+                data-testid="description"
+                placeholder={breed.description}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                label="Max Growth (total number of sprites in spritesheet)"
+                name="max_growth"
+                data-testid="max_growth"
+                placeholder={breed.max_growth}
+                onChange={this.handleChange}
+              />
+              <InputFile
+                input={{
+                  id: "input-control-id",
+                  onChange: this.handleUpload,
+                }}
+              />
+              <Form.Button color="twitter">Submit</Form.Button>
+            </Segment>
+          </Form>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

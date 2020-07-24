@@ -17,7 +17,12 @@ import CreateBreed from "./Breed/CreateBreed";
 import Breeds from "./Breed/Breeds";
 import EditBreed from "./Breed/EditBreed";
 import MyAccount from "./User/MyAccount";
+<<<<<<< HEAD
 import "rsuite/dist/styles/rsuite-default.css";
+=======
+import About from "./About"
+import Faq from "./Faq"
+>>>>>>> 91c9a3b20b0cca04864dd83bd3aea8b2a16f5e15
 
 const App = () => {
   return (
@@ -34,6 +39,8 @@ const App = () => {
           <ProtectedRoute exact path="/plants/:id" component={Plant} />
           <ProtectedRoute exact path="/admin" component={Admin} />
           <ProtectedRoute exact path="/myaccount" component={MyAccount} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/faq" component={Faq} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/sign-up" component={SignUp} />
           <Route exact path="/" component={Home} />
