@@ -60,11 +60,7 @@ export class CreatePlant extends Component {
   render() {
     const { error } = this.state;
     return (
-      <Grid
-        textAlign="center"
-        style={{ height: "100vh" }}
-        verticalAlign="top"
-      >
+      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1">Create Plant</Header>
           {error && (
@@ -74,26 +70,24 @@ export class CreatePlant extends Component {
           )}
           <Form onSubmit={this.handleSubmit}>
             <Segment piled>
-              <Form.Group widths="equal">
-                <Form.Input
-                  fluid
-                  label="Name"
-                  name="name"
-                  data-testid="name"
-                  placeholder="name"
+              <Form.Input
+                fluid
+                label="Name"
+                name="name"
+                data-testid="name"
+                placeholder="name"
+                onChange={this.handleChange}
+              />
+              {this.state.breed_name && (
+                <Form.Field
+                  control={Select}
+                  label="Breed"
+                  name="breed_id"
+                  options={this.state.breed_name}
+                  placeholder="Breed"
                   onChange={this.handleChange}
                 />
-                {this.state.breed_name && (
-                  <Form.Field
-                    control={Select}
-                    label="Breed"
-                    name="breed_id"
-                    options={this.state.breed_name}
-                    placeholder="Breed"
-                    onChange={this.handleChange}
-                  />
-                )}
-              </Form.Group>
+              )}
               <Form.Button color="twitter">Submit</Form.Button>
             </Segment>
           </Form>

@@ -44,11 +44,7 @@ class CreateBreed extends Component {
   render() {
     const { error } = this.state;
     return (
-      <Grid
-        textAlign="center"
-        style={{ height: "100vh" }}
-        verticalAlign="top"
-      >
+      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1">Create breed</Header>
           {error && (
@@ -58,39 +54,36 @@ class CreateBreed extends Component {
           )}
           <Form onSubmit={this.handleSubmit}>
             <Segment piled>
-              <Form.Group widths="equal">
-                <Form.Input
-                  fluid
-                  label="Name"
-                  name="name"
-                  data-testid="name"
-                  placeholder="name"
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  label="Description"
-                  name="description"
-                  data-testid="description"
-                  placeholder="description"
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  fluid
-                  label="Max Growth (total number of sprites in spritesheet)"
-                  name="max_growth"
-                  data-testid="max_growth"
-                  placeholder="Max Growth"
-                  onChange={this.handleChange}
-                />
-                <InputFile
-                  input={{
-                    id: "input-control-id",
-                    onChange: this.handleUpload,
-                  }}
-                />
-              </Form.Group>
-
+              <Form.Input
+                fluid
+                label="Name"
+                name="name"
+                data-testid="name"
+                placeholder="name"
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                label="Description"
+                name="description"
+                data-testid="description"
+                placeholder="description"
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                label="Max Growth (total number of sprites in spritesheet)"
+                name="max_growth"
+                data-testid="max_growth"
+                placeholder="Max Growth"
+                onChange={this.handleChange}
+              />
+              <InputFile
+                input={{
+                  id: "input-control-id",
+                  onChange: this.handleUpload,
+                }}
+              />
               <Form.Button color="twitter">Submit</Form.Button>
             </Segment>
           </Form>
