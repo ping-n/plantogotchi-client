@@ -17,12 +17,9 @@ import CreateBreed from "./Breed/CreateBreed";
 import Breeds from "./Breed/Breeds";
 import EditBreed from "./Breed/EditBreed";
 import MyAccount from "./User/MyAccount";
-<<<<<<< HEAD
 import "rsuite/dist/styles/rsuite-default.css";
-=======
-import About from "./About"
-import Faq from "./Faq"
->>>>>>> 91c9a3b20b0cca04864dd83bd3aea8b2a16f5e15
+import About from "./About";
+import Faq from "./Faq";
 
 const App = () => {
   return (
