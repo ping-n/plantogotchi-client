@@ -1,7 +1,7 @@
 import React from "react";
 import { breeds } from "../../classes/BreedApi";
-import BreedCard from "./BreedCard";
-import { Grid } from "semantic-ui-react";
+import { Table, Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 export default class Breeds extends React.Component {
   state = { breeds: [] };
@@ -17,18 +17,39 @@ export default class Breeds extends React.Component {
   }
 
   render() {
-    const breedsArr = this.state.breeds.map((breed, index) => {
+    const breedsArr = this.state.breeds.map((breed) => {
       return (
-        <Grid.Column>
-          <BreedCard key={index} breed={breed} />
-        </Grid.Column>
+        <Table.Row key={breed.id}>
+          <Table.Cell>{breed.id}</Table.Cell>
+          <Table.Cell>{breed.name}</Table.Cell>
+          <Table.Cell>{breed.description}</Table.Cell>
+          <Table.Cell>
+            {" "}
+            <Link
+              to={{
+                pathname: `/breeds/edit/${breed.id}`,
+                breed: { breed },
+              }}
+            >
+              {" "}
+              <Icon name="lab" />
+              Edit
+            </Link>
+          </Table.Cell>
+        </Table.Row>
       );
     });
-
     return (
-      <Grid columns={3} divided>
-        <Grid.Row>{breedsArr}</Grid.Row>
-      </Grid>
+          <Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Breed</Table.HeaderCell>
+                <Table.HeaderCell>Description</Table.HeaderCell>
+                <Table.HeaderCell>Show</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>{breedsArr}</Table.Body>
+          </Table>
     );
   }
 }
