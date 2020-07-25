@@ -11,7 +11,7 @@ class Footer extends Component {
         </div>
         <div className="footer-cr">
           <a
-            href="https://githb.com/ping-n/plantogotchi-client"
+            href="https://github.com/ping-n/plantogotchi-client"
             target="_blank"
             rel="noopener noreferrer"
           >
