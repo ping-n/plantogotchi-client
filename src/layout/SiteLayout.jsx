@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class SiteLayout extends Component {
   render() {
-    return <div className="container">{this.props.children}</div>;
+    return <main className="site-wrapper">{this.props.children}</main>;
   }
 }
 
