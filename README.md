@@ -1,68 +1,66 @@
+# Plantogotochi
+---
+
+This is a team project created for the final assessment during the Coder Academy bootcamp. For this assessment we had one week for planning and less than two week to code. We had to create a React App with a Ruby on Rails backend.
+
+Plantogotchi took inspiration from Tamagotchi giving users the ability to grow plants from a little seedling to a fully grown plant.
+
+
+Rail Backend - https://github.com/novacoole/plantogotchi-api
+
+### Team Member
+---
+
+Ping Nge - https://github.com/ping-n
+
+Alex Coole - https://github.com/novacoole
+
+### Installation
+
+1: Clone the this repository through git or download as a zip file
+
+2: Clone the backend repository from this [link](https://github.com/novacoole/plantogotchi-api)
+
+For this repo to run the following commands from the root folder through cli of your choice
+```git
+<!-- Run yarn install to install on the dependencies for this react app -->
+yarn install
+```
+3: You will need to create an .env file in your root folder for this repository and add the following code inside your .env file
+```
+<!-- Backend port for Rails -->
+REACT_APP_BACKEND_URL=http://localhost:3000
+<!-- Add a port of your choice, we will use 8080 -->
+PORT=8080
+```
+
+4: You will need to follow the installation guide from Rails repository and start the Rails server on port 3000
+
+To summarize, you should run the following commands to install the rails backend.
+```git
+
+<!-- install rails dependencies -->
+bundle install
+
+<!-- create a new database in PostgreSQL -->
+rails db:create
+
+<!-- create the schema for database -->
+rails db:migrate
+
+<!-- seed the database with different plants breed -->
+rails db:seed
+
+<!-- start the rails server -->
+rails start
+```
+
+5: Start the react server and have fun 😀😀😀😀.
+
+```git
+<!-- start teh react server on the port assigned in .env -->
+yarn start
+```
+
+---
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
