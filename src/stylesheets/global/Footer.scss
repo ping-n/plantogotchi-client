@@ -1,10 +1,12 @@
-footer {
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px;
-  border: 1px solid crimson;
   background-color: black;
 }
 
-Footer a {
+a {
   text-decoration: none;
   color: #FFFCFC;
   margin: 0 10px;
