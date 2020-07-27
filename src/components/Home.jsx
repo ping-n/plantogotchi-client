@@ -4,7 +4,6 @@ import {
   Message,
   Header,
   Image,
-  Segment,
   Grid,
 } from "semantic-ui-react";
 import image from "../assets/home.jpg";
