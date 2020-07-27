@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
+import PlantModal from "./PlantModal";
 
 export default class Plant extends React.Component {
   state = { plant: this.props.plant, loading: true, finished: false };
@@ -186,6 +187,7 @@ export default class Plant extends React.Component {
                 <h5>{status}!</h5>
               </Card.Description>
             </Card.Content>
+            <PlantModal {...this.props} />
             <Button
               onClick={(e) => {
                 this.props.handleDeleteClick(e, id);
