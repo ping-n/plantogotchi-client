@@ -5,6 +5,7 @@ This is a team project created for the final assessment during the Coder Academy
 
 Plantogotchi took inspiration from Tamagotchi giving users the ability to grow plants from a little seedling to a fully grown plant.
 
+Netlify = https://plantogotchi.netlify.app
 
 Rail Backend - https://github.com/novacoole/plantogotchi-api
 
