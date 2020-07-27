@@ -6,18 +6,22 @@ const About = () => {
   return (
     <div className="about-wrapper">
       <Container>
-        <Grid>
+        <Header
+          as="h1"
+          color="black"
+          className="about-header"
+          style={{ fontSize: "4em" }}
+          textAlign="center"
+        >
+          ABOUT US
+        </Header>
+        <Grid stackable>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <Container textAlign="center" className="about-content">
-                <Header
-                  as="h1"
-                  color="black"
-                  className="about-header"
-                  style={{ fontSize: "4em" }}
-                >
-                  ABOUT US
-                </Header>
+              <Image src={image} size="big" fluid/>
+            </Grid.Column>
+            <Grid.Column>
+              <Container textAlign="left" className="about-content">
                 <div className="about-text" style={{ fontSize: "1.5em" }}>
                   <p>
                     Plantgotchi will be a React wep app which allow users to
@@ -35,9 +39,6 @@ const About = () => {
                   </p>
                 </div>
               </Container>
-            </Grid.Column>
-            <Grid.Column>
-              <Image src={image} size="big" />
             </Grid.Column>
           </Grid.Row>
         </Grid>
