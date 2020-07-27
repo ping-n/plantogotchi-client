@@ -1,6 +1,7 @@
 @import "./components/App.scss";
 @import "./components/Home.scss";
 @import "./components/About.scss";
+@import "./components/Faq.scss";
 @import "./global/sitelayout.scss";
 @import "./global/Nav.scss";
 @import "./global/Footer.scss";
