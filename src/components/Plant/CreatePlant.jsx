@@ -19,12 +19,9 @@ export class CreatePlant extends Component {
   };
 
   async componentDidMount() {
-    const response = await breeds.index();
-    if (response.status >= 400) {
-      throw new Error("broken");
-    } else {
+    await breeds.index().then((response) => {
       this.setState({ breed_arr: response.data });
-    }
+    });
     const breed_name = this.state.breed_arr.map((breed, index) => {
       return { key: index, text: breed.name, value: breed.id };
     });

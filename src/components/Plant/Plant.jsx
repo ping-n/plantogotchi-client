@@ -45,6 +45,7 @@ export default class Plant extends React.Component {
       this.setState({ loading: false });
     };
   }
+
   // Intitial calculations
 
   calculateDifference() {
@@ -156,7 +157,7 @@ export default class Plant extends React.Component {
     if (this.state.loading) {
       return <h3>loading!</h3>;
     } else {
-      const { max_growth, spritesheet } = this.state.plant.breed;
+      const { max_growth } = this.state.plant.breed;
       const breed_name = this.state.plant.breed.name;
       const { statusMessage, status, finished } = this.state;
       return (

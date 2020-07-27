@@ -1,7 +1,7 @@
 import React from "react";
 import { plants } from "../../classes/PlantApi";
 import Plant from "./Plant";
-import { Grid, Header } from "semantic-ui-react";
+import { Message, Grid, Header } from "semantic-ui-react";
 import { Slider } from "rsuite";
 
 export default class Plants extends React.Component {
@@ -14,23 +14,32 @@ export default class Plants extends React.Component {
     loading: true,
   };
 
-  async componentDidMount() {
+  // Lifestyle methods
+
+  componentDidMount = async () => {
     await plants
       .index()
       .then((res) => {
-        this.setState({ plants: res.data });
+        if (res.status >= 400) {
+          throw new Error(res.data);
+        } else {
+          this.setState({ plants: res.data });
+        }
       })
-      .catch((er) => console.log(er));
+      .catch((error) => {
+        this.setState({ error: error.message });
+        console.log(error);
+      });
     this.setState({ loading: false });
-  }
+  };
 
   // Data manipulation
 
-  findPlant(id) {
+  findPlant = (id) => {
     return this.state.plants.findIndex((plant) => {
       return plant.id === id;
     });
-  }
+  };
 
   updateArray = (id, target, value) => {
     const newArray = this.state.plants;
@@ -38,7 +47,7 @@ export default class Plants extends React.Component {
     this.setState({ plants: newArray });
   };
 
-  async killPlant(id) {
+  killPlant = async (id) => {
     const params = {
       plant: {
         alive: false,
@@ -46,13 +55,19 @@ export default class Plants extends React.Component {
     };
     await plants
       .update(id, params)
-      .then(() => {
-        this.updateArray(id, "alive", false);
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error(res.data);
+        } else {
+          this.updateArray(id, "alive", false);
+        }
       })
-      .catch((e) => console.log(e));
-  }
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  };
 
-  async grow(id, growth) {
+  grow = async (id, growth) => {
     const params = {
       plant: {
         growth_stage: growth,
@@ -60,13 +75,19 @@ export default class Plants extends React.Component {
     };
     await plants
       .update(id, params)
-      .then(() => {
-        this.updateArray(id, "growth_stage", growth);
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error(res.data);
+        } else {
+          this.updateArray(id, "growth_stage", growth);
+        }
       })
-      .catch((e) => console.log(e));
-  }
+      .catch((error) => {
+        this.setState(error.message);
+      });
+  };
 
-  async changeWaterLevel(id, water_level) {
+  changeWaterLevel = async (id, water_level) => {
     const params = {
       plant: {
         water_level: water_level,
@@ -74,16 +95,23 @@ export default class Plants extends React.Component {
     };
     await plants
       .update(id, params)
-      .then(() => {
-        this.updateArray(id, "water_level", water_level);
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error(res.data);
+        } else {
+          this.updateArray(id, "water_level", water_level);
+        }
       })
-      .catch((e) => console.log(e));
-  }
+      .catch((error) => {
+        this.setState({ error: error.message });
+        console.log(error);
+      });
+  };
 
   // Event handling
 
-  handleDeleteClick = (e, id) => {
-    plants
+  handleDeleteClick = async (e, id) => {
+    await plants
       .delete(id)
       .then((res) => {
         if (res.status >= 400) {
@@ -103,9 +131,11 @@ export default class Plants extends React.Component {
       });
   };
 
-  handleSlider(value) {
+  handleSlider = (value) => {
     this.setState({ game_speed: value });
-  }
+  };
+
+  // Render
 
   render() {
     if (this.state.loading) {
@@ -137,6 +167,9 @@ export default class Plants extends React.Component {
       });
       return (
         <>
+          {this.state?.error && (
+            <Message data-testid="plants-error">{this.state.error}</Message>
+          )}
           <Header as="h1" color="black">
             Your Plants
           </Header>

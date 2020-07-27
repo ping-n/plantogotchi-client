@@ -34,29 +34,35 @@ export class EditPlant extends Component {
   render() {
     const { error } = this.state;
     return (
-      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
-        <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h1" color="black">Create Plant</Header>
-          {error && (
-            <Message data-testid="plantupdate-error">
-              {this.state.error}
-            </Message>
-          )}
-          <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
-              <Form.Input
-                fluid
-                label="Name"
-                name="name"
-                data-testid="name"
-                placeholder="name"
-                onChange={this.handleChange}
-              />
-              <Form.Button color="twitter">Update</Form.Button>
-            </Segment>
-          </Form>
-        </Grid.Column>
-      </Grid>
+      <>
+        {error && (
+          <Message data-testid="plantupdate-error">{this.state.error}</Message>
+        )}
+        <Grid
+          textAlign="center"
+          style={{ height: "100vh" }}
+          verticalAlign="top"
+        >
+          <Grid.Column style={{ maxWidth: 500 }}>
+            <Header as="h1" color="black">
+              Create Plant
+            </Header>
+            <Form onSubmit={this.handleSubmit}>
+              <Segment piled>
+                <Form.Input
+                  fluid
+                  label="Name"
+                  name="name"
+                  data-testid="name"
+                  placeholder="name"
+                  onChange={this.handleChange}
+                />
+                <Form.Button color="twitter">Update</Form.Button>
+              </Segment>
+            </Form>
+          </Grid.Column>
+        </Grid>
+      </>
     );
   }
 }
