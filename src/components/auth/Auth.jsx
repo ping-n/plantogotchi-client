@@ -17,22 +17,25 @@ class Auth {
 
   isAuthenticated() {
     this.hasToken();
+    console.log(`authenticated: ${this.authenticated}`);
     return this.authenticated;
   }
 
   async hasToken() {
-    try {
-      const response = await users.status();
-      if (response.status >= 400) {
-        throw new Error("not authorized");
-      } else {
-        const { jwt } = await response.data;
-        localStorage.setItem("token", jwt);
-        this.authenticated = true;
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
+    await users
+      .status()
+      .then((response) => {
+        if (response.status >= 400) {
+          throw new Error("Not Authorized");
+        } else {
+          const { jwt } = response.data;
+          localStorage.setItem("token", jwt);
+          this.authenticated = true;
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 }
 
