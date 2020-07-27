@@ -1,5 +1,6 @@
 @import "./components/App.scss";
 @import "./components/Home.scss";
+@import "./components/About.scss";
 @import "./global/sitelayout.scss";
 @import "./global/Nav.scss";
 @import "./global/Footer.scss";
@@ -14,6 +15,5 @@
   margin: 0;
   padding: 0;
   color: black;
-  overflow: hidden;
 }
 
