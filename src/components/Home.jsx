@@ -17,7 +17,7 @@ const Home = (props) => {
         </Message>
       )}
       <div className="home-wrapper">
-        <Grid>
+        <Grid stackable>
           <Grid.Row columns={2}>
             <Grid.Column>
               <Container className="home-content">

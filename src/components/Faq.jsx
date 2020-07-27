@@ -46,18 +46,13 @@ const Faq = () => {
 
   return (
     <div className="faq-wrapper">
-      <Header
-        as="h1"
-        color="black"
-        textAlign="left"
-        style={{ fontSize: "3em" }}
-      >
-        FAQ
-      </Header>
-      <Grid>
+      <Grid stackable>
         <Grid.Row columns={2}>
           <Grid.Column>
             <Container className="faq-content">
+              <Header as="h1" textAlign="center" color="black" style={{ fontSize: "4em" }}>
+                FAQ
+              </Header>
               <Container>
                 <p>
                   Q1: WHAT IS PLANTOGOTCHI? <br /> Plantogotchi is inspired by
@@ -78,7 +73,7 @@ const Faq = () => {
             </Container>
           </Grid.Column>
           <Grid.Column>
-            <Container>
+            <Container style={{ paddingTop: "30px" }}>
               <Form onSubmit={handleOnSubmit}>
                 <Segment className="form-segment">
                   <Form.Input
@@ -109,7 +104,9 @@ const Faq = () => {
                     required
                   />
                   <div className="form-button">
-                    <Button color="twitter" disabled={serverState.submitting}>Submit</Button>
+                    <Button color="twitter" disabled={serverState.submitting}>
+                      Submit
+                    </Button>
                   </div>
                 </Segment>
                 {serverState.status && (

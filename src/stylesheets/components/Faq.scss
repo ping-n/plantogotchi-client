@@ -21,3 +21,9 @@
   display: flex;
   justify-content: center;
 }
+
+@media only screen and (max-width: 840px) {
+  .faq-wrapper {
+    height: 100vh;
+  }
+}
