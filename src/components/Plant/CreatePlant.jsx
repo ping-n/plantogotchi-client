@@ -73,6 +73,7 @@ export class CreatePlant extends Component {
                 data-testid="name"
                 placeholder="name"
                 onChange={this.handleChange}
+                required
               />
               {this.state.breed_name && (
                 <Form.Field
@@ -82,6 +83,7 @@ export class CreatePlant extends Component {
                   options={this.state.breed_name}
                   placeholder="Breed"
                   onChange={this.handleChange}
+                  required
                 />
               )}
               <Form.Button color="twitter">Submit</Form.Button>

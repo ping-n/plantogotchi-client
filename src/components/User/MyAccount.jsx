@@ -60,6 +60,7 @@ export class MyAccount extends Component {
             data-testid="username"
             placeholder={this.state.username}
             onChange={this.handleChange}
+            required
           />
           <Form.Input
             fluid
@@ -68,6 +69,7 @@ export class MyAccount extends Component {
             data-testid="email"
             placeholder={this.state.email}
             onChange={this.handleChange}
+            required
           />
           <Form.Input
             fluid
@@ -76,6 +78,7 @@ export class MyAccount extends Component {
             data-testid="password"
             placeholder=""
             onChange={this.handleChange}
+            required
           />
           <Form.Input
             fluid

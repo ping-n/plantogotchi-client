@@ -63,6 +63,7 @@ class Login extends Component {
                 data-testid="email"
                 placeholder="Email"
                 onChange={this.handleChange}
+                required
               />
               <Form.Input
                 icon="lock"
@@ -73,6 +74,7 @@ class Login extends Component {
                 placeholder="Password"
                 type="password"
                 onChange={this.handleChange}
+                required
               />
               <Button color="twitter" animated type="submit">
                 <Button.Content visible>Next</Button.Content>
