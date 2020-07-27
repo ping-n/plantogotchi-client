@@ -50,7 +50,12 @@ const Faq = () => {
         <Grid.Row columns={2}>
           <Grid.Column>
             <Container className="faq-content">
-              <Header as="h1" textAlign="center" color="black" style={{ fontSize: "4em" }}>
+              <Header
+                as="h1"
+                textAlign="center"
+                color="black"
+                style={{ fontSize: "4em" }}
+              >
                 FAQ
               </Header>
               <Container>
@@ -91,7 +96,7 @@ const Faq = () => {
                     icon="envelope"
                     iconPosition="left"
                     label="Email"
-                    name="name"
+                    name="email"
                     data-testid="email"
                     placeholder="Email"
                     required
