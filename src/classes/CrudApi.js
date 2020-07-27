@@ -6,6 +6,9 @@ const defaultOptions = {
   headers: {
     "Content-Type": "application/json",
   },
+  validateStatus: function (status) {
+    return status < 500; // Resolve only if the status code is less than 500
+  },
 };
 
 const axiosInstance = axios.create(defaultOptions);
@@ -40,5 +43,15 @@ export default class CrudApi {
 
   delete(id) {
     return this._apiCore.delete(`${this._url}/${id}`);
+  }
+
+  handleErrors(error) {
+    if (error.response) {
+      return `Response Error: ${error.response}`;
+    } else if (error.request) {
+      return `Request Error: ${error.request}`;
+    } else {
+      return `Error: ${error.message}`;
+    }
   }
 }

@@ -23,12 +23,12 @@ class CreateBreed extends Component {
     params.set("[breed]description", this.state.description);
     params.set("[breed]max_growth", this.state.max_growth);
     params.append("[breed]spritesheet", this.state.spritesheet);
-    breeds
+    await breeds
       .create(params)
       .then((res) => {
         if (res.status >= 400) {
-          console.log(res);
-          throw new Error(res.data);
+          console.log(res.data.errors);
+          throw new Error(res.data.errors);
         } else {
           alert("You have successfully created a breed!");
           this.props.history.push("/login");
@@ -36,26 +36,34 @@ class CreateBreed extends Component {
         }
       })
       .catch((error) => {
-        this.setState({ error: error.message });
-        console.log(error);
+        let errorArray = [];
+        for (error in error) {
+          errorArray.push(error);
+        }
+        this.setState({ errors: errorArray });
       });
   };
 
   render() {
-    const { error } = this.state;
     return (
       <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h1" color="black">Create breed</Header>
-          {error && (
-            <Message data-testid="createbreed-error">
-              {this.state.error}
-            </Message>
+          <Header as="h1" color="black">
+            Create breed
+          </Header>
+          {this.state?.errors && (
+            <Message
+              error
+              data-testid="createbreed-error"
+              header="There were some errors with your submission"
+              list={this.state.errors}
+            />
           )}
           <Form onSubmit={this.handleSubmit}>
             <Segment piled>
               <Form.Input
                 fluid
+                error="Please enter the Breed/'s name"
                 label="Name"
                 name="name"
                 data-testid="name"
@@ -64,6 +72,7 @@ class CreateBreed extends Component {
               />
               <Form.Input
                 fluid
+                error="Please enter the Breed/'s description"
                 label="Description"
                 name="description"
                 data-testid="description"
@@ -72,7 +81,8 @@ class CreateBreed extends Component {
               />
               <Form.Input
                 fluid
-                label="Max Growth (total number of sprites in spritesheet)"
+                error="Please enter the Breed/'s maximum growth"
+                label="Maximum Growth (total number of sprites in spritesheet)"
                 name="max_growth"
                 data-testid="max_growth"
                 placeholder="Max Growth"

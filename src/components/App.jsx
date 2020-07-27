@@ -1,3 +1,4 @@
+import "rsuite/dist/styles/rsuite-default.css";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "./User/Login";
@@ -17,7 +18,6 @@ import CreateBreed from "./Breed/CreateBreed";
 import Breeds from "./Breed/Breeds";
 import EditBreed from "./Breed/EditBreed";
 import MyAccount from "./User/MyAccount";
-import "rsuite/dist/styles/rsuite-default.css";
 import About from "./About";
 import Faq from "./Faq";
 
@@ -40,7 +40,7 @@ const App = () => {
           <Route exact path="/faq" component={Faq} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/sign-up" component={SignUp} />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" render={(props) => <Home {...props} />} />
           <Route path="*" component={NoMatch} />
         </Switch>
       </SiteLayout>

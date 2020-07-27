@@ -45,6 +45,7 @@ export default class Plant extends React.Component {
       this.setState({ loading: false });
     };
   }
+
   // Intitial calculations
 
   calculateDifference() {
