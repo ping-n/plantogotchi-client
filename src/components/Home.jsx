@@ -1,10 +1,15 @@
 import React from "react";
-import { Header, Image, Segment, Grid } from "semantic-ui-react";
+import { Message, Header, Image, Segment, Grid } from "semantic-ui-react";
 import image from "../assets/home.jpg";
 
 const Home = (props) => {
   return (
     <div className="home-wrapper">
+      {props.location.state && (
+        <Message negative data-testid="home-error">
+          {props.location.state.error}
+        </Message>
+      )}
       <Grid>
         <Grid.Row columns={2}>
           <Grid.Column>
