@@ -1,0 +1,29 @@
+.home-wrapper {
+  display: flex;
+  justify-content: center;
+  height: 80%;
+  width: 100%;
+}
+
+.home-content #home-main-text{
+  padding-top: 20px;
+  font-family: "DigitalDisco";
+}
+
+.home-sidecontent{
+  height: 100%;
+  font-family: "DigitalDisco";
+  font-size: 20px;
+}
+
+.home-review-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.home-review {
+  margin-top: 20px;
+  max-width: 80%;
+}
