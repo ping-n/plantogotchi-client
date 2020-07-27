@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Header, Form, Container, Segment, Grid, Message } from "semantic-ui-react";
+import {
+  Header,
+  Form,
+  Container,
+  Segment,
+  Grid,
+  Message,
+  Button,
+} from "semantic-ui-react";
 
 const Faq = () => {
   //hook for handling formspree
@@ -37,14 +45,19 @@ const Faq = () => {
   };
 
   return (
-    <div className="faw-wrapper">
+    <div className="faq-wrapper">
+      <Header
+        as="h1"
+        color="black"
+        textAlign="left"
+        style={{ fontSize: "3em" }}
+      >
+        FAQ
+      </Header>
       <Grid>
         <Grid.Row columns={2}>
           <Grid.Column>
-            <Segment>
-              <Header as="h1" color="black">
-                FAQ
-              </Header>
+            <Container className="faq-content">
               <Container>
                 <p>
                   Q1: WHAT IS PLANTOGOTCHI? <br /> Plantogotchi is inspired by
@@ -62,41 +75,48 @@ const Faq = () => {
                   possible.
                 </p>
               </Container>
-            </Segment>
+            </Container>
           </Grid.Column>
           <Grid.Column>
             <Container>
               <Form onSubmit={handleOnSubmit}>
-                <Segment>
+                <Segment className="form-segment">
                   <Form.Input
                     fluid
+                    icon="user"
+                    iconPosition="left"
                     label="Name"
                     name="name"
                     data-testid="name"
                     placeholder="Name"
+                    required
                   />
                   <Form.Input
                     fluid
+                    icon="envelope"
+                    iconPosition="left"
                     label="Email"
                     name="name"
                     data-testid="email"
                     placeholder="Email"
+                    required
                   />
                   <Form.TextArea
                     label="Message"
                     name="message"
                     data-testid="message"
                     placeholder="Leave your message or question here..."
+                    required
                   />
-                  <Form.Button
-                    disabled={serverState.submitting}
-                    color="twitter"
-                  >
-                    Submit
-                  </Form.Button>
+                  <div className="form-button">
+                    <Button color="twitter" disabled={serverState.submitting}>Submit</Button>
+                  </div>
                 </Segment>
                 {serverState.status && (
-                  <Message positive className={!serverState.status.ok ? "errorMsg" : ""}>
+                  <Message
+                    positive
+                    className={!serverState.status.ok ? "errorMsg" : ""}
+                  >
                     {serverState.status.msg}
                   </Message>
                 )}

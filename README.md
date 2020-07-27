@@ -59,7 +59,7 @@ rails start
 5: Start the react server and have fun 😀😀😀😀.
 
 ```git
-<!-- start teh react server on the port assigned in .env -->
+<!-- start the react server on the port assigned in .env -->
 yarn start
 ```
 
