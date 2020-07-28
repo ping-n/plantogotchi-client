@@ -148,7 +148,7 @@ export default class Plant extends React.Component {
       return <h3>loading!</h3>;
     } else {
       const { max_growth } = this.state.plant.breed;
-      const { statusMessage, status, finished } = this.state;
+      const { status, finished } = this.state;
       return (
         <>
           <Card style={{ marginTop: 10 }}>
@@ -174,6 +174,7 @@ export default class Plant extends React.Component {
                   frame={growth_stage}
                   alive={alive}
                   finished={finished}
+                  status={status}
                 />
                 <Button
                   onClick={(e) => {

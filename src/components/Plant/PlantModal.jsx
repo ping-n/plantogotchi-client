@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon, Progress, Button, Modal } from "semantic-ui-react";
+import { Popup, Icon, Progress, Button, Modal } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
 import Pot from "../../assets/pot.png";
 
@@ -43,19 +43,37 @@ export default class PlantModal extends React.Component {
             </div>
           </div>
           <div className="hud-div">
-            <div className="progress-div">
-              <Progress
-                className=".modal-progress"
-                percent={growthBar}
-                color="green"
+            <div className="progress-outer-div">
+              <div className="progress-div">
+                <Progress
+                  className=".modal-progress"
+                  percent={growthBar}
+                  color="green"
+                />
+                <h3 className="progress-header">Growth Progress</h3>
+                <Progress
+                  className=".modal-progress"
+                  percent={water_level}
+                  color="blue"
+                />
+                <h3 className="progress-header">Water Level</h3>
+              </div>
+            </div>
+            <div className="modal-buttons">
+              <Button
+                className="water-button"
+                onClick={(e) => {
+                  this.handleWaterClick(e, id);
+                }}
+              >
+                <Icon name="tint" size="massive"></Icon>
+              </Button>
+              <Popup
+                trigger={<Icon name="question circle outline" size="massive" />}
+                content="When your plant's water level drops below 50% it will stop growing. You can water your plant by clicking the Water droplet."
+                basic
               />
-              <h3 className="progress-header">Growth Progress</h3>
-              <Progress
-                className=".modal-progress"
-                percent={water_level}
-                color="blue"
-              />
-              <h3 className="progress-header">Water Level</h3>
+              {this.props.status}
             </div>
           </div>
           <div className="modal-buttons">
