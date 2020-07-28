@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(248, 188, 93);
 }
 
 .modal-canvas-outer-wrapper {
@@ -11,11 +12,11 @@
   display: flex;
   justify-content: center;
   align-self: center;
-  min-height: 450px;
+  min-height: 410px;
   max-height: 500px;
-  min-width: 450px;
+  min-width: 410px;
   max-width: 500px;
-  background-color: rebeccapurple;
+  background-color: white;
   border-radius: 50%;
 }
 
@@ -36,7 +37,7 @@
 .hud-div {
   display: inline;
   border-radius: 7.5%;
-  background-color: rebeccapurple;
+  background-color: white;
   padding: 30px 30px 20px 70px;
   transform: rotate(-90deg);
 }
@@ -54,6 +55,7 @@
 }
 
 .progress-header {
+  color: black;
   padding: 0;
   margin: 0;
 }

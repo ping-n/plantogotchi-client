@@ -11,6 +11,7 @@ import {
   Image,
 } from "semantic-ui-react";
 import { Slider } from "rsuite";
+import Auth from "../auth/Auth";
 
 export default class Plants extends React.Component {
   state = {
@@ -25,6 +26,10 @@ export default class Plants extends React.Component {
   // Lifestyle methods
 
   componentDidMount = async () => {
+    const admin = await Auth.isAdmin();
+    if (admin) {
+      this.setState({ admin: true });
+    }
     await plants
       .index()
       .then((res) => {
@@ -65,7 +70,7 @@ export default class Plants extends React.Component {
       .update(id, params)
       .then((res) => {
         if (res.status >= 400) {
-          throw new Error(res.data);
+          throw new Error("Server Error");
         } else {
           this.updateArray(id, "alive", false);
         }
@@ -200,48 +205,52 @@ export default class Plants extends React.Component {
           <Header as="h1" color="black">
             Your Plants
           </Header>
-          <h3>Game Speed Intervals in Milliseconds</h3>
-          <Slider
-            style={{ margin: "20px 0px 20px 0px" }}
-            defaultValue={5000}
-            min={500}
-            step={500}
-            max={10000}
-            graduated
-            progress
-            renderMark={(mark) => {
-              return mark;
-            }}
-            onChange={(value) => this.handleSlider(value)}
-          />
-          <h3>Water Level Drop Rate</h3>
-          <Slider
-            style={{ margin: "20px 0px 20px 0px" }}
-            defaultValue={1}
-            min={1}
-            step={1}
-            max={10}
-            graduated
-            progress
-            renderMark={(mark) => {
-              return mark;
-            }}
-            onChange={(value) => this.handleSlider(value, 0)}
-          />
-          <h3>Plant Growth Rate</h3>
-          <Slider
-            style={{ margin: "20px 0px 20px 0px" }}
-            defaultValue={1}
-            min={1}
-            step={1}
-            max={10}
-            graduated
-            progress
-            renderMark={(mark) => {
-              return mark;
-            }}
-            onChange={(value) => this.handleSlider(value, 1)}
-          />
+          {this.state?.admin && (
+            <>
+              <h3>Game Speed Intervals in Milliseconds</h3>
+              <Slider
+                style={{ margin: "20px 0px 20px 0px" }}
+                defaultValue={5000}
+                min={500}
+                step={500}
+                max={10000}
+                graduated
+                progress
+                renderMark={(mark) => {
+                  return mark;
+                }}
+                onChange={(value) => this.handleSlider(value)}
+              />
+              <h3>Water Level Drop Rate</h3>
+              <Slider
+                style={{ margin: "20px 0px 20px 0px" }}
+                defaultValue={1}
+                min={1}
+                step={1}
+                max={10}
+                graduated
+                progress
+                renderMark={(mark) => {
+                  return mark;
+                }}
+                onChange={(value) => this.handleSlider(value, 0)}
+              />
+              <h3>Plant Growth Rate</h3>
+              <Slider
+                style={{ margin: "20px 0px 20px 0px" }}
+                defaultValue={1}
+                min={1}
+                step={1}
+                max={10}
+                graduated
+                progress
+                renderMark={(mark) => {
+                  return mark;
+                }}
+                onChange={(value) => this.handleSlider(value, 1)}
+              />
+            </>
+          )}
           <Grid style={{ marginTop: 50 }} columns={3} divided>
             {plantsArr}
           </Grid>
