@@ -67,7 +67,7 @@ class EditBreed extends Component {
             </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
+            <Segment piled inverted>
               <Form.Input
                 fluid
                 label="Name"
