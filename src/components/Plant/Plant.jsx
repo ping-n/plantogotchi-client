@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button } from "semantic-ui-react";
+import { Message, Icon, Card, Button } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
 import PlantModal from "./PlantModal";
 
@@ -151,7 +151,6 @@ export default class Plant extends React.Component {
       const { statusMessage, status, finished } = this.state;
       return (
         <>
-          {statusMessage && <h3>{statusMessage}</h3>}
           <Card style={{ marginTop: 10 }}>
             <CanvasWindow
               width={200}
@@ -163,24 +162,28 @@ export default class Plant extends React.Component {
             <Card.Content>
               <Card.Header>{name}</Card.Header>
               <Card.Description>
-                <h5>{status}!</h5>
+                <Message>{status}</Message>
               </Card.Description>
             </Card.Content>
-            <PlantModal
-              {...this.props}
-              spritesheet={this.spritesheet}
-              maxFrame={max_growth}
-              frame={growth_stage}
-              alive={alive}
-              finished={finished}
-            />
-            <Button
-              onClick={(e) => {
-                this.props.handleDeleteClick(e, id);
-              }}
-            >
-              Delete
-            </Button>
+            <Card.Content extra>
+              <div className="ui two buttons">
+                <PlantModal
+                  {...this.props}
+                  spritesheet={this.spritesheet}
+                  maxFrame={max_growth}
+                  frame={growth_stage}
+                  alive={alive}
+                  finished={finished}
+                />
+                <Button
+                  onClick={(e) => {
+                    this.props.handleDeleteClick(e, id);
+                  }}
+                >
+                  <Icon name="delete" size="large"></Icon>
+                </Button>
+              </div>
+            </Card.Content>
           </Card>
           <div></div>
         </>

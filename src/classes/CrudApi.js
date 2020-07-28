@@ -44,14 +44,4 @@ export default class CrudApi {
   delete(id) {
     return this._apiCore.delete(`${this._url}/${id}`);
   }
-
-  handleErrors(error) {
-    if (error.response) {
-      return `Response Error: ${error.response}`;
-    } else if (error.request) {
-      return `Request Error: ${error.request}`;
-    } else {
-      return `Error: ${error.message}`;
-    }
-  }
 }
