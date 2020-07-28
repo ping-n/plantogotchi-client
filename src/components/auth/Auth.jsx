@@ -15,8 +15,8 @@ class Auth {
     cb();
   }
 
-  isAuthenticated() {
-    this.hasToken();
+  async isAuthenticated() {
+    await this.hasToken();
     console.log(`authenticated: ${this.authenticated}`);
     return this.authenticated;
   }
