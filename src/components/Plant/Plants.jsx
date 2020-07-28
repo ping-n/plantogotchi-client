@@ -9,7 +9,7 @@ import {
   Grid,
   Header,
   Image,
-  Container
+  Container,
 } from "semantic-ui-react";
 import { Slider } from "rsuite";
 import Auth from "../auth/Auth";

@@ -30,6 +30,6 @@ describe("When logged in, User", () => {
   });
 
   after(() => {
-    cy.findByTestId("logout").click()
-  })
+    cy.findByTestId("logout").click();
+  });
 });

@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { NavLink, Redirect } from "react-router-dom";
-import { Menu, Grid, Sidebar, Button, Checkbox, Segment } from "semantic-ui-react";
+import {
+  Menu,
+  Grid,
+  Sidebar,
+  Button,
+  Checkbox,
+  Segment,
+} from "semantic-ui-react";
 
 // Mobile Menu, not sure how to implement it yet
 
