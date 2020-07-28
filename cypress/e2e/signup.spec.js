@@ -39,7 +39,7 @@ describe("should not able to sign up with an existing email in the database", ()
 });
 
 describe("should be able to sign up", () => {
-  it("should be receive a message for successful sign up and redirect to home", () => {
+  it("should be receive a message for successful sign up and redirect to login", () => {
     cy.visit("/sign-up");
     const { username, email, password } = userBuilder();
     cy.typeInForm(username, email, password);

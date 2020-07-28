@@ -40,7 +40,7 @@ export class CreatePlant extends Component {
           console.log(res);
           throw new Error(res.data);
         } else {
-          alert("You have successfully created a plants!");
+          alert("You have successfully created a plant!");
           this.props.history.push("/plants");
           return <Redirect to="/plants" />;
         }
@@ -80,6 +80,7 @@ export class CreatePlant extends Component {
                   control={Select}
                   label="Breed"
                   name="breed_id"
+                  data-testid="breed"
                   options={this.state.breed_name}
                   placeholder="Breed"
                   onChange={this.handleChange}
