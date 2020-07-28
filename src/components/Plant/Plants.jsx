@@ -1,7 +1,15 @@
 import React from "react";
 import { plants } from "../../classes/PlantApi";
 import Plant from "./Plant";
-import { Message, Grid, Header } from "semantic-ui-react";
+import {
+  Segment,
+  Dimmer,
+  Loader,
+  Message,
+  Grid,
+  Header,
+  Image,
+} from "semantic-ui-react";
 import { Slider } from "rsuite";
 
 export default class Plants extends React.Component {
@@ -150,7 +158,15 @@ export default class Plants extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <h3>Loading!</h3>;
+      return (
+        <Segment>
+          <Dimmer active inverted>
+            <Loader size="massive">Loading</Loader>
+          </Dimmer>
+
+          <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
+        </Segment>
+      );
     } else {
       const {
         game_speed,

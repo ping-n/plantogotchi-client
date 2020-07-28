@@ -130,11 +130,10 @@ export default class Plant extends React.Component {
   }
 
   shouldGrow(sec, id) {
-    if (
-      sec % this.props.growth_speed === 0 &&
-      this.props.plant.water_level >= this.props.growth_limit
-    ) {
-      const growth = this.props.plant.growth_stage + 1;
+    const { growth_speed, growth_limit } = this.props;
+    const { water_level, growth_stage } = this.props.plant;
+    if (sec % growth_speed === 0 && water_level >= growth_limit) {
+      const growth = growth_stage + growth_speed;
       this.props.grow(id, growth);
     } else {
       this.setState({ status: "Underwatered" });

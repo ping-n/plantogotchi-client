@@ -1,6 +1,7 @@
 import React from "react";
-import { Progress, Button, Header, Modal } from "semantic-ui-react";
+import { Progress, Button, Modal } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
+import Pot from "../../assets/pot.png";
 
 export default class PlantModal extends React.Component {
   // Event handling
@@ -22,30 +23,45 @@ export default class PlantModal extends React.Component {
       <Modal trigger={<Button>Show Modal</Button>}>
         <Modal.Header>{props.plant.name}</Modal.Header>
         <div className="modal-wrapper">
-          <div className="modal-canvas">
-            <CanvasWindow
-              width={200}
-              height={200}
-              maxFrame={props.maxFrame}
-              frame={props.frame}
-              spritesheet={props.spritesheet}
-            />
+          <div className="modal-canvas-outer-wrapper">
+            <div className="modal-canvas-inner-wrapper">
+              <CanvasWindow
+                className="modal-canvas"
+                width={200}
+                height={200}
+                maxFrame={props.maxFrame}
+                frame={props.frame}
+                spritesheet={props.spritesheet}
+              />
+              <img className="pot" src={Pot}></img>
+            </div>
           </div>
-          <div>
-            <Header>Growth Progress</Header>
-            <Progress percent={growthBar} color="green" />
-            <Header>Water Level</Header>
-            <Progress percent={water_level} color="blue" />
+          <div className="hud-div">
+            {this.props.alive && !this.props.finished && (
+              <button
+                className="water-button"
+                onClick={(e) => {
+                  this.handleWaterClick(e, id);
+                }}
+              >
+                Water
+              </button>
+            )}
+            <div className="progress-div">
+              <Progress
+                className=".modal-progress"
+                percent={growthBar}
+                color="green"
+              />
+              <h3 className="progress-header">Growth Progress</h3>
+              <Progress
+                className=".modal-progress"
+                percent={water_level}
+                color="blue"
+              />
+              <h3 className="progress-header">Water Level</h3>
+            </div>
           </div>
-          {this.props.alive && !this.props.finished && (
-            <button
-              onClick={(e) => {
-                this.handleWaterClick(e, id);
-              }}
-            >
-              Water
-            </button>
-          )}
         </div>
       </Modal>
     );
