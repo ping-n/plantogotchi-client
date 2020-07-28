@@ -19,13 +19,22 @@ export class CreatePlant extends Component {
   };
 
   async componentDidMount() {
-    await breeds.index().then((response) => {
-      this.setState({ breed_arr: response.data });
-    });
-    const breed_name = this.state.breed_arr.map((breed, index) => {
-      return { key: index, text: breed.name, value: breed.id };
-    });
-    this.setState({ breed_name: breed_name });
+    await breeds
+      .index()
+      .then((response) => {
+        if (response.status === 401) {
+          throw new Error("Unauthorized");
+        } else if (response.status > 401) {
+          throw new Error("Server Error");
+        } else {
+          this.setState({ breed_arr: response.data });
+          const breed_name = this.state.breed_arr.map((breed, index) => {
+            return { key: index, text: breed.name, value: breed.id };
+          });
+          this.setState({ breed_name: breed_name });
+        }
+      })
+      .catch((error) => this.setState({ error: error.message }));
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
