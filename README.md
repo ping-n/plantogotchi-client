@@ -27,8 +27,15 @@ For this repo to run the following commands from the root folder through cli of 
 <!-- Run yarn install to install on the dependencies for this react app -->
 yarn install
 ```
-3: You will need to create an .env file in your root folder for this repository and add the following code inside your .env file
+3: You will need to create two .env files in your root folder for this repository and add the following codes inside your .env files
 ```
+<!-- Add code below to .env -->
+<!-- Backend port for Heroku Api -->
+REACT_APP_BACKEND_URL=https://pure-oasis-63936.herokuapp.com
+<!-- Add a port of your choice, we will use 8080 -->
+PORT=8080
+
+<!-- Add code below to .env.development -->
 <!-- Backend port for Rails -->
 REACT_APP_BACKEND_URL=http://localhost:3000
 <!-- Add a port of your choice, we will use 8080 -->

@@ -56,12 +56,14 @@ export class MyAccount extends Component {
             </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment>
+            <Segment inverted>
               <Header as="h3" color="black">
                 Update your details below:
               </Header>
               <Form.Input
                 fluid
+                icon="user"
+                iconPosition="left"
                 label="Username"
                 name="username"
                 data-testid="username"
@@ -70,6 +72,8 @@ export class MyAccount extends Component {
               />
               <Form.Input
                 fluid
+                icon="envelope"
+                iconPosition="left"
                 label="Email"
                 name="email"
                 data-testid="email"
@@ -78,6 +82,8 @@ export class MyAccount extends Component {
               />
               <Form.Input
                 fluid
+                icon="lock"
+                iconPosition="left"
                 label="Password"
                 name="password"
                 data-testid="password"
@@ -86,6 +92,8 @@ export class MyAccount extends Component {
               />
               <Form.Input
                 fluid
+                icon="heart"
+                iconPosition="left"
                 label="Bio (a short description of yourself)"
                 name="bio"
                 data-testid="bio"
@@ -94,6 +102,8 @@ export class MyAccount extends Component {
               />
               <Form.Input
                 fluid
+                icon="location arrow"
+                iconPosition="left"
                 label="Location"
                 name="location"
                 data-testid="location"
