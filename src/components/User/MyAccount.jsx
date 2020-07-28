@@ -48,7 +48,7 @@ export class MyAccount extends Component {
       <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1" color="black">
-            My Account
+            Edit Account
           </Header>
           {error && (
             <Message error data-testid="account-error">
