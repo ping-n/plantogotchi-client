@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+/coverage/*
 # ese testing with cypress
 /cypress/videos
 /cypress/screenshots

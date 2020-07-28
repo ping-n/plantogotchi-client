@@ -29,8 +29,7 @@ class ProtectedRoute extends React.Component {
           to={{
             pathname: "/",
             state: {
-              error:
-                "We currently cannot connect to server, please try again later.",
+              error: "Please log in to access this page.",
             },
           }}
         />

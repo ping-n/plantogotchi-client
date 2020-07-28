@@ -26,9 +26,12 @@ class CreateBreed extends Component {
     await breeds
       .create(params)
       .then((res) => {
-        if (res.status >= 400) {
-          console.log(res.data.errors);
+        if (res.status === 401) {
+          throw new Error("You are not authorized to do that!");
+        } else if (res.status === 422) {
           throw new Error(res.data.errors);
+        } else if (res.status >= 400) {
+          throw new Error("Server Error");
         } else {
           alert("You have successfully created a breed!");
           this.props.history.push("/login");
@@ -36,11 +39,7 @@ class CreateBreed extends Component {
         }
       })
       .catch((error) => {
-        let errorArray = [];
-        for (error in error) {
-          errorArray.push(error);
-        }
-        this.setState({ errors: errorArray });
+        this.setState({ error: error.message });
       });
   };
 
@@ -51,19 +50,16 @@ class CreateBreed extends Component {
           <Header as="h1" color="black">
             Create breed
           </Header>
-          {this.state?.errors && (
-            <Message
-              error
-              data-testid="createbreed-error"
-              header="There were some errors with your submission"
-              list={this.state.errors}
-            />
+          {this.state?.error && (
+            <Message error data-testid="createbreed-error">
+              {this.state.error}
+            </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
             <Segment piled>
               <Form.Input
+                required
                 fluid
-                error="Please enter the Breed/'s name"
                 label="Name"
                 name="name"
                 data-testid="name"
@@ -71,8 +67,8 @@ class CreateBreed extends Component {
                 onChange={this.handleChange}
               />
               <Form.Input
+                required
                 fluid
-                error="Please enter the Breed/'s description"
                 label="Description"
                 name="description"
                 data-testid="description"
@@ -80,8 +76,8 @@ class CreateBreed extends Component {
                 onChange={this.handleChange}
               />
               <Form.Input
+                required
                 fluid
-                error="Please enter the Breed/'s maximum growth"
                 label="Maximum Growth (total number of sprites in spritesheet)"
                 name="max_growth"
                 data-testid="max_growth"
