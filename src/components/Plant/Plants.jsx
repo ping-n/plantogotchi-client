@@ -9,6 +9,7 @@ import {
   Grid,
   Header,
   Image,
+  Container
 } from "semantic-ui-react";
 import { Slider } from "rsuite";
 import Auth from "../auth/Auth";
@@ -198,7 +199,7 @@ export default class Plants extends React.Component {
         );
       });
       return (
-        <>
+        <Container>
           {this.state?.error && (
             <Message data-testid="plants-error">{this.state.error}</Message>
           )}
@@ -254,7 +255,7 @@ export default class Plants extends React.Component {
           <Grid stackable style={{ marginTop: 50 }} columns={3} divided>
             {plantsArr}
           </Grid>
-        </>
+        </Container>
       );
     }
   }
