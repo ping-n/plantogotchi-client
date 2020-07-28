@@ -16,6 +16,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  color: $fontColor;
 }
 
 #root {
@@ -28,4 +29,8 @@ a {
   margin: 0 10px;
   font-size: 20px;
   font-family: "DigitalDisco";
+}
+
+h1 {
+  color: $fontColor !important;
 }
