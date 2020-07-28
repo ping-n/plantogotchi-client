@@ -46,8 +46,7 @@ export class CreatePlant extends Component {
       .create(params)
       .then((res) => {
         if (res.status >= 400) {
-          console.log(res);
-          throw new Error(res.data);
+          throw new Error("You must select a breed.");
         } else {
           alert("You have successfully created a plant!");
           this.props.history.push("/plants");
@@ -69,7 +68,7 @@ export class CreatePlant extends Component {
             Create Plant
           </Header>
           {error && (
-            <Message data-testid="createplant-error">
+            <Message error data-testid="createplant-error">
               {this.state.error}
             </Message>
           )}
