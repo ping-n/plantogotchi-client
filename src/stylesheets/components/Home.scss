@@ -3,14 +3,17 @@
   justify-content: center;
   height: 80%;
   width: 100%;
+  background-color: $primaryColor;
 }
 
-.home-content #home-main-text{
-  padding-top: 20px;
-  font-family: "DigitalDisco";
+.home-content {
+  #home-main-text {
+    padding-top: 20px;
+    font-family: "DigitalDisco";
+  }
 }
 
-.home-sidecontent{
+.home-sidecontent {
   height: 100%;
   font-family: "DigitalDisco";
   font-size: 20px;
