@@ -41,12 +41,13 @@ export default class Breeds extends React.Component {
     });
     return (
       <Container className="breed-wrapper">
-          <Table>
+          <Table inverted>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Breed</Table.HeaderCell>
+                <Table.HeaderCell>Breed ID</Table.HeaderCell>
+                <Table.HeaderCell>Name</Table.HeaderCell>
                 <Table.HeaderCell>Description</Table.HeaderCell>
-                <Table.HeaderCell>Show</Table.HeaderCell>
+                <Table.HeaderCell>Edit</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>{breedsArr}</Table.Body>

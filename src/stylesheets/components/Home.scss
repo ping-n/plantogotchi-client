@@ -1,21 +1,19 @@
 .home-wrapper {
   display: flex;
   justify-content: center;
-  height: 80%;
-  width: 100%;
 }
 
 .home-content {
   #home-main-text {
     padding-top: 20px;
-    font-family: "DigitalDisco";
+    font-family: $mainFont;
     color: $fontColor;
   }
 }
 
 .home-sidecontent {
   height: 100%;
-  font-family: "DigitalDisco";
+  font-family: $mainFont;
   font-size: 20px;
   color: $fontColor;
 }

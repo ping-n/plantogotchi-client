@@ -16,12 +16,12 @@ const Home = (props) => {
           {props.location.state.error}
         </Message>
       )}
-      <div className="home-wrapper">
+      <Container className="home-wrapper">
         <Grid stackable>
           <Grid.Row columns={2}>
             <Grid.Column>
               <Container className="home-content">
-                <Header as="h1" color="black">
+                <Header as="h1" color="black" style={{fontSize: "6em", paddingLeft: "30px"}}>
                   PLANTOGOTCHI
                 </Header>
                 <Image src={image} size="big" bordered />
@@ -55,7 +55,7 @@ const Home = (props) => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </div>
+      </Container>
     </>
   );
 };

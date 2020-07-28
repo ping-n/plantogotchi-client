@@ -55,7 +55,7 @@ class EditBreed extends Component {
       <Grid
         textAlign="center"
         style={{ height: "100vh" }}
-        verticalAlign="middle"
+        verticalAlign="top"
       >
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1" color="black">

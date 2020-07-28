@@ -2,9 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 30px;
   padding: 20px;
   background-color: black;
   position: fixed;
   bottom: 0;
   min-width: 100vw;
+  max-height: 80px;
 }
