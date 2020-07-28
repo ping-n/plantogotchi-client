@@ -76,18 +76,6 @@ export default class PlantModal extends React.Component {
               {this.props.status}
             </div>
           </div>
-          <div className="modal-buttons">
-            {this.props.alive && !this.props.finished && (
-              <button
-                className="water-button"
-                onClick={(e) => {
-                  this.handleWaterClick(e, id);
-                }}
-              >
-                Water
-              </button>
-            )}
-          </div>
         </div>
       </Modal>
     );
