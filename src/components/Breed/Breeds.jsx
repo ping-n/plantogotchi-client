@@ -1,6 +1,6 @@
 import React from "react";
 import { breeds } from "../../classes/BreedApi";
-import { Table, Icon } from "semantic-ui-react";
+import { Table, Icon, Container } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 export default class Breeds extends React.Component {
@@ -40,6 +40,7 @@ export default class Breeds extends React.Component {
       );
     });
     return (
+      <Container className="breed-wrapper">
           <Table>
             <Table.Header>
               <Table.Row>
@@ -50,6 +51,7 @@ export default class Breeds extends React.Component {
             </Table.Header>
             <Table.Body>{breedsArr}</Table.Body>
           </Table>
+      </Container>
     );
   }
 }
