@@ -90,8 +90,8 @@ export default class Plant extends React.Component {
       growth = timeSpentGrowing / (growth_speed * game_speed);
     }
     growth = growth > max_growth ? max_growth : Math.ceil(growth);
-    console.log(growth);
-    this.props.grow(id, growth);
+    const new_growth_level = this.props.plant.growth_stage + growth;
+    this.props.grow(id, new_growth_level);
   }
 
   // Main game logic
@@ -117,7 +117,10 @@ export default class Plant extends React.Component {
         clearInterval(this.gameLoop);
       } else {
         if (sec % water_drop_speed === 0) {
-          const waterDropAmount = water_level - 1;
+          let waterDropAmount = 0;
+          if (water_drop_speed < water_level) {
+            waterDropAmount = water_level - water_drop_speed;
+          }
           this.props.changeWaterLevel(id, waterDropAmount);
         }
         this.shouldGrow(sec, id);
@@ -140,26 +143,12 @@ export default class Plant extends React.Component {
 
   // Event methods
 
-  handleWaterClick(event) {
-    this.props.changeWaterLevel(this.state.plant.id, 5);
-  }
-
   render() {
-    const {
-      id,
-      alive,
-      name,
-      water_level,
-      growth_stage,
-      created_at,
-    } = this.state.plant;
-    const birth = new Date(created_at);
-
+    const { id, alive, name, growth_stage } = this.state.plant;
     if (this.state.loading) {
       return <h3>loading!</h3>;
     } else {
       const { max_growth } = this.state.plant.breed;
-      const breed_name = this.state.plant.breed.name;
       const { statusMessage, status, finished } = this.state;
       return (
         <>
@@ -174,20 +163,18 @@ export default class Plant extends React.Component {
             />
             <Card.Content>
               <Card.Header>{name}</Card.Header>
-              <Card.Meta>
-                <span className="date">
-                  {name} was born on {birth.toDateString()} at{" "}
-                  {birth.toTimeString()}
-                </span>
-              </Card.Meta>
               <Card.Description>
-                <h5>Breed: {breed_name}</h5>
-                <h5>Water level: {water_level}</h5>
-                <h5>Growth Level: {growth_stage}</h5>
                 <h5>{status}!</h5>
               </Card.Description>
             </Card.Content>
-            <PlantModal {...this.props} />
+            <PlantModal
+              {...this.props}
+              spritesheet={this.spritesheet}
+              maxFrame={max_growth}
+              frame={growth_stage}
+              alive={alive}
+              finished={finished}
+            />
             <Button
               onClick={(e) => {
                 this.props.handleDeleteClick(e, id);
@@ -195,15 +182,6 @@ export default class Plant extends React.Component {
             >
               Delete
             </Button>
-            {alive && !finished && (
-              <button
-                onClick={(e) => {
-                  this.handleWaterClick(e);
-                }}
-              >
-                Water
-              </button>
-            )}
           </Card>
           <div></div>
         </>

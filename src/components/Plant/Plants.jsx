@@ -83,7 +83,8 @@ export default class Plants extends React.Component {
         }
       })
       .catch((error) => {
-        this.setState(error.message);
+        // this.setState(error.message);
+        console.log(error);
       });
   };
 
@@ -131,8 +132,18 @@ export default class Plants extends React.Component {
       });
   };
 
-  handleSlider = (value) => {
-    this.setState({ game_speed: value });
+  handleSlider = (value, type) => {
+    switch (type) {
+      case 0:
+        this.setState({ water_drop_speed: value });
+        break;
+      case 1:
+        this.setState({ growth_speed: value });
+        break;
+      default:
+        this.setState({ game_speed: value });
+        break;
+    }
   };
 
   // Render
@@ -186,6 +197,34 @@ export default class Plants extends React.Component {
               return mark;
             }}
             onChange={(value) => this.handleSlider(value)}
+          />
+          <h3>Water Level Drop Rate</h3>
+          <Slider
+            style={{ margin: "20px 0px 20px 0px" }}
+            defaultValue={1}
+            min={1}
+            step={1}
+            max={10}
+            graduated
+            progress
+            renderMark={(mark) => {
+              return mark;
+            }}
+            onChange={(value) => this.handleSlider(value, 0)}
+          />
+          <h3>Plant Growth Rate</h3>
+          <Slider
+            style={{ margin: "20px 0px 20px 0px" }}
+            defaultValue={1}
+            min={1}
+            step={1}
+            max={10}
+            graduated
+            progress
+            renderMark={(mark) => {
+              return mark;
+            }}
+            onChange={(value) => this.handleSlider(value, 1)}
           />
           <Grid style={{ marginTop: 50 }} columns={3} divided>
             {plantsArr}

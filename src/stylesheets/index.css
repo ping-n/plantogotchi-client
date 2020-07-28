@@ -2,13 +2,14 @@
 @import "./components/Home.scss";
 @import "./components/About.scss";
 @import "./components/Faq.scss";
+@import "./components/PlantModal.scss";
 @import "./global/sitelayout.scss";
 @import "./global/Nav.scss";
 @import "./global/Footer.scss";
 
 @font-face {
-  font-family: 'DigitalDisco';
-  src: local('DigitalDisco'), url(../fonts/DigitalDisco.ttf) format('truetype');
+  font-family: "DigitalDisco";
+  src: local("DigitalDisco"), url(../fonts/DigitalDisco.ttf) format("truetype");
 }
 
 * {
@@ -17,4 +18,3 @@
   padding: 0;
   color: black;
 }
-
