@@ -27,9 +27,9 @@ export class MyAccount extends Component {
     users
       .update({ user: params })
       .then((res) => {
-        if (res.status >= 400) {
+        if (res.status === 422) {
           console.log(res);
-          throw new Error(res.data);
+          throw new Error(res.data.errors);
         } else {
           alert("You have successfully updated your details");
           this.props.history.push("/plants");
@@ -47,58 +47,62 @@ export class MyAccount extends Component {
     return (
       <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
-        <Header as="h1" color="black" >My Account</Header>
-        {error && (
-          <Message data-testid="account-error">{this.state.error}</Message>
-        )}
-        <Form onSubmit={this.handleSubmit}>
-          <Segment>
-          <Form.Input
-            fluid
-            label="Username"
-            name="username"
-            data-testid="username"
-            placeholder={this.state.username}
-            onChange={this.handleChange}
-            required
-          />
-          <Form.Input
-            fluid
-            label="Email"
-            name="email"
-            data-testid="email"
-            placeholder={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
-          <Form.Input
-            fluid
-            label="Password"
-            name="password"
-            data-testid="password"
-            placeholder=""
-            onChange={this.handleChange}
-            required
-          />
-          <Form.Input
-            fluid
-            label="Bio (a short description of yourself)"
-            name="bio"
-            data-testid="bio"
-            placeholder={this.state.bio}
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            fluid
-            label="Location"
-            name="location"
-            data-testid="location"
-            placeholder={this.state.bio}
-            onChange={this.handleChange}
-          />
-          <Form.Button color="twitter">Submit</Form.Button>
-          </Segment>
-        </Form>
+          <Header as="h1" color="black">
+            My Account
+          </Header>
+          {error && (
+            <Message error data-testid="account-error">
+              {this.state.error}
+            </Message>
+          )}
+          <Form onSubmit={this.handleSubmit}>
+            <Segment>
+              <Header as="h3" color="black">
+                Update your details below:
+              </Header>
+              <Form.Input
+                fluid
+                label="Username"
+                name="username"
+                data-testid="username"
+                placeholder={this.state.username}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                label="Email"
+                name="email"
+                data-testid="email"
+                placeholder={this.state.email}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                label="Password"
+                name="password"
+                data-testid="password"
+                placeholder=""
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                label="Bio (a short description of yourself)"
+                name="bio"
+                data-testid="bio"
+                placeholder={this.state.bio}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                label="Location"
+                name="location"
+                data-testid="location"
+                placeholder={this.state.bio}
+                onChange={this.handleChange}
+              />
+              <Form.Button color="twitter">Submit</Form.Button>
+            </Segment>
+          </Form>
         </Grid.Column>
       </Grid>
     );

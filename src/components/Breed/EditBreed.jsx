@@ -32,9 +32,10 @@ class EditBreed extends Component {
     breeds
       .update(this.props.match.params.id, params)
       .then((res) => {
-        if (res.status >= 400) {
-          console.log(res);
-          throw new Error(res.data);
+        if (res.status === 422) {
+          throw new Error(res.data.errors);
+        } else if (res.status >= 400) {
+          throw new Error("Server Error");
         } else {
           alert("You have successfully updated a breed!");
           this.props.history.push("/breeds");
@@ -57,7 +58,9 @@ class EditBreed extends Component {
         verticalAlign="top"
       >
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h1" color="black">Update breed</Header>
+          <Header as="h1" color="black">
+            Update breed
+          </Header>
           {error && (
             <Message data-testid="breedupdate-error">
               {this.state.error}
