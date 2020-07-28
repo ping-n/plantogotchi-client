@@ -1,5 +1,5 @@
 import React from "react";
-import { Progress, Button, Modal } from "semantic-ui-react";
+import { Icon, Progress, Button, Modal } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
 import Pot from "../../assets/pot.png";
 
@@ -20,7 +20,13 @@ export default class PlantModal extends React.Component {
     const { id, water_level } = this.props.plant;
     const growthBar = (this.props.frame / this.props.maxFrame) * 100;
     return (
-      <Modal trigger={<Button>Show Modal</Button>}>
+      <Modal
+        trigger={
+          <Button>
+            <Icon name="eye" size="large"></Icon>
+          </Button>
+        }
+      >
         <Modal.Header>{props.plant.name}</Modal.Header>
         <div className="modal-wrapper">
           <div className="modal-canvas-outer-wrapper">
@@ -37,16 +43,6 @@ export default class PlantModal extends React.Component {
             </div>
           </div>
           <div className="hud-div">
-            {this.props.alive && !this.props.finished && (
-              <button
-                className="water-button"
-                onClick={(e) => {
-                  this.handleWaterClick(e, id);
-                }}
-              >
-                Water
-              </button>
-            )}
             <div className="progress-div">
               <Progress
                 className=".modal-progress"
@@ -61,6 +57,18 @@ export default class PlantModal extends React.Component {
               />
               <h3 className="progress-header">Water Level</h3>
             </div>
+          </div>
+          <div className="modal-buttons">
+            {this.props.alive && !this.props.finished && (
+              <button
+                className="water-button"
+                onClick={(e) => {
+                  this.handleWaterClick(e, id);
+                }}
+              >
+                Water
+              </button>
+            )}
           </div>
         </div>
       </Modal>
