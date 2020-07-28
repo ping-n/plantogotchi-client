@@ -32,7 +32,7 @@ const LoggedIn = (props) => {
         <Link data-testid="breeds" to="/breeds">
           Breeds
         </Link>
-        <Button onClick={() => handleLogOut(props)}>Log Out</Button>
+        <Button data-testid="logout" onClick={() => handleLogOut(props)}>Log Out</Button>
       </div>
     </div>
   );

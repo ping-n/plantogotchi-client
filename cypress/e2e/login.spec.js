@@ -32,7 +32,7 @@ describe("with incorrect login credentials user", () => {
     const { email, password } = userBuilder()
     cy.typeInLogin(email, password)
     cy.get("form").submit()
-    cy.findByTestId("login-error").should("contain.text", "status code")
+    cy.findByTestId("login-error").should("contain.text", "incorrect credentials")
   });
 });
 

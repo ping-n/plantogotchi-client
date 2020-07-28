@@ -5,15 +5,19 @@
   width: 100%;
 }
 
-.home-content #home-main-text{
-  padding-top: 20px;
-  font-family: "DigitalDisco";
+.home-content {
+  #home-main-text {
+    padding-top: 20px;
+    font-family: "DigitalDisco";
+    color: $fontColor;
+  }
 }
 
-.home-sidecontent{
+.home-sidecontent {
   height: 100%;
   font-family: "DigitalDisco";
   font-size: 20px;
+  color: $fontColor;
 }
 
 .home-review-wrapper {
