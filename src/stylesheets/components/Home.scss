@@ -1,0 +1,31 @@
+.home-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.home-content {
+  #home-main-text {
+    padding-top: 20px;
+    font-family: $mainFont;
+    color: $fontColor;
+  }
+}
+
+.home-sidecontent {
+  height: 100%;
+  font-family: $mainFont;
+  font-size: 20px;
+  color: $fontColor;
+}
+
+.home-review-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.home-review {
+  margin-top: 20px;
+  max-width: 80%;
+}

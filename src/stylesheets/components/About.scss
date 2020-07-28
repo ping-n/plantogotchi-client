@@ -1,0 +1,10 @@
+
+.about-text p {
+  font-family: "DigitalDisco";
+}
+
+@media only screen and (max-width: 840px) {
+  .about-wrapper {
+    height: 100vh;
+  }
+}

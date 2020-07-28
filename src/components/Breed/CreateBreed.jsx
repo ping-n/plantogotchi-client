@@ -23,12 +23,15 @@ class CreateBreed extends Component {
     params.set("[breed]description", this.state.description);
     params.set("[breed]max_growth", this.state.max_growth);
     params.append("[breed]spritesheet", this.state.spritesheet);
-    breeds
+    await breeds
       .create(params)
       .then((res) => {
-        if (res.status >= 400) {
-          console.log(res);
-          throw new Error(res.data);
+        if (res.status === 401) {
+          throw new Error("You are not authorized to do that!");
+        } else if (res.status === 422) {
+          throw new Error(res.data.errors);
+        } else if (res.status >= 400) {
+          throw new Error("Server Error");
         } else {
           alert("You have successfully created a breed!");
           this.props.history.push("/login");
@@ -37,42 +40,51 @@ class CreateBreed extends Component {
       })
       .catch((error) => {
         this.setState({ error: error.message });
-        console.log(error);
       });
   };
 
   render() {
-    const { error } = this.state;
     return (
       <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h1" color="black">Create breed</Header>
-          {error && (
-            <Message data-testid="createbreed-error">
+          <Header as="h1" color="black">
+            Create breed
+          </Header>
+          {this.state?.error && (
+            <Message error data-testid="createbreed-error">
               {this.state.error}
             </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
+            <Segment piled inverted>
               <Form.Input
+                required
                 fluid
+                icon="smile"
+                iconPosition="left"
                 label="Name"
                 name="name"
                 data-testid="name"
-                placeholder="name"
+                placeholder="Name"
                 onChange={this.handleChange}
               />
               <Form.Input
+                required
                 fluid
+                icon="list"
+                iconPosition="left"
                 label="Description"
                 name="description"
                 data-testid="description"
-                placeholder="description"
+                placeholder="Description"
                 onChange={this.handleChange}
               />
               <Form.Input
+                required
                 fluid
-                label="Max Growth (total number of sprites in spritesheet)"
+                icon="list"
+                iconPosition="left"
+                label="Maximum Growth (total number of sprites in spritesheet)"
                 name="max_growth"
                 data-testid="max_growth"
                 placeholder="Max Growth"

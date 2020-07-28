@@ -13,45 +13,42 @@ export class SignUp extends Component {
     users
       .signup({ user: { username, email, password, bio, location } })
       .then((res) => {
-        if (res.status >= 400) {
-          console.log(res);
-          throw new Error(res.data);
+        if (res.status === 422) {
+          throw new Error(res.data.errors);
+        } else if (res.status >= 400) {
+          throw new Error("Server Error");
         } else {
-          alert("You have successfully signed up");
+          alert("You have successfully created an account! Please log in.");
           this.props.history.push("/login");
           return <Redirect to="/login" />;
         }
       })
       .catch((error) => {
         this.setState({ error: error.message });
-        console.log(error);
       });
   };
 
   render() {
-    const { error } = this.state;
     return (
-      <Grid
-        textAlign="center"
-        style={{ height: "100vh" }}
-        verticalAlign="middle"
-      >
+      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1" color="black">
             Sign Up
           </Header>
-          {error && (
-            <Message data-testid="signup-error">{this.state.error}</Message>
+          {this.state?.error && (
+            <Message error data-testid="signup-error">
+              <ul>{this.state.error}</ul>
+            </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
+            <Segment piled inverted>
               <Form.Input
                 icon="user"
                 iconPosition="left"
                 label="Username"
                 name="username"
                 data-testid="username"
-                placeholder="username"
+                placeholder="Username"
                 onChange={this.handleChange}
               />
               <Form.Input
@@ -91,7 +88,7 @@ export class SignUp extends Component {
                 placeholder="Location"
                 onChange={this.handleChange}
               />
-              <Form.Button color="twitter" >Submit</Form.Button>
+              <Form.Button color="twitter">Submit</Form.Button>
             </Segment>
           </Form>
         </Grid.Column>

@@ -1,8 +1,17 @@
 import React from "react";
 import { plants } from "../../classes/PlantApi";
 import Plant from "./Plant";
-import { Grid, Header } from "semantic-ui-react";
+import {
+  Segment,
+  Dimmer,
+  Loader,
+  Message,
+  Grid,
+  Header,
+  Image,
+} from "semantic-ui-react";
 import { Slider } from "rsuite";
+import Auth from "../auth/Auth";
 
 export default class Plants extends React.Component {
   state = {
@@ -14,23 +23,36 @@ export default class Plants extends React.Component {
     loading: true,
   };
 
-  async componentDidMount() {
+  // Lifestyle methods
+
+  componentDidMount = async () => {
+    const admin = await Auth.isAdmin();
+    if (admin) {
+      this.setState({ admin: true });
+    }
     await plants
       .index()
       .then((res) => {
-        this.setState({ plants: res.data });
+        if (res.status >= 400) {
+          throw new Error(res.data);
+        } else {
+          this.setState({ plants: res.data });
+        }
       })
-      .catch((er) => console.log(er));
+      .catch((error) => {
+        this.setState({ error: error.message });
+        console.log(error);
+      });
     this.setState({ loading: false });
-  }
+  };
 
   // Data manipulation
 
-  findPlant(id) {
+  findPlant = (id) => {
     return this.state.plants.findIndex((plant) => {
       return plant.id === id;
     });
-  }
+  };
 
   updateArray = (id, target, value) => {
     const newArray = this.state.plants;
@@ -38,7 +60,7 @@ export default class Plants extends React.Component {
     this.setState({ plants: newArray });
   };
 
-  async killPlant(id) {
+  killPlant = async (id) => {
     const params = {
       plant: {
         alive: false,
@@ -46,13 +68,19 @@ export default class Plants extends React.Component {
     };
     await plants
       .update(id, params)
-      .then(() => {
-        this.updateArray(id, "alive", false);
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error("Server Error");
+        } else {
+          this.updateArray(id, "alive", false);
+        }
       })
-      .catch((e) => console.log(e));
-  }
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  };
 
-  async grow(id, growth) {
+  grow = async (id, growth) => {
     const params = {
       plant: {
         growth_stage: growth,
@@ -60,13 +88,20 @@ export default class Plants extends React.Component {
     };
     await plants
       .update(id, params)
-      .then(() => {
-        this.updateArray(id, "growth_stage", growth);
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error(res.data);
+        } else {
+          this.updateArray(id, "growth_stage", growth);
+        }
       })
-      .catch((e) => console.log(e));
-  }
+      .catch((error) => {
+        // this.setState(error.message);
+        console.log(error);
+      });
+  };
 
-  async changeWaterLevel(id, water_level) {
+  changeWaterLevel = async (id, water_level) => {
     const params = {
       plant: {
         water_level: water_level,
@@ -74,16 +109,23 @@ export default class Plants extends React.Component {
     };
     await plants
       .update(id, params)
-      .then(() => {
-        this.updateArray(id, "water_level", water_level);
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error(res.data);
+        } else {
+          this.updateArray(id, "water_level", water_level);
+        }
       })
-      .catch((e) => console.log(e));
-  }
+      .catch((error) => {
+        this.setState({ error: error.message });
+        console.log(error);
+      });
+  };
 
   // Event handling
 
-  handleDeleteClick = (e, id) => {
-    plants
+  handleDeleteClick = async (e, id) => {
+    await plants
       .delete(id)
       .then((res) => {
         if (res.status >= 400) {
@@ -103,13 +145,33 @@ export default class Plants extends React.Component {
       });
   };
 
-  handleSlider(value) {
-    this.setState({ game_speed: value });
-  }
+  handleSlider = (value, type) => {
+    switch (type) {
+      case 0:
+        this.setState({ water_drop_speed: value });
+        break;
+      case 1:
+        this.setState({ growth_speed: value });
+        break;
+      default:
+        this.setState({ game_speed: value });
+        break;
+    }
+  };
+
+  // Render
 
   render() {
     if (this.state.loading) {
-      return <h3>Loading!</h3>;
+      return (
+        <Segment>
+          <Dimmer active inverted>
+            <Loader size="massive">Loading</Loader>
+          </Dimmer>
+
+          <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
+        </Segment>
+      );
     } else {
       const {
         game_speed,
@@ -137,24 +199,59 @@ export default class Plants extends React.Component {
       });
       return (
         <>
+          {this.state?.error && (
+            <Message data-testid="plants-error">{this.state.error}</Message>
+          )}
           <Header as="h1" color="black">
             Your Plants
           </Header>
-          <h3>Game Speed Intervals in Milliseconds</h3>
-          <Slider
-            style={{ margin: "20px 0px 20px 0px" }}
-            defaultValue={5000}
-            min={500}
-            step={500}
-            max={10000}
-            graduated
-            progress
-            renderMark={(mark) => {
-              return mark;
-            }}
-            onChange={(value) => this.handleSlider(value)}
-          />
-          <Grid style={{ marginTop: 50 }} columns={3} divided>
+          {this.state?.admin && (
+            <>
+              <h3>Game Speed Intervals in Milliseconds</h3>
+              <Slider
+                style={{ margin: "20px 0px 20px 0px" }}
+                defaultValue={5000}
+                min={500}
+                step={500}
+                max={10000}
+                graduated
+                progress
+                renderMark={(mark) => {
+                  return mark;
+                }}
+                onChange={(value) => this.handleSlider(value)}
+              />
+              <h3>Water Level Drop Rate</h3>
+              <Slider
+                style={{ margin: "20px 0px 20px 0px" }}
+                defaultValue={1}
+                min={1}
+                step={1}
+                max={10}
+                graduated
+                progress
+                renderMark={(mark) => {
+                  return mark;
+                }}
+                onChange={(value) => this.handleSlider(value, 0)}
+              />
+              <h3>Plant Growth Rate</h3>
+              <Slider
+                style={{ margin: "20px 0px 20px 0px" }}
+                defaultValue={1}
+                min={1}
+                step={1}
+                max={10}
+                graduated
+                progress
+                renderMark={(mark) => {
+                  return mark;
+                }}
+                onChange={(value) => this.handleSlider(value, 1)}
+              />
+            </>
+          )}
+          <Grid stackable style={{ marginTop: 50 }} columns={3} divided>
             {plantsArr}
           </Grid>
         </>

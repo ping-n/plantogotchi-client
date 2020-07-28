@@ -1,0 +1,29 @@
+.faq-wrapper {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.faq-content {
+  font-family: $mainFont;
+  font-size: medium;
+}
+
+.form-segment {
+  background-color: black !important;
+}
+
+.form-segment label{
+  font-family: $mainFont;
+  color: #FFFCFC !important;
+}
+
+.form-button {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 840px) {
+  .faq-wrapper {
+    height: 100vh;
+  }
+}

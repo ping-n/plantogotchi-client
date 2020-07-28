@@ -22,8 +22,10 @@ class Login extends Component {
     users
       .login({ auth: { email, password } })
       .then((res) => {
-        if (res.status >= 400) {
-          throw new Error("incorrect credentials");
+        if (res.status === 404) {
+          throw new Error("Incorrect Credentials");
+        } else if (res.status >= 400) {
+          throw new Error("Server Error");
         } else {
           const { jwt } = res.data;
           localStorage.setItem("token", jwt);
@@ -41,20 +43,18 @@ class Login extends Component {
   render() {
     const { error } = this.state;
     return (
-      <Grid
-        textAlign="center"
-        style={{ height: "100vh" }}
-        verticalAlign="middle"
-      >
+      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1" color="black">
             Login
           </Header>
           {error && (
-            <Message data-testid="login-error">{this.state.error}</Message>
+            <Message error data-testid="login-error">
+              {this.state.error}
+            </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
+            <Segment inverted>
               <Form.Input
                 icon="envelope"
                 iconPosition="left"
@@ -63,6 +63,7 @@ class Login extends Component {
                 data-testid="email"
                 placeholder="Email"
                 onChange={this.handleChange}
+                required
               />
               <Form.Input
                 icon="lock"
@@ -73,12 +74,10 @@ class Login extends Component {
                 placeholder="Password"
                 type="password"
                 onChange={this.handleChange}
+                required
               />
-              <Button color="twitter" animated type="submit">
-                <Button.Content visible>Next</Button.Content>
-                <Button.Content hidden>
-                  <Icon name="arrow right" />
-                </Button.Content>
+              <Button color="twitter" type="submit">
+                Submit
               </Button>
             </Segment>
           </Form>

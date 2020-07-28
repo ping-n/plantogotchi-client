@@ -1,0 +1,43 @@
+@import "./global/variable";
+@import "./components/App";
+@import "./components/Home";
+@import "./components/About";
+@import "./components/Faq";
+@import "./components/PlantModal";
+@import "./global/sitelayout";
+@import "./global/Nav";
+@import "./global/Footer";
+
+@font-face {
+  font-family: "DigitalDisco";
+  src: local("DigitalDisco"), url(../fonts/DigitalDisco.ttf) format("truetype");
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  background-color: $mainColor;
+}
+
+a {
+  text-decoration: none;
+  color: $fontColor !important;
+  margin: 0 10px;
+  font-size: 2em;
+  font-family: $mainFont;
+}
+
+h1 {
+  color: $fontColor !important;
+}
+
+@media only screen and (max-width: 840px) {
+  a {
+    margin: 0 10px;
+    font-size: 2em;
+  }
+}

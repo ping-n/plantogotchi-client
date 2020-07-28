@@ -33,19 +33,19 @@ describe("should not able to sign up with an existing email in the database", ()
       cy.visit("/sign-up");
       cy.typeInForm(username, email, password);
       cy.get("form").submit();
-      cy.findByTestId("signup-error").should("contain.text", "status code");
+      cy.findByTestId("signup-error").should("contain.text", "Username has already been taken,Email has already been taken");
     });
   });
 });
 
 describe("should be able to sign up", () => {
-  it("should be receive a message for successful sign up and redirect to home", () => {
+  it("should be receive a message for successful sign up and redirect to login", () => {
     cy.visit("/sign-up");
     const { username, email, password } = userBuilder();
     cy.typeInForm(username, email, password);
     cy.get("form").submit();
     cy.on("window:alert", (str) => {
-      expect(str).to.eq(`You have successfully signed up`);
+      expect(str).to.eq(`You have successfully created an account! Please log in.`);
     });
     cy.url().should("eq", "http://localhost:8080/login");
   });

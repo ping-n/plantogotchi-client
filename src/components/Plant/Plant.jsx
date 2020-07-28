@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, Button } from "semantic-ui-react";
+import { Message, Icon, Card, Button } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
+import PlantModal from "./PlantModal";
 
 export default class Plant extends React.Component {
   state = { plant: this.props.plant, loading: true, finished: false };
@@ -45,6 +46,7 @@ export default class Plant extends React.Component {
       this.setState({ loading: false });
     };
   }
+
   // Intitial calculations
 
   calculateDifference() {
@@ -88,8 +90,8 @@ export default class Plant extends React.Component {
       growth = timeSpentGrowing / (growth_speed * game_speed);
     }
     growth = growth > max_growth ? max_growth : Math.ceil(growth);
-    console.log(growth);
-    this.props.grow(id, growth);
+    const new_growth_level = this.props.plant.growth_stage + growth;
+    this.props.grow(id, new_growth_level);
   }
 
   // Main game logic
@@ -115,7 +117,10 @@ export default class Plant extends React.Component {
         clearInterval(this.gameLoop);
       } else {
         if (sec % water_drop_speed === 0) {
-          const waterDropAmount = water_level - 1;
+          let waterDropAmount = 0;
+          if (water_drop_speed < water_level) {
+            waterDropAmount = water_level - water_drop_speed;
+          }
           this.props.changeWaterLevel(id, waterDropAmount);
         }
         this.shouldGrow(sec, id);
@@ -125,11 +130,10 @@ export default class Plant extends React.Component {
   }
 
   shouldGrow(sec, id) {
-    if (
-      sec % this.props.growth_speed === 0 &&
-      this.props.plant.water_level >= this.props.growth_limit
-    ) {
-      const growth = this.props.plant.growth_stage + 1;
+    const { growth_speed, growth_limit } = this.props;
+    const { water_level, growth_stage } = this.props.plant;
+    if (sec % growth_speed === 0 && water_level >= growth_limit) {
+      const growth = growth_stage + growth_speed;
       this.props.grow(id, growth);
     } else {
       this.setState({ status: "Underwatered" });
@@ -138,30 +142,15 @@ export default class Plant extends React.Component {
 
   // Event methods
 
-  handleWaterClick(event) {
-    this.props.changeWaterLevel(this.state.plant.id, 5);
-  }
-
   render() {
-    const {
-      id,
-      alive,
-      name,
-      water_level,
-      growth_stage,
-      created_at,
-    } = this.state.plant;
-    const birth = new Date(created_at);
-
+    const { id, alive, name, growth_stage } = this.state.plant;
     if (this.state.loading) {
       return <h3>loading!</h3>;
     } else {
       const { max_growth } = this.state.plant.breed;
-      const breed_name = this.state.plant.breed.name;
-      const { statusMessage, status, finished } = this.state;
+      const { status, finished } = this.state;
       return (
         <>
-          {statusMessage && <h3>{statusMessage}</h3>}
           <Card style={{ marginTop: 10 }}>
             <CanvasWindow
               width={200}
@@ -172,35 +161,30 @@ export default class Plant extends React.Component {
             />
             <Card.Content>
               <Card.Header>{name}</Card.Header>
-              <Card.Meta>
-                <span className="date">
-                  {name} was born on {birth.toDateString()} at{" "}
-                  {birth.toTimeString()}
-                </span>
-              </Card.Meta>
               <Card.Description>
-                <h5>Breed: {breed_name}</h5>
-                <h5>Water level: {water_level}</h5>
-                <h5>Growth Level: {growth_stage}</h5>
-                <h5>{status}!</h5>
+                <Message>{status}</Message>
               </Card.Description>
             </Card.Content>
-            <Button
-              onClick={(e) => {
-                this.props.handleDeleteClick(e, id);
-              }}
-            >
-              Delete
-            </Button>
-            {alive && !finished && (
-              <button
-                onClick={(e) => {
-                  this.handleWaterClick(e);
-                }}
-              >
-                Water
-              </button>
-            )}
+            <Card.Content extra>
+              <div className="ui two buttons">
+                <PlantModal
+                  {...this.props}
+                  spritesheet={this.spritesheet}
+                  maxFrame={max_growth}
+                  frame={growth_stage}
+                  alive={alive}
+                  finished={finished}
+                  status={status}
+                />
+                <Button
+                  onClick={(e) => {
+                    this.props.handleDeleteClick(e, id);
+                  }}
+                >
+                  <Icon name="delete" size="large"></Icon>
+                </Button>
+              </div>
+            </Card.Content>
           </Card>
           <div></div>
         </>

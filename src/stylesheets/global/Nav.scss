@@ -3,14 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: black;
+  background-color: $mainColor;
   padding: 20px;
-}
-
-a {
-  text-decoration: none;
-  color: #fffcfc !important;
-  margin: 0 10px;
-  font-size: 20px;
-  font-family: "DigitalDisco";
+  min-width: 100vw;
 }

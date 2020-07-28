@@ -19,16 +19,22 @@ export class CreatePlant extends Component {
   };
 
   async componentDidMount() {
-    const response = await breeds.index();
-    if (response.status >= 400) {
-      throw new Error("broken");
-    } else {
-      this.setState({ breed_arr: response.data });
-    }
-    const breed_name = this.state.breed_arr.map((breed, index) => {
-      return { key: index, text: breed.name, value: breed.id };
-    });
-    this.setState({ breed_name: breed_name });
+    await breeds
+      .index()
+      .then((response) => {
+        if (response.status === 401) {
+          throw new Error("Unauthorized");
+        } else if (response.status > 401) {
+          throw new Error("Server Error");
+        } else {
+          this.setState({ breed_arr: response.data });
+          const breed_name = this.state.breed_arr.map((breed, index) => {
+            return { key: index, text: breed.name, value: breed.id };
+          });
+          this.setState({ breed_name: breed_name });
+        }
+      })
+      .catch((error) => this.setState({ error: error.message }));
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
@@ -40,10 +46,9 @@ export class CreatePlant extends Component {
       .create(params)
       .then((res) => {
         if (res.status >= 400) {
-          console.log(res);
-          throw new Error(res.data);
+          throw new Error("You must select a breed.");
         } else {
-          alert("You have successfully created a plants!");
+          alert("You have successfully created a plant!");
           this.props.history.push("/plants");
           return <Redirect to="/plants" />;
         }
@@ -63,28 +68,33 @@ export class CreatePlant extends Component {
             Create Plant
           </Header>
           {error && (
-            <Message data-testid="createplant-error">
+            <Message error data-testid="createplant-error">
               {this.state.error}
             </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
+            <Segment piled inverted>
               <Form.Input
                 fluid
+                icon="heart"
+                iconPosition="left"
                 label="Name"
                 name="name"
                 data-testid="name"
-                placeholder="name"
+                placeholder="Name"
                 onChange={this.handleChange}
+                required
               />
               {this.state.breed_name && (
                 <Form.Field
                   control={Select}
                   label="Breed"
                   name="breed_id"
+                  data-testid="breed"
                   options={this.state.breed_name}
                   placeholder="Breed"
                   onChange={this.handleChange}
+                  required
                 />
               )}
               <Form.Button color="twitter">Submit</Form.Button>
