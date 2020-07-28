@@ -251,7 +251,7 @@ export default class Plants extends React.Component {
               />
             </>
           )}
-          <Grid style={{ marginTop: 50 }} columns={3} divided>
+          <Grid stackable style={{ marginTop: 50 }} columns={3} divided>
             {plantsArr}
           </Grid>
         </>
