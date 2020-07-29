@@ -26,24 +26,9 @@ const App = () => {
       <Route component={NavBar} />
       <SiteLayout>
         <Switch>
-          <ProtectedRoute
-            exact
-            path="/breeds"
-            component={Breeds}
-            admin={true}
-          />
-          <ProtectedRoute
-            exact
-            path="/breeds/edit/:id"
-            component={EditBreed}
-            admin={true}
-          />
-          <ProtectedRoute
-            exact
-            path="/createbreed"
-            component={CreateBreed}
-            admin={true}
-          />
+          <ProtectedRoute exact path="/breeds" component={Breeds} />
+          <ProtectedRoute exact path="/breeds/edit/:id" component={EditBreed} />
+          <ProtectedRoute exact path="/createbreed" component={CreateBreed} />
           <ProtectedRoute exact path="/plants/edit/:id" component={EditPlant} />
           <ProtectedRoute exact path="/createplant" component={CreatePlant} />
           <ProtectedRoute exact path="/plants" component={Plants} />

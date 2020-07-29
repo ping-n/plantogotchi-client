@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "semantic-ui-react";
 import Auth from "../auth/Auth";
 
@@ -12,9 +12,10 @@ class LoggedIn extends React.Component {
   handleLogOut = (props) => {
     localStorage.removeItem("token");
     localStorage.removeItem("auth");
-    props.history.push("/");
     alert("You have logged out successfully.");
-    return <Redirect to="/" />;
+    Auth.logout(() => {
+      props.history.push("/");
+    });
   };
 
   render() {
