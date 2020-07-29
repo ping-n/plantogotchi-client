@@ -8,9 +8,16 @@
 @import "./global/Nav";
 @import "./global/Footer";
 
+
+// Custom Font
 @font-face {
   font-family: "DigitalDisco";
   src: local("DigitalDisco"), url(../fonts/DigitalDisco.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "DigitalDisco-Thin";
+  src: local("DigitalDisco-Thin"), url(../fonts/DigitalDisco-Thin.ttf) format("truetype");
 }
 
 @font-face {
@@ -29,7 +36,7 @@ a {
   color: $fontColor !important;
   margin: 0 10px;
   font-size: 2.5em;
-  font-family: "$mainFont";
+  font-family: $mainFont;
 
   @media only screen and (max-width: 840px) {
     font-size: 15px;
