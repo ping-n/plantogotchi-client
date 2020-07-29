@@ -13,6 +13,7 @@ import Auth from "../auth/Auth";
 class Login extends Component {
   state = { error: "" };
 
+// Event methods
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = async (event) => {

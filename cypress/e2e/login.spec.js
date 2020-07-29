@@ -25,7 +25,7 @@ describe("when clicking on login from homepage user", () => {
     cy.get("form input").first().should("contain.value", email);
   });
 });
-
+// Login with incorrect credential 
 describe("with incorrect login credentials user", () => {
   it("should receive an error message above login form", () => {
     cy.visit("/login");
@@ -38,7 +38,7 @@ describe("with incorrect login credentials user", () => {
     );
   });
 });
-
+// Login with correct credential 
 describe("with correct login credentials user", () => {
   it("should be click on submit and be navigate to plants", () => {
     cy.getUser().then(({ email, password }) => {

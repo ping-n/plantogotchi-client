@@ -2,6 +2,5 @@
      User Global Variables
 *******************************/
 
-@pageBackground: #eff0f1;
-
+@pageBackground: #777a8f;
 @h1: 2.5em;

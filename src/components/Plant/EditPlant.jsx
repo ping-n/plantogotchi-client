@@ -40,7 +40,6 @@ export class EditPlant extends Component {
         )}
         <Grid
           textAlign="center"
-          style={{ height: "100vh" }}
           verticalAlign="top"
         >
           <Grid.Column style={{ maxWidth: 500 }}>

@@ -13,13 +13,13 @@ describe("when clicking on Sign Up from homepage user", () => {
   it("should see h1", () => {
     cy.get("h1").should("contain.text", "Sign Up");
   });
-
+// check if there are form input
   it("should see a form with email and password inputs", () => {
     cy.findByTestId("username").should("exist");
     cy.findByTestId("email").should("exist");
     cy.findByTestId("password").should("exist");
   });
-
+// typing into the form field
   it("should be able to type into username, email and password inputs", () => {
     const { username, email, password } = userBuilder();
     cy.typeInForm(username, email, password);
@@ -27,6 +27,7 @@ describe("when clicking on Sign Up from homepage user", () => {
   });
 });
 
+// Sign up with an existing user
 describe("should not able to sign up with an existing email in the database", () => {
   it("should be receive an error message", () => {
     cy.getUser().then(({ username, email, password }) => {
@@ -41,6 +42,7 @@ describe("should not able to sign up with an existing email in the database", ()
   });
 });
 
+// Sign up with new credential
 describe("should be able to sign up", () => {
   it("should be receive a message for successful sign up and redirect to login", () => {
     cy.visit("/sign-up");

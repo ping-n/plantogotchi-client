@@ -45,7 +45,7 @@ class CreateBreed extends Component {
 
   render() {
     return (
-      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
+      <Grid textAlign="center" verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1" color="black">
             Create breed
@@ -91,6 +91,7 @@ class CreateBreed extends Component {
                 onChange={this.handleChange}
               />
               <InputFile
+                style={{ color: "black"}}
                 input={{
                   id: "input-control-id",
                   onChange: this.handleUpload,
