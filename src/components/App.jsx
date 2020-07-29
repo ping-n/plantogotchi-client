@@ -5,7 +5,6 @@ import Login from "./User/Login";
 import Home from "./Home";
 import SignUp from "./User/SignUp";
 import NoMatch from "./NoMatch";
-import Admin from "./User/Admin";
 import ProtectedRoute from "./ProtectedRoute";
 import NavBar from "./shared/NavBar";
 import Footer from "./shared/Footer";
@@ -27,14 +26,28 @@ const App = () => {
       <Route component={NavBar} />
       <SiteLayout>
         <Switch>
-          <ProtectedRoute exact path="/breeds" component={Breeds} />
-          <ProtectedRoute exact path="/breeds/edit/:id" component={EditBreed} />
-          <ProtectedRoute exact path="/createbreed" component={CreateBreed} />
+          <ProtectedRoute
+            exact
+            path="/breeds"
+            component={Breeds}
+            admin={true}
+          />
+          <ProtectedRoute
+            exact
+            path="/breeds/edit/:id"
+            component={EditBreed}
+            admin={true}
+          />
+          <ProtectedRoute
+            exact
+            path="/createbreed"
+            component={CreateBreed}
+            admin={true}
+          />
           <ProtectedRoute exact path="/plants/edit/:id" component={EditPlant} />
           <ProtectedRoute exact path="/createplant" component={CreatePlant} />
           <ProtectedRoute exact path="/plants" component={Plants} />
           <ProtectedRoute exact path="/plants/:id" component={Plant} />
-          <ProtectedRoute exact path="/admin" component={Admin} />
           <ProtectedRoute exact path="/myaccount" component={MyAccount} />
           <Route exact path="/about" component={About} />
           <Route exact path="/faq" component={Faq} />
