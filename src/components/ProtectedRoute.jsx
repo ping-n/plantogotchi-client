@@ -12,34 +12,29 @@ class ProtectedRoute extends React.Component {
   };
 
   async componentDidMount() {
-    this._isMounted = true;
-
     const response = await Auth.isAuthenticated();
 
-    if (response[1] && this._isMounted) {
+    if (response[1]) {
       this.setState({
         admin: true,
       });
     }
-    if (response[0] && this._isMounted) {
+    if (response[0]) {
       this.setState({
         auth: true,
         loading: false,
       });
-    } else if (this._isMounted) {
+    } else {
       this.setState({
         loading: false,
       });
     }
-  }
-
-  componentWillUnmount() {
-    this._isMounted = true;
   }
 
   render() {
     const { loading, auth, admin } = this.state;
     const route = this.props.location.pathname;
+    console.log(admin);
     if (!loading && !auth) {
       return (
         <Redirect
@@ -51,7 +46,7 @@ class ProtectedRoute extends React.Component {
           }}
         />
       );
-    } else if (route.includes("breed") && !admin) {
+    } else if (!loading && route.includes("breed") && !admin) {
       return (
         <Redirect
           to={{
