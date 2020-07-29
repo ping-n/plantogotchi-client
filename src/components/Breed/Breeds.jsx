@@ -1,6 +1,6 @@
 import React from "react";
 import { breeds } from "../../classes/BreedApi";
-import { Table, Icon, Container } from "semantic-ui-react";
+import { Button, Message, Table, Icon, Container } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 export default class Breeds extends React.Component {
@@ -23,7 +23,8 @@ export default class Breeds extends React.Component {
       });
   }
 
-  handleDelete(id) {
+  handleDelete(id, event) {
+    event.preventDefault();
     breeds
       .delete(id)
       .then((res) => {
@@ -69,7 +70,9 @@ export default class Breeds extends React.Component {
             </Link>
           </Table.Cell>
           <Table.Cell>
-            <Link onClick={this.handleDelete(breed.id)}>Delete</Link>
+            <Button onClick={(e) => this.handleDelete(breed.id, e)}>
+              Delete
+            </Button>
           </Table.Cell>
         </Table.Row>
       );

@@ -6,11 +6,9 @@ import {
   Progress,
   Button,
   Modal,
-  Image,
 } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
 import Pot from "../../assets/pot.png";
-import water from "../../assets/watercan.png";
 
 export default class PlantModal extends React.Component {
   // Event handling

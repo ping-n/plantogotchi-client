@@ -6,32 +6,32 @@ class Auth {
     this.admin = false;
   }
 
-// Log user in
+  // Log user in
   login(cb) {
     this.authenticated = true;
     cb();
   }
 
-// Log user out
+  // Log user out
   logout(cb) {
     this.authenticated = false;
     this.admin = false;
     cb();
   }
 
-// Check if user is Authenticated
+  // Check if user is Authenticated
   async isAuthenticated() {
     await this.hasToken();
     return [this.authenticated, this.admin];
   }
 
-// Check if user is an Admin
+  // Check if user is an Admin
   async isAdmin() {
     await this.hasToken();
     return this.admin;
   }
 
-// Check if token exist in local storage
+  // Check if token exist in local storage
   async hasToken() {
     await users
       .status()
@@ -44,7 +44,7 @@ class Auth {
           const { jwt, admin } = response.data;
           localStorage.setItem("token", jwt);
           this.authenticated = true;
-          if (admin === true) {
+          if (admin) {
             this.admin = true;
           }
         }
