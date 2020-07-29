@@ -13,6 +13,11 @@
   src: local("DigitalDisco"), url(../fonts/DigitalDisco.ttf) format("truetype");
 }
 
+@font-face {
+  font-family: "rainyhearts";
+  src: local("rainyhearts"), url(../fonts/rainyhearts.ttf) format("truetype");
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -24,7 +29,7 @@ a {
   color: $fontColor !important;
   margin: 0 10px;
   font-size: 2.5em;
-  font-family: $mainFont;
+  font-family: "$mainFont";
 
   @media only screen and (max-width: 840px) {
     font-size: 15px;
