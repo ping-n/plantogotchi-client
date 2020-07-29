@@ -19,7 +19,7 @@ class Auth {
 
   async isAuthenticated() {
     await this.hasToken();
-    return this.authenticated;
+    return [this.authenticated, this.admin];
   }
 
   async isAdmin() {

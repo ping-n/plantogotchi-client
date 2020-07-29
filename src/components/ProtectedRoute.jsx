@@ -3,6 +3,8 @@ import { Route, Redirect } from "react-router-dom";
 import Auth from "./auth/Auth";
 
 class ProtectedRoute extends React.Component {
+  _isMounted = false;
+
   state = {
     admin: false,
     auth: false,
@@ -10,24 +12,46 @@ class ProtectedRoute extends React.Component {
   };
 
   async componentDidMount() {
+    this._isMounted = true;
+
+    console.log(`admin at start of componentDidMount is ${this.state.admin}`);
+
+    const response = await Auth.isAuthenticated();
+
+    console.log(
+      `from response, auth is ${response[0]} and admin is ${response[1]}`
+    );
+    console.log(`mounted before admin block:${this._isMounted}`);
     if (this.props.admin) {
-      const admin = await Auth.isAdmin();
-      if (admin) this.setState({ admin: true });
+      if (response[1] & this._isMounted) {
+        console.log("entered admin block");
+        this.setState({
+          admin: true,
+        });
+      }
     }
-    if (await Auth.isAuthenticated()) {
+    console.log(`mounted before auth block:${this._isMounted}`);
+    if (response[0] & this._isMounted) {
+      console.log("entered auth block");
       this.setState({
         auth: true,
         loading: false,
       });
-    } else {
+    } else if (this._isMounted) {
       this.setState({
         loading: false,
       });
     }
+    console.log(`admin at end of componentDidMount is ${this.state.admin}`);
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
-    const { loading, auth, admin } = this.state;
+    const { loading, auth } = this.state;
+    const { admin } = this;
     if (this.props.admin) {
       if ((!loading && !auth) || !admin) {
         return (
