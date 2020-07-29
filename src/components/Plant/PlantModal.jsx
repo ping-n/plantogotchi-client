@@ -34,14 +34,14 @@ export default class PlantModal extends React.Component {
           </Button>
         }
       >
-        <Modal.Header>{props.plant.name}</Modal.Header>
+        <Modal.Header style={{fontFamily: "DigitalDisco-Thin"}}>{props.plant.name}</Modal.Header>
         <div className="modal-wrapper">
           <div className="modal-canvas-outer-wrapper">
             <div className="modal-canvas-inner-wrapper">
               <CanvasWindow
                 className="modal-canvas"
-                width={200}
-                height={200}
+                width={"200px"}
+                height={"200px"}
                 maxFrame={props.maxFrame}
                 frame={props.frame}
                 spritesheet={props.spritesheet}
@@ -57,13 +57,13 @@ export default class PlantModal extends React.Component {
                   percent={growthBar}
                   color="green"
                 />
-                <h3 className="progress-header">Growth Progress</h3>
+                <h3 className="progress-header" style={{fontFamily: "rainyhearts"}}>Growth Progress</h3>
                 <Progress
                   className=".modal-progress"
                   percent={water_level}
                   color="blue"
                 />
-                <h3 className="progress-header">Water Level</h3>
+                <h3 className="progress-header" style={{fontFamily: "rainyhearts"}}>Water Level</h3>
               </div>
             </div>
             <div className="modal-buttons">
@@ -77,11 +77,12 @@ export default class PlantModal extends React.Component {
                 Water
               </Button>
               <Popup
+                style={{fontFamily: "rainyhearts"}}
                 trigger={<Button color="orange">Info</Button>}
                 content="When your plant's water level drops below 50% it will stop growing. You can water your plant by clicking the Water droplet."
                 basic
               />
-              <Message className={this.props.messageType}>
+              <Message style={{fontFamily: "DigitalDisco-Thin"}} className={this.props.messageType}>
                 {this.props.status}
               </Message>
             </div>

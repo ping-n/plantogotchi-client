@@ -171,9 +171,9 @@ export default class Plant extends React.Component {
               spritesheet={this.spritesheet}
             />
             <Card.Content>
-              <Card.Header>{name}</Card.Header>
+              <Card.Header style={{fontFamily: "DigitalDisco-Thin"}}>{name}</Card.Header>
               <Card.Description>
-                <Message className={messageType}>{status}</Message>
+                <Message style={{fontFamily: "DigitalDisco-Thin"}} className={messageType}>{status}</Message>
               </Card.Description>
             </Card.Content>
             <Card.Content extra>

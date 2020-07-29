@@ -201,14 +201,24 @@ export default class Plants extends React.Component {
       return (
         <Container>
           {this.state?.error && (
-            <Message data-testid="plants-error">{this.state.error}</Message>
+            <Message
+              style={{ fontFamily: "DigitalDisco-Thin" }}
+              data-testid="plants-error"
+            >
+              {this.state.error}
+            </Message>
           )}
           <Header as="h1" color="black">
             Your Plants
           </Header>
           {this.state?.admin && (
             <>
-              <h3>Game Speed Intervals in Milliseconds</h3>
+              <Header
+                as="h3"
+                style={{ fontFamily: "DigitalDisco-Thin", paddingTop: "5px" }}
+              >
+                Game Speed Intervals in Milliseconds
+              </Header>
               <Slider
                 style={{ margin: "20px 0px 20px 0px" }}
                 defaultValue={5000}
@@ -222,7 +232,12 @@ export default class Plants extends React.Component {
                 }}
                 onChange={(value) => this.handleSlider(value)}
               />
-              <h3>Water Level Drop Rate</h3>
+              <Header
+                as="h3"
+                style={{ fontFamily: "DigitalDisco-Thin", paddingTop: "5px" }}
+              >
+                Water Level Drop Rate
+              </Header>
               <Slider
                 style={{ margin: "20px 0px 20px 0px" }}
                 defaultValue={1}
@@ -236,7 +251,12 @@ export default class Plants extends React.Component {
                 }}
                 onChange={(value) => this.handleSlider(value, 0)}
               />
-              <h3>Plant Growth Rate</h3>
+              <Header
+                as="h3"
+                style={{ fontFamily: "DigitalDisco-Thin", paddingTop: "5px" }}
+              >
+                Plant Growth Rate
+              </Header>
               <Slider
                 style={{ margin: "20px 0px 20px 0px" }}
                 defaultValue={1}
