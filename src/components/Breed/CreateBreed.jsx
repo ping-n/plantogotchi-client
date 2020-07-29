@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import { Form, Message, Header, Grid, Segment } from "semantic-ui-react";
 import { breeds } from "../../classes/BreedApi";
 import { InputFile } from "semantic-ui-react-input-file";
@@ -34,8 +33,7 @@ class CreateBreed extends Component {
           throw new Error("Server Error");
         } else {
           alert("You have successfully created a breed!");
-          this.props.history.push("/login");
-          return <Redirect to="/login" />;
+          this.props.history.push("/breeds");
         }
       })
       .catch((error) => {
@@ -91,7 +89,7 @@ class CreateBreed extends Component {
                 onChange={this.handleChange}
               />
               <InputFile
-                style={{ color: "black"}}
+                style={{ color: "black" }}
                 input={{
                   id: "input-control-id",
                   onChange: this.handleUpload,
