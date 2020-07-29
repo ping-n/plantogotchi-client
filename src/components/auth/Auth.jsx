@@ -22,7 +22,7 @@ class Auth {
 // Check if user is Authenticated
   async isAuthenticated() {
     await this.hasToken();
-    return this.authenticated;
+    return [this.authenticated, this.admin];
   }
 
 // Check if user is an Admin

@@ -149,6 +149,17 @@ export default class Plant extends React.Component {
     } else {
       const { max_growth } = this.state.plant.breed;
       const { status, finished } = this.state;
+      let messageType = "";
+      switch (status) {
+        case "Underwatered":
+          messageType = "warning";
+          break;
+        case "Dead":
+          messageType = "error";
+          break;
+        default:
+          messageType = "success";
+      }
       return (
         <>
           <Card style={{ marginTop: 10 }}>
@@ -162,7 +173,7 @@ export default class Plant extends React.Component {
             <Card.Content>
               <Card.Header>{name}</Card.Header>
               <Card.Description>
-                <Message>{status}</Message>
+                <Message className={messageType}>{status}</Message>
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
@@ -175,6 +186,7 @@ export default class Plant extends React.Component {
                   alive={alive}
                   finished={finished}
                   status={status}
+                  messageType={messageType}
                 />
                 <Button
                   onClick={(e) => {
