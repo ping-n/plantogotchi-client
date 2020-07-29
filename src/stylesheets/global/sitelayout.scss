@@ -1,8 +1,8 @@
 .site-wrapper {
   top: -100px;
-  margin: 20px 0px 20px 0px;
+  margin: 20px 0px 80px 0px;
   min-width: 100vw;
-  min-height: calc(100vh - 100px);
+  height: 100%;
   scroll-behavior: smooth;
   background-color: $mainColor;
 }
