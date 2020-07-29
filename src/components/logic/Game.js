@@ -1,4 +1,5 @@
 class Game {
+  // Game controls
   constructor() {
     this.growth_speed = 1;
     this.water_drop_speed = 1;

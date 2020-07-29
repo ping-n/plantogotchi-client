@@ -1,3 +1,4 @@
+// Initial App logic before we implemented it in React
 class Config {
   constructor(growth_speed = 1, water_drop = 1) {
     this.growth_speed = growth_speed;

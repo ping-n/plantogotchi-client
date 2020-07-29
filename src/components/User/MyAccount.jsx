@@ -14,6 +14,7 @@ export class MyAccount extends Component {
     });
   }
 
+// Event methods
   handleChange = (e, { name, value }) =>
     this.setState({ ["new" + name]: value });
 
@@ -45,7 +46,7 @@ export class MyAccount extends Component {
   render() {
     const { error } = this.state;
     return (
-      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
+      <Grid textAlign="center" verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1" color="black">
             Edit Account

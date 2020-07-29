@@ -17,6 +17,7 @@ export default class Breeds extends React.Component {
   }
 
   render() {
+    // Looping the state and print out data into a table
     const breedsArr = this.state.breeds.map((breed) => {
       return (
         <Table.Row key={breed.id}>
@@ -41,17 +42,18 @@ export default class Breeds extends React.Component {
     });
     return (
       <Container className="breed-wrapper">
-          <Table inverted>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Breed ID</Table.HeaderCell>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell>Description</Table.HeaderCell>
-                <Table.HeaderCell>Edit</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>{breedsArr}</Table.Body>
-          </Table>
+        <Table inverted>
+          <Table.Header>
+            <Table.Row>
+              {/* Breed Table Header */}
+              <Table.HeaderCell>Breed ID</Table.HeaderCell>
+              <Table.HeaderCell>Name</Table.HeaderCell>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+              <Table.HeaderCell>Edit</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>{breedsArr}</Table.Body>
+        </Table>
       </Container>
     );
   }

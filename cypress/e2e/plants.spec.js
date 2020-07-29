@@ -14,6 +14,7 @@ describe("When logged in, User", () => {
     });
   });
 
+// Creating a new plant
   it("should able fill in the create plant form and be taken to the plants page", () => {
     cy.visit("/createplant");
     cy.findByTestId("name").type("name");
@@ -30,6 +31,6 @@ describe("When logged in, User", () => {
   });
 
   after(() => {
-    cy.findByTestId("logout").click()
-  })
+    cy.findByTestId("logout").click();
+  });
 });

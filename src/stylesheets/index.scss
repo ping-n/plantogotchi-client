@@ -19,25 +19,22 @@
   padding: 0;
 }
 
-#root {
-  background-color: $mainColor;
-}
-
 a {
   text-decoration: none;
   color: $fontColor !important;
   margin: 0 10px;
-  font-size: 2em;
+  font-size: 2.5em;
   font-family: $mainFont;
+
+  @media only screen and (max-width: 840px) {
+    font-size: 15px;
+  }
+}
+
+.button {
+  font-family: $mainFont !important;
 }
 
 h1 {
   color: $fontColor !important;
-}
-
-@media only screen and (max-width: 840px) {
-  a {
-    margin: 0 10px;
-    font-size: 2em;
-  }
 }

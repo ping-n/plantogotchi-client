@@ -47,7 +47,7 @@ export default class Plant extends React.Component {
     };
   }
 
-  // Intitial calculations
+  // Initial calculations
 
   calculateDifference() {
     const id = this.props.plant.id;

@@ -25,17 +25,20 @@ describe("when clicking on login from homepage user", () => {
     cy.get("form input").first().should("contain.value", email);
   });
 });
-
+// Login with incorrect credential 
 describe("with incorrect login credentials user", () => {
   it("should receive an error message above login form", () => {
-    cy.visit("/login")
-    const { email, password } = userBuilder()
-    cy.typeInLogin(email, password)
-    cy.get("form").submit()
-    cy.findByTestId("login-error").should("contain.text", "Incorrect Credentials")
+    cy.visit("/login");
+    const { email, password } = userBuilder();
+    cy.typeInLogin(email, password);
+    cy.get("form").submit();
+    cy.findByTestId("login-error").should(
+      "contain.text",
+      "Incorrect Credentials"
+    );
   });
 });
-
+// Login with correct credential 
 describe("with correct login credentials user", () => {
   it("should be click on submit and be navigate to plants", () => {
     cy.getUser().then(({ email, password }) => {
@@ -51,7 +54,7 @@ describe("with correct login credentials user", () => {
   });
 
   after(() => {
-    window.localStorage.removeItem("token")
-    window.sessionStorage.removeItem("auth")
-  })
+    window.localStorage.removeItem("token");
+    window.sessionStorage.removeItem("auth");
+  });
 });

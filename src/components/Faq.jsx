@@ -58,7 +58,7 @@ const Faq = () => {
               >
                 FAQ
               </Header>
-              <Container>
+              <Container style={{color: "#fffcfc", fontSize: "1.2em"}}>
                 <p>
                   Q1: WHAT IS PLANTOGOTCHI? <br /> Plantogotchi is inspired by
                   tamagotchi with a twist. Created for those who like plants,
@@ -102,6 +102,7 @@ const Faq = () => {
                     required
                   />
                   <Form.TextArea
+                    style={{ resize: "none", height: "300px" }}
                     label="Message"
                     name="message"
                     data-testid="message"

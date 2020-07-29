@@ -6,6 +6,7 @@ import { users } from "../../classes/UserApi";
 export class SignUp extends Component {
   state = { error: "" };
 
+// Event methods
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = async (e) => {
