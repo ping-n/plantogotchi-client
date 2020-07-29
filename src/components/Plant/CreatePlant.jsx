@@ -37,6 +37,7 @@ export class CreatePlant extends Component {
       .catch((error) => this.setState({ error: error.message }));
   }
 
+// Event methods
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = async (e) => {
@@ -62,7 +63,7 @@ export class CreatePlant extends Component {
   render() {
     const { error } = this.state;
     return (
-      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
+      <Grid textAlign="center" verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1" color="black">
             Create Plant
