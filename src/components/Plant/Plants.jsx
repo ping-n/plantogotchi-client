@@ -31,6 +31,14 @@ export default class Plants extends React.Component {
     if (admin) {
       this.setState({ admin: true });
     }
+    await this.getPlants();
+    this.setState({ loading: false });
+  };
+
+  // Data manipulation
+
+  getPlants = async () => {
+    this.setState({ loading: true });
     await plants
       .index()
       .then((res) => {
@@ -44,10 +52,7 @@ export default class Plants extends React.Component {
         this.setState({ error: error.message });
         console.log(error);
       });
-    this.setState({ loading: false });
   };
-
-  // Data manipulation
 
   findPlant = (id) => {
     return this.state.plants.findIndex((plant) => {
@@ -126,11 +131,12 @@ export default class Plants extends React.Component {
   // Event handling
 
   handleDeleteClick = async (e, id) => {
+    console.log(`Plants: ${id}`);
     await plants
       .delete(id)
       .then((res) => {
         if (res.status >= 400) {
-          throw new Error(res.data);
+          throw new Error("Server Error");
         } else {
           this.setState({
             plants: this.state.plants.filter(function (plant) {
@@ -182,7 +188,7 @@ export default class Plants extends React.Component {
       } = this.state;
       const plantsArr = this.state.plants.map((plant, index) => {
         return (
-          <Grid.Column key={index}>
+          <Grid.Column key={plant.id}>
             <Plant
               plant={plant}
               updateArray={this.updateArray}
