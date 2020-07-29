@@ -49,7 +49,7 @@ class CreateBreed extends Component {
             Create breed
           </Header>
           {this.state?.error && (
-            <Message error data-testid="createbreed-error">
+            <Message style={{fontFamily: "DigitalDisco-Thin"}} error data-testid="createbreed-error">
               {this.state.error}
             </Message>
           )}

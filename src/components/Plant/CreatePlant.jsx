@@ -69,7 +69,7 @@ export class CreatePlant extends Component {
             Create Plant
           </Header>
           {error && (
-            <Message error data-testid="createplant-error">
+            <Message style={{fontFamily: "DigitalDisco-Thin"}} error data-testid="createplant-error">
               {this.state.error}
             </Message>
           )}

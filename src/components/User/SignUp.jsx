@@ -37,7 +37,7 @@ export class SignUp extends Component {
             Sign Up
           </Header>
           {this.state?.error && (
-            <Message error data-testid="signup-error">
+            <Message style={{fontFamily: "DigitalDisco-Thin"}} error data-testid="signup-error">
               <ul>{this.state.error}</ul>
             </Message>
           )}

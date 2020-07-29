@@ -36,7 +36,7 @@ export class EditPlant extends Component {
     return (
       <>
         {error && (
-          <Message data-testid="plantupdate-error">{this.state.error}</Message>
+          <Message style={{fontFamily: "DigitalDisco-Thin"}} data-testid="plantupdate-error">{this.state.error}</Message>
         )}
         <Grid
           textAlign="center"

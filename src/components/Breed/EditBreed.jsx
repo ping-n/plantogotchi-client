@@ -58,7 +58,7 @@ class EditBreed extends Component {
             Update breed
           </Header>
           {error && (
-            <Message data-testid="breedupdate-error">
+            <Message style={{fontFamily: "DigitalDisco-Thin"}} data-testid="breedupdate-error">
               {this.state.error}
             </Message>
           )}

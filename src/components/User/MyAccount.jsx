@@ -52,13 +52,13 @@ export class MyAccount extends Component {
             Edit Account
           </Header>
           {error && (
-            <Message error data-testid="account-error">
+            <Message style={{fontFamily: "DigitalDisco-Thin"}} error data-testid="account-error">
               {this.state.error}
             </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
             <Segment inverted>
-              <Header as="h3" color="black">
+              <Header style={{fontFamily: "DigitalDisco-Thin"}} as="h3">
                 Update your details below:
               </Header>
               <Form.Input
