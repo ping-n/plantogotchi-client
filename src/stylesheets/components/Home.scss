@@ -29,3 +29,11 @@
   margin-top: 20px;
   max-width: 80%;
 }
+
+#home-h1 {
+  font-size: 6em;
+  @media only screen and (max-width: 840px) {
+    font-size: 3em;
+    word-wrap: break-word;
+  }
+}
