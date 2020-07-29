@@ -4,12 +4,17 @@ import Auth from "./auth/Auth";
 
 class ProtectedRoute extends React.Component {
   state = {
+    admin: false,
     auth: false,
     loading: true,
   };
 
-  componentDidMount() {
-    if (Auth.isAuthenticated()) {
+  async componentDidMount() {
+    if (this.props.admin) {
+      const admin = await Auth.isAdmin();
+      if (admin) this.setState({ admin: true });
+    }
+    if (await Auth.isAuthenticated()) {
       this.setState({
         auth: true,
         loading: false,
@@ -22,8 +27,31 @@ class ProtectedRoute extends React.Component {
   }
 
   render() {
-    const { loading, auth } = this.state;
-    if (!loading && !auth) {
+    const { loading, auth, admin } = this.state;
+    if (this.props.admin) {
+      if ((!loading && !auth) || !admin) {
+        return (
+          <Redirect
+            to={{
+              pathname: "/",
+              state: {
+                error: "This area is restricted to admins only.",
+              },
+            }}
+          />
+        );
+      } else {
+        return (
+          !loading && (
+            <Route
+              exact={this.props.exact}
+              path={this.props.path}
+              component={this.props.component}
+            />
+          )
+        );
+      }
+    } else if (!loading && !auth) {
       return (
         <Redirect
           to={{
