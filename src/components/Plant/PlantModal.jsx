@@ -1,8 +1,14 @@
 import React from "react";
-import { Popup, Icon, Progress, Button, Modal, Image } from "semantic-ui-react";
+import {
+  Message,
+  Popup,
+  Icon,
+  Progress,
+  Button,
+  Modal,
+} from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
 import Pot from "../../assets/pot.png";
-import water from "../../assets/watercan.png";
 
 export default class PlantModal extends React.Component {
   // Event handling
@@ -62,19 +68,22 @@ export default class PlantModal extends React.Component {
             </div>
             <div className="modal-buttons">
               <Button
+                color="blue"
                 className="water-button"
                 onClick={(e) => {
                   this.handleWaterClick(e, id);
                 }}
               >
-                <Image src={water} />
+                Water
               </Button>
               <Popup
-                trigger={<Icon name="question circle outline" size="massive" />}
+                trigger={<Button color="orange">Info</Button>}
                 content="When your plant's water level drops below 50% it will stop growing. You can water your plant by clicking the Water droplet."
                 basic
               />
-              {this.props.status}
+              <Message className={this.props.messageType}>
+                {this.props.status}
+              </Message>
             </div>
           </div>
         </div>

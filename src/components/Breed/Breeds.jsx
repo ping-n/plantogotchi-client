@@ -1,6 +1,6 @@
 import React from "react";
 import { breeds } from "../../classes/BreedApi";
-import { Table, Icon, Container } from "semantic-ui-react";
+import { Button, Message, Table, Icon, Container } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 export default class Breeds extends React.Component {
@@ -10,10 +10,42 @@ export default class Breeds extends React.Component {
     breeds
       .index()
       .then((res) => {
-        console.log(res.data);
-        this.setState({ breeds: res.data });
+        if (res.status === 401) {
+          throw new Error("You are not authorized to do that!");
+        } else if (res.status >= 400) {
+          throw new Error("Server Error");
+        } else {
+          this.setState({ breeds: res.data });
+        }
       })
-      .catch((er) => console.log(er));
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
+  }
+
+  handleDelete(id, event) {
+    event.preventDefault();
+    breeds
+      .delete(id)
+      .then((res) => {
+        if (res.status === 401) {
+          throw new Error("You are not authorized to do that!");
+        } else if (res.status === 422) {
+          throw new Error(res.data.errors);
+        } else if (res.status >= 400) {
+          throw new Error("Server Error");
+        } else {
+          this.setState({
+            breeds: this.state.breeds.filter(function (breed) {
+              return breed.id !== id;
+            }),
+          });
+          alert("You have successfully deleted the breed.");
+        }
+      })
+      .catch((error) => {
+        this.setState({ error: error.message });
+      });
   }
 
   render() {
@@ -37,11 +69,21 @@ export default class Breeds extends React.Component {
               Edit
             </Link>
           </Table.Cell>
+          <Table.Cell>
+            <Button onClick={(e) => this.handleDelete(breed.id, e)}>
+              Delete
+            </Button>
+          </Table.Cell>
         </Table.Row>
       );
     });
     return (
       <Container className="breed-wrapper">
+        {this.state?.error && (
+          <Message error data-testid="createbreed-error">
+            {this.state.error}
+          </Message>
+        )}
         <Table inverted>
           <Table.Header>
             <Table.Row>

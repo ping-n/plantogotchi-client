@@ -3,6 +3,8 @@ import { Route, Redirect } from "react-router-dom";
 import Auth from "./auth/Auth";
 
 class ProtectedRoute extends React.Component {
+  _isMounted = false;
+
   state = {
     admin: false,
     auth: false,
@@ -10,11 +12,14 @@ class ProtectedRoute extends React.Component {
   };
 
   async componentDidMount() {
-    if (this.props.admin) {
-      const admin = await Auth.isAdmin();
-      if (admin) this.setState({ admin: true });
+    const response = await Auth.isAuthenticated();
+
+    if (response[1]) {
+      this.setState({
+        admin: true,
+      });
     }
-    if (await Auth.isAuthenticated()) {
+    if (response[0]) {
       this.setState({
         auth: true,
         loading: false,
@@ -28,36 +33,26 @@ class ProtectedRoute extends React.Component {
 
   render() {
     const { loading, auth, admin } = this.state;
-    if (this.props.admin) {
-      if ((!loading && !auth) || !admin) {
-        return (
-          <Redirect
-            to={{
-              pathname: "/",
-              state: {
-                error: "This area is restricted to admins only.",
-              },
-            }}
-          />
-        );
-      } else {
-        return (
-          !loading && (
-            <Route
-              exact={this.props.exact}
-              path={this.props.path}
-              component={this.props.component}
-            />
-          )
-        );
-      }
-    } else if (!loading && !auth) {
+    const route = this.props.location.pathname;
+    console.log(admin);
+    if (!loading && !auth) {
       return (
         <Redirect
           to={{
             pathname: "/",
             state: {
               error: "Please log in to access this page.",
+            },
+          }}
+        />
+      );
+    } else if (!loading && route.includes("breed") && !admin) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/",
+            state: {
+              error: "Only an Admin can access this page. Shoo.",
             },
           }}
         />
