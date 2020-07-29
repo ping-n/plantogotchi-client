@@ -18,7 +18,8 @@ const Home = (props) => {
                 <Header
                   as="h1"
                   color="black"
-                  style={{ fontSize: "6em", paddingLeft: "30px" }}
+                  style={{ paddingLeft: "30px" }}
+                  id="home-h1"
                 >
                   PLANTOGOTCHI
                 </Header>

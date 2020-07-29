@@ -91,6 +91,7 @@ class CreateBreed extends Component {
                 onChange={this.handleChange}
               />
               <InputFile
+                style={{ color: "black"}}
                 input={{
                   id: "input-control-id",
                   onChange: this.handleUpload,
