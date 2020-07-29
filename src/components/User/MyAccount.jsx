@@ -58,7 +58,7 @@ export class MyAccount extends Component {
           )}
           <Form onSubmit={this.handleSubmit}>
             <Segment inverted>
-              <Header style={{fontFamily: "DigitalDisco-Thin"}} as="h3">
+              <Header style={{fontFamily: "DigitalDisco-Thin"}} as="h2">
                 Update your details below:
               </Header>
               <Form.Input
