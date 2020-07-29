@@ -39,7 +39,7 @@ export default class PlantModal extends React.Component {
                 frame={props.frame}
                 spritesheet={props.spritesheet}
               />
-              <img className="pot" src={Pot}></img>
+              <img className="pot" alt="Icon of plant pot" src={Pot}></img>
             </div>
           </div>
           <div className="hud-div">
