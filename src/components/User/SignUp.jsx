@@ -41,14 +41,14 @@ export class SignUp extends Component {
             </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
+            <Segment piled inverted>
               <Form.Input
                 icon="user"
                 iconPosition="left"
                 label="Username"
                 name="username"
                 data-testid="username"
-                placeholder="username"
+                placeholder="Username"
                 onChange={this.handleChange}
               />
               <Form.Input

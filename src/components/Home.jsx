@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Message,
-  Header,
-  Image,
-  Grid,
-} from "semantic-ui-react";
+import { Container, Message, Header, Image, Grid } from "semantic-ui-react";
 import image from "../assets/home.jpg";
 
 const Home = (props) => {
@@ -21,7 +15,11 @@ const Home = (props) => {
           <Grid.Row columns={2}>
             <Grid.Column>
               <Container className="home-content">
-                <Header as="h1" color="black" style={{fontSize: "6em", paddingLeft: "30px"}}>
+                <Header
+                  as="h1"
+                  color="black"
+                  style={{ fontSize: "6em", paddingLeft: "30px" }}
+                >
                   PLANTOGOTCHI
                 </Header>
                 <Image src={image} size="big" bordered />

@@ -27,7 +27,7 @@
     "test": "craco test",
     "eject": "craco eject",
     "cypress": "cypress open",
-    "deploy": "craco build && netlify deploy --prod --dir=build",
+    "deploy": "yarn build && netlify deploy --prod --dir=build",
     "e2e": "start-server-and-test 'BROWSER=none yarn start' http://localhost:8080 'yarn cypress'"
   },
   "eslintConfig": {

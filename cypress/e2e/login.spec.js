@@ -28,11 +28,14 @@ describe("when clicking on login from homepage user", () => {
 
 describe("with incorrect login credentials user", () => {
   it("should receive an error message above login form", () => {
-    cy.visit("/login")
-    const { email, password } = userBuilder()
-    cy.typeInLogin(email, password)
-    cy.get("form").submit()
-    cy.findByTestId("login-error").should("contain.text", "incorrect credentials")
+    cy.visit("/login");
+    const { email, password } = userBuilder();
+    cy.typeInLogin(email, password);
+    cy.get("form").submit();
+    cy.findByTestId("login-error").should(
+      "contain.text",
+      "Incorrect Credentials"
+    );
   });
 });
 
@@ -51,7 +54,7 @@ describe("with correct login credentials user", () => {
   });
 
   after(() => {
-    window.localStorage.removeItem("token")
-    window.sessionStorage.removeItem("auth")
-  })
+    window.localStorage.removeItem("token");
+    window.sessionStorage.removeItem("auth");
+  });
 });

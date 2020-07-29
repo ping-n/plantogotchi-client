@@ -48,7 +48,7 @@ export class EditPlant extends Component {
               Create Plant
             </Header>
             <Form onSubmit={this.handleSubmit}>
-              <Segment piled>
+              <Segment piled inverted>
                 <Form.Input
                   fluid
                   label="Name"

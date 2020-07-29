@@ -56,28 +56,34 @@ class CreateBreed extends Component {
             </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
+            <Segment piled inverted>
               <Form.Input
                 required
                 fluid
+                icon="smile"
+                iconPosition="left"
                 label="Name"
                 name="name"
                 data-testid="name"
-                placeholder="name"
+                placeholder="Name"
                 onChange={this.handleChange}
               />
               <Form.Input
                 required
                 fluid
+                icon="list"
+                iconPosition="left"
                 label="Description"
                 name="description"
                 data-testid="description"
-                placeholder="description"
+                placeholder="Description"
                 onChange={this.handleChange}
               />
               <Form.Input
                 required
                 fluid
+                icon="list"
+                iconPosition="left"
                 label="Maximum Growth (total number of sprites in spritesheet)"
                 name="max_growth"
                 data-testid="max_growth"

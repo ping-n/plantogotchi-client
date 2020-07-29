@@ -102,6 +102,7 @@ const Faq = () => {
                     required
                   />
                   <Form.TextArea
+                    style={{ resize: "none", height: "300px" }}
                     label="Message"
                     name="message"
                     data-testid="message"

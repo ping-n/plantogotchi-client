@@ -73,13 +73,15 @@ export class CreatePlant extends Component {
             </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
+            <Segment piled inverted>
               <Form.Input
                 fluid
+                icon="heart"
+                iconPosition="left"
                 label="Name"
                 name="name"
                 data-testid="name"
-                placeholder="name"
+                placeholder="Name"
                 onChange={this.handleChange}
                 required
               />

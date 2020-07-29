@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Icon,
   Message,
   Button,
   Form,
@@ -54,7 +53,7 @@ class Login extends Component {
             </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
+            <Segment inverted>
               <Form.Input
                 icon="envelope"
                 iconPosition="left"
@@ -76,11 +75,8 @@ class Login extends Component {
                 onChange={this.handleChange}
                 required
               />
-              <Button color="twitter" animated type="submit">
-                <Button.Content visible>Next</Button.Content>
-                <Button.Content hidden>
-                  <Icon name="arrow right" />
-                </Button.Content>
+              <Button color="twitter" type="submit">
+                Submit
               </Button>
             </Segment>
           </Form>

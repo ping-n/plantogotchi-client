@@ -52,11 +52,7 @@ class EditBreed extends Component {
     const { breed } = this.props.location;
     const { error } = this.state;
     return (
-      <Grid
-        textAlign="center"
-        style={{ height: "100vh" }}
-        verticalAlign="top"
-      >
+      <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="top">
         <Grid.Column style={{ maxWidth: 500 }}>
           <Header as="h1" color="black">
             Update breed
@@ -67,7 +63,7 @@ class EditBreed extends Component {
             </Message>
           )}
           <Form onSubmit={this.handleSubmit}>
-            <Segment piled>
+            <Segment piled inverted>
               <Form.Input
                 fluid
                 label="Name"

@@ -39,7 +39,7 @@ class Auth {
           const { jwt, admin } = response.data;
           localStorage.setItem("token", jwt);
           this.authenticated = true;
-          if (admin) {
+          if (admin === true) {
             this.admin = true;
           }
         }
