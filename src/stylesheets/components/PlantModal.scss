@@ -7,6 +7,10 @@
   background-color: rgb(248, 188, 93);
 }
 
+.modal-canvas {
+  flex-shrink: 0;
+}
+
 .modal-canvas-outer-wrapper {
   margin: 0px 0px 0px 0px;
   display: flex;

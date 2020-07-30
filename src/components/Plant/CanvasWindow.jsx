@@ -50,6 +50,7 @@ class CanvasWindow extends React.Component {
   render() {
     return (
       <canvas
+        className="modal-canvas"
         ref={this.canvasRef}
         width={this.props.width}
         height={this.props.height}
