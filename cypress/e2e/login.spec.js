@@ -54,7 +54,6 @@ describe("with correct login credentials user", () => {
   });
 
   after(() => {
-    window.localStorage.removeItem("token");
-    window.sessionStorage.removeItem("auth");
+    cy.findByTestId("logout").click();
   });
 });
