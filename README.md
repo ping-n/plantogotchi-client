@@ -41,7 +41,7 @@ PORT=8080
 
 4: You will need to follow the installation guide from Rails repository and start the Rails server on port 3000
 
-To summarize, you should run the following commands to install the rails backend. More detailed instruction is provided one the api repository.
+To summarize, you should run the following commands to install the rails backend. More detailed instruction is provided on the api repository.
 
 ```git
 
