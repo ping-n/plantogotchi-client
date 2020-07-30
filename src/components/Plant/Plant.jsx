@@ -1,5 +1,5 @@
 import React from "react";
-import { Message, Icon, Card, Button } from "semantic-ui-react";
+import { Loader, Message, Icon, Card, Button } from "semantic-ui-react";
 import CanvasWindow from "./CanvasWindow";
 import PlantModal from "./PlantModal";
 
@@ -89,8 +89,10 @@ export default class Plant extends React.Component {
         (originalWaterLevel - growth_limit) * (water_drop_speed * game_speed);
       growth = timeSpentGrowing / (growth_speed * game_speed);
     }
-    growth = growth > max_growth ? max_growth : Math.ceil(growth);
-    const new_growth_level = this.props.plant.growth_stage + growth;
+    let new_growth_level = this.props.plant.growth_stage + Math.ceil(growth);
+    if (new_growth_level >= max_growth) {
+      new_growth_level = max_growth;
+    }
     this.props.grow(id, new_growth_level);
   }
 
@@ -102,7 +104,7 @@ export default class Plant extends React.Component {
     const { water_drop_speed, game_speed } = this.props;
     let sec = 0;
     this.gameLoop = setInterval(() => {
-      if (growth_stage === max_growth) {
+      if (growth_stage >= max_growth) {
         this.setState({
           statusMessage: "Your plant is finished! Please create a new plant",
         });
@@ -132,20 +134,34 @@ export default class Plant extends React.Component {
   shouldGrow(sec, id) {
     const { growth_speed, growth_limit } = this.props;
     const { water_level, growth_stage } = this.props.plant;
+    const { max_growth } = this.props.plant.breed;
     if (sec % growth_speed === 0 && water_level >= growth_limit) {
-      const growth = growth_stage + growth_speed;
+      let growth = growth_stage + growth_speed;
+      if (growth > max_growth) {
+        growth = max_growth;
+      }
       this.props.grow(id, growth);
     } else {
       this.setState({ status: "Underwatered" });
     }
   }
 
-  // Event methods
+  // State Change
+
+  makeHealthy = () => {
+    this.setState({ status: "Alive & healthy" });
+  };
 
   render() {
     const { id, alive, name, growth_stage } = this.state.plant;
     if (this.state.loading) {
-      return <h3>loading!</h3>;
+      return (
+        <Card style={{ marginTop: 10 }}>
+          <Loader active inline="centered" size="medium">
+            Loading
+          </Loader>
+        </Card>
+      );
     } else {
       const { max_growth } = this.state.plant.breed;
       const { status, finished } = this.state;
@@ -171,9 +187,16 @@ export default class Plant extends React.Component {
               spritesheet={this.spritesheet}
             />
             <Card.Content>
-              <Card.Header style={{fontFamily: "DigitalDisco-Thin"}}>{name}</Card.Header>
+              <Card.Header style={{ fontFamily: "DigitalDisco-Thin" }}>
+                {name}
+              </Card.Header>
               <Card.Description>
-                <Message style={{fontFamily: "DigitalDisco-Thin"}} className={messageType}>{status}</Message>
+                <Message
+                  style={{ fontFamily: "DigitalDisco-Thin" }}
+                  className={messageType}
+                >
+                  {status}
+                </Message>
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
@@ -187,6 +210,7 @@ export default class Plant extends React.Component {
                   finished={finished}
                   status={status}
                   messageType={messageType}
+                  makeHealthy={this.makeHealthy}
                 />
                 <Button
                   onClick={(e) => {
