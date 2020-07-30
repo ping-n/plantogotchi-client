@@ -49,7 +49,7 @@ class Login extends Component {
             Login
           </Header>
           {error && (
-            <Message error data-testid="login-error">
+            <Message style={{fontFamily: "DigitalDisco-Thin"}} error data-testid="login-error">
               {this.state.error}
             </Message>
           )}

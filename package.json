@@ -7,7 +7,6 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
-    "axios-core-api": "^1.0.15",
     "env-cmd": "^10.1.0",
     "node-sass": "^4.14.1",
     "qs": "^6.9.4",
@@ -18,8 +17,7 @@
     "rsuite": "^4.8.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
-    "semantic-ui-react-input-file": "^1.0.3",
-    "yup": "^0.29.1"
+    "semantic-ui-react-input-file": "^1.0.3"
   },
   "scripts": {
     "start": "craco --max_old_space_size=4096 start",

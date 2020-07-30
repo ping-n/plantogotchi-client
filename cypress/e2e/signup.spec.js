@@ -36,7 +36,7 @@ describe("should not able to sign up with an existing email in the database", ()
       cy.get("form").submit();
       cy.findByTestId("signup-error").should(
         "contain.text",
-        "Username has already been taken,Email has already been taken"
+        "Email has already been taken"
       );
     });
   });
