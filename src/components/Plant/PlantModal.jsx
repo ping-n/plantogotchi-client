@@ -69,7 +69,6 @@ export default class PlantModal extends React.Component {
           <div className="modal-canvas-outer-wrapper">
             <div className="modal-canvas-inner-wrapper">
               <CanvasWindow
-                className="modal-canvas"
                 width={"200px"}
                 height={"200px"}
                 maxFrame={props.maxFrame}
