@@ -12,14 +12,15 @@ import {
   Container,
 } from "semantic-ui-react";
 import { Slider } from "rsuite";
+import { Link } from "react-router-dom";
 import Auth from "../auth/Auth";
 
 export default class Plants extends React.Component {
   state = {
     plants: [],
     growth_speed: 1,
-    water_drop_speed: 1,
-    game_speed: 5000,
+    water_drop_speed: 6,
+    game_speed: 10000,
     growth_limit: 50,
     loading: true,
   };
@@ -27,6 +28,7 @@ export default class Plants extends React.Component {
   // Lifestyle methods
 
   componentDidMount = async () => {
+    // Admin check for conditional rendering of game speed sliders.
     const admin = await Auth.isAdmin();
     if (admin) {
       this.setState({ admin: true });
@@ -37,6 +39,7 @@ export default class Plants extends React.Component {
 
   // Data manipulation
 
+  // Main API Call for plants array.
   getPlants = async () => {
     this.setState({ loading: true });
     await plants
@@ -54,18 +57,21 @@ export default class Plants extends React.Component {
       });
   };
 
+  // Finds the state plants array index of a plant with a given id.
   findPlant = (id) => {
     return this.state.plants.findIndex((plant) => {
       return plant.id === id;
     });
   };
 
+  // Creates new array with intended changes, then overwrites array in state.
   updateArray = (id, target, value) => {
     const newArray = this.state.plants;
     newArray[this.findPlant(id)][`${target}`] = value;
     this.setState({ plants: newArray });
   };
 
+  // Destroys plant in rails db and state.
   killPlant = async (id) => {
     const params = {
       plant: {
@@ -86,6 +92,7 @@ export default class Plants extends React.Component {
       });
   };
 
+  // Changes growth stage in rails db and state.
   grow = async (id, growth) => {
     const params = {
       plant: {
@@ -96,17 +103,17 @@ export default class Plants extends React.Component {
       .update(id, params)
       .then((res) => {
         if (res.status >= 400) {
-          throw new Error(res.data);
+          throw new Error("Server Error");
         } else {
           this.updateArray(id, "growth_stage", growth);
         }
       })
       .catch((error) => {
-        // this.setState(error.message);
-        console.log(error);
+        this.setState({ error: error.message });
       });
   };
 
+  // Changes water level in rails db and state.
   changeWaterLevel = async (id, water_level) => {
     const params = {
       plant: {
@@ -152,6 +159,7 @@ export default class Plants extends React.Component {
       });
   };
 
+  // For changing variables that effect rates of change in gameplay.
   handleSlider = (value, type) => {
     switch (type) {
       case 0:
@@ -175,7 +183,6 @@ export default class Plants extends React.Component {
           <Dimmer active inverted>
             <Loader size="massive">Loading</Loader>
           </Dimmer>
-
           <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
         </Segment>
       );
@@ -227,7 +234,7 @@ export default class Plants extends React.Component {
               </Header>
               <Slider
                 style={{ margin: "20px 0px 20px 0px" }}
-                defaultValue={5000}
+                defaultValue={this.state.game_speed}
                 min={500}
                 step={500}
                 max={10000}
@@ -246,7 +253,7 @@ export default class Plants extends React.Component {
               </Header>
               <Slider
                 style={{ margin: "20px 0px 20px 0px" }}
-                defaultValue={1}
+                defaultValue={this.state.water_drop_speed}
                 min={1}
                 step={1}
                 max={10}
@@ -265,7 +272,7 @@ export default class Plants extends React.Component {
               </Header>
               <Slider
                 style={{ margin: "20px 0px 20px 0px" }}
-                defaultValue={1}
+                defaultValue={this.state.growth_speed}
                 min={1}
                 step={1}
                 max={10}
@@ -280,6 +287,22 @@ export default class Plants extends React.Component {
           )}
           <Grid stackable style={{ marginTop: 50 }} columns={3} divided>
             {plantsArr}
+            {plantsArr.length === 0 && (
+              <Header
+                as="h2"
+                style={{
+                  fontFamily: "DigitalDisco-Thin",
+                  paddingTop: "5px",
+                  color: "white",
+                }}
+              >
+                Looks like you don't have any plants. Click
+                <Link data-testid="createplant" to="/createplant">
+                  here
+                </Link>
+                to get started.
+              </Header>
+            )}
           </Grid>
         </Container>
       );
