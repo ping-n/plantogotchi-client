@@ -68,5 +68,23 @@ rails start
 yarn start
 ```
 
+### Testing Information
+
+---
+
+Test Users 
+
+| #                | Users          | Password |
+| ---------------- | -------------- | -------- |
+| 1 (Admin User)   | admin@test.com | password |
+| 2  (Normal User) | test@test.com  | password |
+
+- Admin user will have the ability to create new breeds and perform CRUD on plants and breeds. Admin User will also have access to sliders to control element of the application.
+- Normal user will only have the ability to create new plants and interact with their plants.
+
+Seed Data
+
+* There are also 10 additional seed users, with 5 plants (random breeds) each. These are to help the test user visualise the admins /plants dashboard with a proper user-base.
+
 ---
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
